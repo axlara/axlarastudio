@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio Freelancer - AX-LARA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00f0ff;
+      --primary-dark: #08bac7;
+      --secondary: #25d366;
+      --portfolio-accent: #6e45e2;
+      --portfolio-accent-light: #88d3ce;
+      --dark: #111;
+      --light: #f0f0f0;
+      --gray: #ccc;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    header {
+      background-color: var(--light);
+      color: var(--dark);
+      text-align: center;
+      padding: 10px 10px;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    
+ header h2 {
+  font-size: 1.3rem;
+  color: var(--dark); /* Texto principal em preto */
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+header h2 span {
+  color: var(--primary); /* X em azul */
+  position: relative;
+  display: inline-block;
+  margin: 0 2px;
+}
+    header p {
+      font-size: 1rem;
+      color: #555;
+      margin-top: 5px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .intro {
+      margin-bottom: 30px;
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .intro p {
+      font-size: 1.1rem;
+      color: #bbb;
+      margin-bottom: 15px;
+    }
+
+    /* Botão do Portfólio */
+    .btn-portfolio {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--portfolio-accent), var(--portfolio-accent-light));
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 20px 10px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(110, 69, 226, 0.4);
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-portfolio:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(110, 69, 226, 0.6);
+      background: linear-gradient(135deg, var(--portfolio-accent-light), var(--portfolio-accent));
+    }
+
+    .btn-portfolio i {
+      margin-right: 8px;
+    }
+
+    /* Botão de Download do CV */
+    .btn-cv {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 20px 10px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-cv:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+      background: linear-gradient(135deg, #ff8e8e, #ff6b6b);
+    }
+
+    .btn-cv i {
+      margin-right: 8px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section h2 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .section h2::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    .section ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .section li {
+      margin-bottom: 10px;
+      color: #bbb;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .section li::before {
+      content: "→";
+      color: var(--primary);
+      position: absolute;
+      left: 0;
+    }
+
+    footer {
+      background-color: #222;
+      color: var(--gray);
+      text-align: center;
+      padding: 10px;
+    }
+
+    .social-icons {
+      margin: 15px 0;
+    }
+
+    .social-icons a {
+      color: var(--primary);
+      font-size: 30px;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      color: var(--primary-dark);
+    }
+
+    /* Botão flutuante do WhatsApp */
+    .float-whatsapp {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: var(--secondary);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+      z-index: 1000;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .float-whatsapp:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    }
+    .btn-voltar {
+      background-color: #1a1a1a8c;
+      border: 1px solid #00fff7;
+      color: #00fff7;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+      margin-left: 30px;
+      margin-top: -70px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .btn-voltar::before {
+      content: "←";
+      font-size: 1.2em;
+      display: inline-block;
+    }
+
+    .btn-voltar:hover {
+      background-color: #00fff7;
+      color: #000;
+    }
+    /* Responsividade */
+    @media (max-width: 767px) {
+      header h1 {
+        font-size: 1.3rem;
+      }
+      
+      header h2 {
+        font-size: 1.1rem;
+      }
+      
+      header p {
+        font-size: 0.9rem;
+      }
+      
+      .intro p {
+        font-size: 1rem;
+      }
+      
+      .btn-portfolio, .btn-cv {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        display: block;
+        margin: 10px auto;
+        width: 80%;
+        max-width: 250px;
+      }
+      
+      .section h2 {
+        font-size: 1.3rem;
+      }
+      
+      .float-whatsapp {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabeçalho -->
+<header>
+  <h2>A<span style="color: var(--primary);">X</span>LARA</h2>
+  <h1>Architect of Xperience</h1>
+  <p>Perfil Técnico Profissional - Lara E. Negreiros</p>
+</header>
+  <!-- Container Principal -->
+  <div class="container">
+    <!-- Introdução -->
+    <div class="intro">
+    <p>
+  Olá! Sou Lara E. Negreiros, profissional especializada em experiências imersivas, unindo arquitetura, modelagem 3D, Realidade Virtual (VR), Realidade Aumentada (AR) e tours virtuais 360°. 
+</p>
+<p>
+  Nesta página compartilho minha trajetória, formação e principais habilidades técnicas — desde o design arquitetônico até o desenvolvimento de ambientes interativos, com integração de IA e ferramentas digitais que otimizam processos criativos e técnicos. Tenho facilidade em aprender novas tecnologias e adaptação a diferentes contextos digitais, sempre em busca de inovação e aprimoramento profissional.
+</p>
+
+      
+      <div class="button-group">
+        <a href="portproj.html" class="btn-portfolio">
+          <i class="fas fa-images"></i> Ver Projetos
+        </a>
+        <a href="Lara_Negreiros_CV_EN.pdf" download="Lara_Negreiros_CV_EN.pdf" class="btn-cv">
+          <i class="fas fa-download"></i> Download CV (English)
+        </a>
+      </div>
+    </div>
+  
+    <!-- Modelagem 3D -->
+    <div class="section">
+      <h2>Modelagem 3D</h2>
+      <ul>
+        <li>SketchUp</li>
+        <li>Revit</li>
+        <li>AutoCAD</li>
+        <li>Lumion (render)</li>
+        <li>Twinmotion (render)</li>
+        <li>Otimização de texturas e modelagem para exportação</li>
+      </ul>
+    </div>
+
+    <!-- Tecnologias Imersivas -->
+    <div class="section">
+      <h2>Tecnologias Imersivas</h2>
+      <ul>
+        <li>Unreal Engine (VR)</li>
+        <li>Unity (AR)</li>
+        <li>A-Frame (WebVR/WebXR)</li>
+        <li>AR.js (AR web)</li>
+        <li>Pannellum (Tour 360°)</li>
+        <li>Tours Virtuais 360° (com integração em plataformas como Kuula, Panoee, entre outros)</li>
+      </ul>
+    </div>
+
+    <!-- Front-end -->
+    <div class="section">
+      <h2>Front-end e Integrações</h2>
+      <ul>
+        <li>HTML, CSS</li>
+        <li>JavaScript</li>
+        <li>Integrações Web com AR.js e Pannellum</li>
+      </ul>
+    </div>
+
+    <!-- Colaboração -->
+    <div class="section">
+      <h2>Ferramentas de Colaboração</h2>
+      <ul>
+        <li>Figma (prototipagem e design colaborativo)</li>
+        <li>Git (controle de versões)</li>
+        <li>VS Code (desenvolvimento)</li>
+      </ul>
+    </div>
+
+    <!-- Formação Acadêmica -->
+    <div class="section">
+      <h2>Formação Acadêmica</h2>
+      <ul>
+        <li>Especialização em Projeto de Arquitetura: da concepção ao edifício – PUC PR (2018)</li>
+        <li>Bacharelado em Arquitetura e Urbanismo – UNP (2015)</li>
+      </ul>
+      <h2>Cursos Complementares</h2>
+      <ul>
+        <li>UE5 - Do zero ao 360° - VR Academy</li>
+        <li>Desenvolvedor Full-stack – SENAC</li>
+        <li>CAP Light Design - Iluminação Comercial e Corporativa - IPOG</li>
+        <li>Neuroarquitetura - Princípios de Neurociência Aplicada - Neuroarq Academy</li>
+        <li>Produto & Projeto de Mobiliário - Dalmobile fabric.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    
+    <div class="social-icons">
+      <a href="https://github.com/larangrs" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/laranegreiros/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://wa.me/+5584996249406" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <a href="index.html" class="btn-voltar"></a>
+    <p>&copy; 2025 AX-LARA Studio | Todos os direitos reservados</p>
+  </footer>
+
+  <!-- Botão flutuante do WhatsApp -->
+  <a href="https://wa.me/+5584996249406" class="float-whatsapp" title="Fale pelo WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+</body>
+</html>
