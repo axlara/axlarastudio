@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Virtual - AV 12 Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pannellum/2.5.6/pannellum.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #4b5b58;
+            font-family: 'Arial', sans-serif;
+        }
+        #panorama {
+            width: 100%;
+            height: 100vh;
+        }
+        /* Hotspot de navegação com estilo game/sci-fi */
+.nav-hotspot {
+    height: 58px;
+    width: 58px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #f8f8f859, #a7a7a7);
+    border: 2px solid #6cf0fa59;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 0 8px rgba(185, 255, 255, 0.6),
+        0 0 12px rgba(0, 255, 255, 0.4),
+        inset 0 0 6px rgba(77, 77, 77, 0.973);
+    transform-style: preserve-3d;
+}
+
+.nav-hotspot:hover {
+    transform: scale(1.15) rotateX(8deg);
+    background: radial-gradient(circle at 30% 30%, #ecf1f1, #002e35);
+    box-shadow:
+        0 0 12px rgba(0, 255, 255, 0.8),
+        0 0 20px rgba(0, 255, 255, 0.5),
+        inset 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+/* Ícone dentro do botão - pode ser ajustado com SVG */
+.nav-hotspot .icon {
+    width: 28px;
+    height: 28px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2300f0ff"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 0 2px #303030);
+}
+
+/* Label com estilo sci-fi */
+.nav-hotspot .label {
+    color: #5a5959;
+    font-size: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    text-shadow: 0 0 4px rgb(110, 247, 240);
+    text-align: center;
+    line-height: 1;
+}
+
+        /* Hotspot de informação */
+        .info-hotspot {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            background: rgba(61, 61, 61, 0.9);
+            border: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .info-hotspot:hover {
+            transform: scale(1.2);
+            background: rgba(0, 180, 240, 1);
+        }
+        
+        .info-hotspot::after {
+            content: 'i';
+            display: block;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        /* Tooltip */
+        .hotspot-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-hotspot:hover .hotspot-tooltip,
+        .info-hotspot:hover + .hotspot-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div id="panorama"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pannellum/2.5.6/pannellum.js"></script>
+    <script>
+       document.addEventListener('DOMContentLoaded', function () {
+    const viewer = pannellum.viewer('panorama', {
+        "default": {
+            "firstScene": "cena1",
+            "sceneFadeDuration": 1000,
+            "autoLoad": true,
+            "autoRotate": -2
+        },
+        "scenes": {
+            "cena1": {
+                "title": "",
+                "hfov": 110,
+                "pitch": 0,
+                "yaw": 0,
+                "type": "equirectangular",
+                "panorama": "imagens/av01.png",
+                "hotSpots": [
+                    {
+                        "pitch": -8,
+                        "yaw": 0,
+                        "type": "scene",
+                        "text": "Ir para Corredor",
+                        "sceneId": "cena2",
+                        "cssClass": "nav-hotspot",
+                        "createTooltipFunc": createNavigationHotspot,
+                        "createTooltipArgs": {
+                            "label": "START",
+                            "tooltip": "Ir para Fachada Lateral"
+                        }
+                    }
+                ]
+            },
+            "cena2": {
+                "title": "Corredor",
+                "hfov": 110,
+                "pitch": 0,
+                "yaw": 0,
+                "type": "equirectangular",
+                "panorama": "imagens/av02.png",
+                "hotSpots": [
+                    {
+                        "pitch": -10,
+                        "yaw": -3,
+                        "type": "scene",
+                        "text": "Fachada Lateral",
+                        "sceneId": "cena3",
+                        "cssClass": "nav-hotspot",
+                        "createTooltipFunc": createNavigationHotspot,
+                        "createTooltipArgs": {
+                            "label": "SEGUIR",
+                            "tooltip": "Fachada Lateral esquerda"
+                        }
+                    },
+                    {
+                        "pitch": -5,
+                        "yaw": 180,
+                        "type": "scene",
+                        "text": "Voltar para Fachada",
+                        "sceneId": "cena1",
+                        "cssClass": "nav-hotspot",
+                        "createTooltipFunc": createNavigationHotspot,
+                        "createTooltipArgs": {
+                            "label": "BACK",
+                            "tooltip": "Retornar à entrada"
+                        }
+                    }
+                ]
+            },
+            "cena3": {
+                "title": "Corredor",
+                "hfov": 110,
+                "pitch": 0,
+                "yaw": 0,
+                "type": "equirectangular",
+                "panorama": "imagens/av4.png",
+                "hotSpots": [
+                    {
+                        "pitch": -10,
+                        "yaw": 9,
+                        "type": "scene",
+                        "text": "Fachada Lateral esquerda",
+                        "sceneId": "cena4",
+                        "cssClass": "nav-hotspot",
+                        "createTooltipFunc": createNavigationHotspot,
+                        "createTooltipArgs": {
+                            "label": "ENTRAR",
+                            "tooltip": "Acessar fachada lateral esquerda"
+                        }
+                    },
+                    {
+                        "pitch": -5,
+                        "yaw": 180,
+                        "type": "scene",
+                        "text": "Voltar",
+                        "sceneId": "av12",
+                        "cssClass": "nav-hotspot",
+                        "createTooltipFunc": createNavigationHotspot,
+                        "createTooltipArgs": {
+                            "label": "Voltar",
+                            "tooltip": "Retornar"
+                        }
+                    }
+                ]
+            },
+            "cena4": {
+                "title": "Sala",
+                "hfov": 110,
+                "pitch": 0,
+                "yaw": 0,
+                "type": "equirectangular",
+                "panorama": "imagens/av122.png",
+                "hotSpots": [
+                    {
+                        "pitch": 0,
+                        "yaw": 140,
+                        "type": "scene",
+                        "text": "Voltar para Fachada",
+                        "sceneId": "cena1",
+                        "cssClass": "nav-hotspot",
+                        "createTooltipFunc": createNavigationHotspot,
+                        "createTooltipArgs": {
+                            "label": "Saída",
+                            "tooltip": "Voltar para a entrada"
+                        }
+                    }
+                ]
+            }
+        }
+    });
+    
+    // Função para criar hotspots de navegação com label
+    function createNavigationHotspot(hotSpotDiv, args) {
+        // Criar ícone
+        var icon = document.createElement('div');
+        icon.className = 'icon';
+        
+        // Criar label
+        var label = document.createElement('div');
+        label.className = 'label';
+        label.textContent = args.label;
+        
+        // Criar tooltip
+        var tooltip = document.createElement('div');
+        tooltip.className = 'hotspot-tooltip';
+        tooltip.textContent = args.tooltip;
+        
+        // Montar estrutura
+        hotSpotDiv.appendChild(icon);
+        hotSpotDiv.appendChild(label);
+        hotSpotDiv.appendChild(tooltip);
+    }
+ 
+    viewer.on('error', function (error) {
+        console.error('Erro ao carregar o tour virtual:', error);
+        alert('Erro ao carregar o tour virtual. Verifique o console para mais detalhes.');
+    });
+});
+    </script>
+</body>
+</html>

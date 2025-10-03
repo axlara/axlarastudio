@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour 360</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Estilo do Pannellum -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        #tour-360 {
+            width: 100%;
+            height: 100vh; /* Ocupa toda a altura da tela */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Container onde o tour será renderizado -->
+<div id="tour-360"></div>
+
+<!-- Script do Pannellum -->
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+<!-- Seu script de configuração -->
+<script>
+    pannellum.viewer('tour-360', {
+        "type": "equirectangular",
+        "panorama": "imagens/Panorama3_000.png",
+        "autoLoad": true,
+        "autoRotate": -2,
+        "compass": true,
+        "hotSpots": [
+            {
+                "pitch": -5,
+                "yaw": 120,
+                "type": "info",
+                "text": "Detalhe da sala de estar"
+            }
+        ],
+        "errorMessage": "Erro ao carregar o tour virtual. Por favor, tente novamente mais tarde."
+    });
+</script>
+
+</body>
+</html>
