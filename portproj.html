@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfólio de tours virtuais 360° - AX-LARA Studio">
+  <meta name="description" content="Portfólio de todos os projetos | AX-LARA Studio">
   <title>Portfólio | AX-LARA Studio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
@@ -313,8 +313,121 @@
       text-align: center;
       padding: 20px;
       margin-top: 60px;
-      position: relative; /* Para evitar conflitos com o header fixo */
+      position: relative; 
     }
+
+    /* Novas seções com background images */
+    .links-section {
+      background: linear-gradient(135deg, rgba(26,26,26,0.8) 0%, rgba(13,13,13,0.9) 100%);
+      padding: 60px 40px;
+      margin: 60px 0;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 255, 247, 0.1);
+      text-align: center;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .link-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13, 13, 13, 0.1) 0%,
+        rgba(13, 13, 13, 0.3) 30%,
+        rgba(13, 13, 13, 0.7) 70%,
+        rgba(13, 13, 13, 0.9) 100%
+      );
+      z-index: 1;
+    }
+
+    .link-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(0, 255, 247, 0.2);
+    }
+
+    /* Background images específicas para cada card */
+    .github-card {
+      background: linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.9)), 
+                  url('/imagens/imgithub.png') center/cover no-repeat;
+    }
+
+    .architecture-card {
+      background: linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.9)), 
+                  url('/imagens/imglahaus.png') center/cover no-repeat;
+    }
+
+    .link-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .link-icon {
+      font-size: 3em;
+      color: var(--primary);
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(0, 255, 247, 0.5);
+    }
+
+    .link-card h3 {
+      color: var(--light);
+      margin-bottom: 15px;
+      font-size: 1.8em;
+      font-weight: 600;
+    }
+
+    .link-card p {
+      color: var(--gray);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      font-size: 1.1em;
+    }
+
+    .main-link {
+      display: inline-block;
+      background: var(--primary);
+      color: var(--dark);
+      padding: 12px 35px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 1.1em;
+      border: 2px solid transparent;
+    }
+
+    .main-link:hover {
+      background: transparent;
+      color: var(--primary);
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
     @media (max-width: 768px) {
       .projects-grid {
         grid-template-columns: 1fr;
@@ -340,6 +453,19 @@
         font-size: 0.8em;
         padding: 6px 14px;
       }
+      .links-grid {
+        grid-template-columns: 1fr;
+      }
+      .links-section {
+        padding: 40px 20px;
+      }
+      .link-card {
+        min-height: 350px;
+        padding: 25px;
+      }
+      .link-card h3 {
+        font-size: 1.5em;
+      }
     }
     @media (max-width: 480px) {
       .section-title {
@@ -353,6 +479,13 @@
       }
       .project-description {
         font-size: 0.8em;
+      }
+      .link-card {
+        min-height: 300px;
+        padding: 20px;
+      }
+      .link-icon {
+        font-size: 2.5em;
       }
     }
   </style>
@@ -455,6 +588,17 @@
           <a href="#" class="project-link expand-btn" data-src="https://tour.panoee.net/67894c07234c0474530f4778">Ver Projeto Completo</a>
         </div>
       </div>
+       <!-- Projeto 6 -->
+      <div class="project-card">
+        <div class="project-preview">
+          <iframe src="tour-av12.html" loading="lazy" title="Tour Escritório"></iframe>
+        </div>
+        <div class="project-info">
+          <h3 class="project-title">AV 12 Gallery</h3>
+          <p class="project-description"></p>
+          <a href="#" class="project-link expand-btn" data-src="tour-av12.html">Ver Projeto Completo</a>
+        </div>
+      </div>
 
       <!-- Projeto 3 -->
       <div class="project-card">
@@ -467,6 +611,7 @@
           <a href="#" class="project-link expand-btn" data-src="tour-sala.html">Ver Projeto Completo</a>
         </div>
       </div>
+
 
       <!-- Projeto 4 -->
       <div class="project-card">
@@ -491,19 +636,47 @@
           <a href="#" class="project-link expand-btn" data-src="tour-office.html">Ver Projeto Completo</a>
         </div>
       </div>
+    </div>
 
-      <!-- Projeto 6 -->
-      <div class="project-card">
-        <div class="project-preview">
-          <iframe src="tour-av12.html" loading="lazy" title="Tour Escritório"></iframe>
-        </div>
-        <div class="project-info">
-          <h3 class="project-title">AV 12 Gallery</h3>
-          <p class="project-description"></p>
-          <a href="#" class="project-link expand-btn" data-src="tour-av12.html">Ver Projeto Completo</a>
+    <!-- NOVA SEÇÃO: Desenvolvimento Front-end -->
+    <section class="links-section">
+      <h2 class="section-title">Desenvolvimento Front-end</h2>
+      <p class="section-description">
+        Meus projetos de desenvolvimento web e repositórios de código. Explore meus trabalhos em front-end e desenvolvimento web.
+      </p>
+      <div class="links-grid">
+        <div class="link-card github-card">
+          <div class="link-content">
+            <div class="link-icon">
+              <i class="fab fa-github"></i>
+            </div>
+            <h3>GitHub</h3>
+            <p>Acesse todos os meus repositórios de código, projetos front-end e experimentos em desenvolvimento web.</p>
+            <a href="https://github.com/axlara" target="_blank" class="main-link">Acessar GitHub</a>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- NOVA SEÇÃO: Projetos de Arquitetura -->
+    <section class="links-section">
+      <h2 class="section-title">Projetos de Arquitetura</h2>
+      <p class="section-description">
+        Meus projetos anteriores em arquitetura e urbanismo. Explore minha trajetória completa na área de arquitetura.
+      </p>
+      <div class="links-grid">
+        <div class="link-card architecture-card">
+          <div class="link-content">
+            <div class="link-icon">
+              <i class="fas fa-archway"></i>
+            </div>
+            <h3>Portfólio de Arquitetura</h3>
+            <p>Meus projetos residenciais, comerciais e estudos urbanos desenvolvidos durante minha formação e atuação em arquitetura.</p>
+            <a href="https://laranegreiros.wixsite.com/lahaus-arq" target="_blank" class="main-link">Ver Portfólio Completo</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
   <!-- Modal para visualização expandida -->
   <div class="modal" id="projectModal">
