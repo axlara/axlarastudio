@@ -7,7 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <style>    :root {
+  <style>
+    :root {
       --primary: #00fff7;
       --primary-dark: #00c9c3;
       --secondary: #6c42f5;
@@ -125,9 +126,9 @@
       }
     }
     
-    /* Botão hamburguer */
+    /* Botão hamburguer - MELHORADO */
     .menu-toggle {
-      display: none; /* escondido no desktop */
+      display: none;
       flex-direction: column;
       justify-content: space-between;
       width: 25px;
@@ -135,7 +136,8 @@
       background: transparent;
       border: none;
       cursor: pointer;
-      z-index: 1000;
+      z-index: 1001;
+      position: relative;
     }
     
     .menu-toggle span {
@@ -145,6 +147,7 @@
       background: #fff;
       border-radius: 2px;
       transition: all 0.3s ease;
+      transform-origin: center;
     }
 
     /* Menu padrão (desktop) */
@@ -183,6 +186,153 @@
       width: 100%;
     }
     
+    /* ============ MENU MOBILE MELHORADO ============ */
+    /* Overlay para quando o menu estiver aberto */
+    .menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 998;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .menu-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+    
+    /* Menu mobile - agora é um painel lateral */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 15px;
+      }
+      
+      .nav-logo {
+        display: none;
+      }
+      
+      /* Botão hamburguer visível no mobile */
+      .menu-toggle {
+        display: flex;
+      }
+      
+      /* Transformação do hamburguer para X quando ativo */
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+      }
+      
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+
+      /* Menu mobile - painel lateral */
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -300px; /* Começa fora da tela */
+        width: 280px;
+        height: 100vh;
+        background: rgba(10, 10, 15, 0.98);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        padding: 80px 30px 30px;
+        transition: right 0.3s ease;
+        z-index: 999;
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+        border-left: 1px solid rgba(123, 97, 255, 0.2);
+        overflow-y: auto;
+      }
+      
+      /* Quando o menu está ativo */
+      .nav-menu.show {
+        right: 0;
+      }
+      
+      .nav-menu li {
+        margin: 15px 0;
+        text-align: left;
+        opacity: 0;
+        transform: translateX(20px);
+        transition: all 0.3s ease;
+      }
+      
+      /* Animação de entrada dos itens do menu */
+      .nav-menu.show li {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      
+      /* Delay para cada item do menu */
+      .nav-menu.show li:nth-child(1) { transition-delay: 0.1s; }
+      .nav-menu.show li:nth-child(2) { transition-delay: 0.15s; }
+      .nav-menu.show li:nth-child(3) { transition-delay: 0.2s; }
+      .nav-menu.show li:nth-child(4) { transition-delay: 0.25s; }
+      .nav-menu.show li:nth-child(5) { transition-delay: 0.3s; }
+      
+      .nav-menu a {
+        font-size: 1.1rem;
+        padding: 12px 0;
+        display: block;
+        color: var(--light);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+      
+      .nav-menu a:hover,
+      .nav-menu a.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+        padding-left: 10px;
+      }
+      
+      .nav-menu a::after {
+        display: none; /* Remove o sublinhado animado no mobile */
+      }
+      
+      /* Botão de fechar personalizado */
+      .close-menu {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        color: var(--light);
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1000;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+      
+      .close-menu:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--primary);
+      }
+    }
+    
+    /* Ajustes para telas muito pequenas */
+    @media (max-width: 480px) {
+      .nav-menu {
+        width: 250px;
+        padding: 70px 20px 20px;
+      }
+    }
+
+    /* Restante do CSS permanece igual... */
     /* Seção Hero - Gradiente unificado */
     .hero {
       display: flex;
@@ -271,36 +421,35 @@
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
     }
 
- 
-.image-container {
-  position: relative;
-  width: 350px;
-  height: auto;
-  overflow: hidden;
-  border-radius: 30px; 
-}
+    .image-container {
+      position: relative;
+      width: 350px;
+      height: auto;
+      overflow: hidden;
+      border-radius: 30px; 
+    }
 
-.image-container img {
-  width: 100%;
-  height: auto;
-  display: block;
-  opacity: 0.9;
-  animation: float-image 4s ease-in-out infinite;
-}
+    .image-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.9;
+      animation: float-image 4s ease-in-out infinite;
+    }
 
-/* Gradiente linear na parte inferior para suavizar o corte */
-.image-container::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 30px; /* Altura do gradiente - ajuste conforme necessário */
-  background: linear-gradient(to top, rgb(2, 247, 255), rgba(0, 0, 0, 0));
-  pointer-events: none;
-  z-index: 1;
-}
-  
+    /* Gradiente linear na parte inferior para suavizar o corte */
+    .image-container::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30px;
+      background: linear-gradient(to top, rgb(2, 247, 255), rgba(0, 0, 0, 0));
+      pointer-events: none;
+      z-index: 1;
+    }
+    
     /* Seção Sobre - Continuação do gradiente */
     .about {
       background: linear-gradient(180deg, #2b2b2b 0%, #1a1a1a 50%, #0f0f0f 100%);
@@ -434,7 +583,8 @@
     .curriculum-content p {
       font-size: 1.1rem;
       color: var(--light-gray);
-      margin-bottom: 30px;
+      padding-top: 20px;
+      margin-bottom: 20px;
       line-height: 1.6;
     }
     
@@ -701,15 +851,17 @@
       color: #ffa500;
       border: 1px solid rgba(255, 165, 0, 0.2);
     }
+    
     /* Estilo para o link que envolve o card */
-.project-card-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-.project-card-link:hover {
-  text-decoration: none;
-}
+    .project-card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .project-card-link:hover {
+      text-decoration: none;
+    }
+    
     /* Detalhes do projeto */
     .project-detail {
       margin: 80px auto;
@@ -877,55 +1029,9 @@
       .hero h2 {
         font-size: 1.2rem;
       }
-
-
     }
 
     @media (max-width: 768px) {
-      /* NAV - Mobile */
-      .nav-container {
-        padding: 0 15px;
-      }
-      
-      .nav-logo {
-        display: none;
-      }
-      
-      /* Garante que o toggle fique visível */
-      .menu-toggle {
-        display: flex;
-      }
-
-      /* Esconde o menu inicialmente */
-      .nav-menu {
-        display: none;
-        flex-direction: column;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: rgba(10, 10, 15, 0.95);
-        padding: 20px;
-        border-top: 1px solid rgba(123, 97, 255, 0.15);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-
-      /* Classe para mostrar o menu */
-      .nav-menu.show {
-        display: flex;
-      }
-
-      .nav-menu li {
-        margin: 12px 0;
-        text-align: center;
-      }
-      
-      .nav-menu a {
-        font-size: 1.1rem;
-        padding: 8px 0;
-        display: block;
-      }
-
       /* HERO */
       .hero {
         flex-direction: column;
@@ -946,17 +1052,14 @@
         color: #b7b7b7;
       }
       .image-container{
-         margin-bottom: -10px;
+         margin-top: -20px;
          align-items: center;
          width: 250px;
-
       }
-    .image-container::after {
-    height: 30px;
-  
-  
-    }
- 
+      
+      .image-container::after {
+        height: 30px;
+      }
 
       /* ABOUT */
       .about {
@@ -1098,59 +1201,54 @@
       .curriculum-content h3 {
         font-size: 1.2rem;
       }
- 
     }
   
-      
-      /* VR SECTION - AJUSTES ADICIONAIS PARA TELAS MUITO PEQUENAS */
-      .vr-logo {
-        font-size: 1.2rem;
-      }
-      
-      .vr-subtitle {
-        font-size: 1rem;
-        letter-spacing: 0.5px;
-      }
-      
-      .vr-description {
-        font-size: 1.1rem;
-        line-height: 1.5;
-      }
-      
-      .section-title {
-        font-size: 1.1rem;
-      }
-      
-      .project-content {
-        padding: 15px;
-      }
-      
-      .project-tech {
-        gap: 4px;
-      }
-      
-      .tech-tag {
-        padding: 3px 8px;
-        font-size: 0.75rem;
-      }
-      
-      .project-status {
-        padding: 4px 10px;
-        font-size: 0.75rem;
-      }
-      
-      .language-bar {
-        top: 5px;
-        right: 10px;
-      }
-      
-      .language-bar button img {
-        width: 20px;
-        height: 14px;
-      }
-  
-  
-  
+    /* VR SECTION - AJUSTES ADICIONAIS PARA TELAS MUITO PEQUENAS */
+    .vr-logo {
+      font-size: 1.2rem;
+    }
+    
+    .vr-subtitle {
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+    
+    .vr-description {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+    }
+    
+    .project-content {
+      padding: 15px;
+    }
+    
+    .project-tech {
+      gap: 4px;
+    }
+    
+    .tech-tag {
+      padding: 3px 8px;
+      font-size: 0.75rem;
+    }
+    
+    .project-status {
+      padding: 4px 10px;
+      font-size: 0.75rem;
+    }
+    
+    .language-bar {
+      top: 5px;
+      right: 10px;
+    }
+    
+    .language-bar button img {
+      width: 20px;
+      height: 14px;
+    }
 
     /* Ajustes específicos para iPhone 11 */
     @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
@@ -1162,10 +1260,10 @@
         padding: 0 15px;
       }
       
-     .hero-image {
-      width: 240px;
-      height: 240px;
-    }
+      .hero-image {
+        width: 240px;
+        height: 240px;
+      }
       
       .curriculum-button {
         padding: 14px 20px;
@@ -1188,25 +1286,33 @@
   <!-- Google Translate Script -->
   <div id="google_translate_element" style="display: none;"></div>
 
+  <!-- Overlay para o menu mobile -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
   <!-- Navegação -->
   <nav class="main-nav">
     <div class="nav-container">
       <a href="#" class="nav-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></a>
-      <button class="menu-toggle" aria-label="Abrir menu">
+      <button class="menu-toggle" aria-label="Abrir menu" id="menuToggle">
         <span></span>
         <span></span>
         <span></span>
       </button>
 
-      <ul class="nav-menu">
+      <ul class="nav-menu" id="navMenu">
+        <button class="close-menu" id="closeMenu" aria-label="Fechar menu">
+          <i class="fas fa-times"></i>
+        </button>
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#about">Sobre</a></li>
-        <li><a href="#curriculum">Currículo</a></li>
+        <li><a href="#curriculum">Portfólio</a></li>
         <li><a href="#vr">VR Experiences</a></li>
         <li><a href="#contact">Contato</a></li>
       </ul>
     </div>
   </nav>
+
+  <!-- Restante do conteúdo permanece igual... -->
   <!-- Seção Hero -->
   <section class="hero" id="home">
     <div class="hero-container">
@@ -1214,34 +1320,33 @@
       <h1>Architect of Xperience</h1>
       <h2>XR Specialist • 3D Designer</h2>
       <p class="byline">by Lara E. Negreiros</p>
-      <!-- Botão removido do herói -->
     </div>
-<div class="hero-image">
-  <div class="image-container">
-    <img src="/imagens/axlarasf.png" alt="Lara E. Negreiros">
-  </div>
-</div>
+    <div class="hero-image">
+      <div class="image-container">
+        <img src="/imagens/axlarasf.png" alt="Lara E. Negreiros">
+      </div>
+    </div>
   </section>
 
   <!-- Seção Sobre -->
   <section class="about" id="about">
     <div class="about-container">
-    <h2><span class="ola">Olá,</span> sou Lara E. Negreiros</h2>
+      <h2><span class="ola">Olá,</span> sou Lara E. Negreiros</h2>
 
-<!-- Conteúdo visível por padrão -->
-<p>Criadora de experiências imersivas personalizadas, exploro como os espaços influenciam emoções e comportamentos. Transformo essa relação em projetos digitais que unem design, storytelling e tecnologia, conectando o mundo físico ao virtual de forma significativa.
-</p>
+      <!-- Conteúdo visível por padrão -->
+      <p>Criadora de experiências imersivas personalizadas, exploro como os espaços influenciam emoções e comportamentos. Transformo essa relação em projetos digitais que unem design, storytelling e tecnologia, conectando o mundo físico ao virtual de forma significativa.
+      </p>
 
-<!-- Conteúdo que pode ser expandido -->
-<div class="texto-conteudo" id="texto-conteudo">
-  <div class="gradient-mask">
-    <p>Minha trajetória começou na arquitetura e urbanismo, com especialização em projetos arquitetônicos e neuroarquitetura, áreas que me proporcionaram uma base sólida em percepção espacial e design funcional de ambientes. Com o tempo, senti a necessidade de expandir além dos limites tradicionais da arquitetura, explorando a tecnologia como um novo território de criação.</p>
-    
-    <p>Nesse processo, aprofundei meus estudos em programação e descobri as tecnologias imersivas (XR), que se tornaram o elo natural entre minha formação em arquitetura e as infinitas possibilidades digitais. A partir daí, passei a direcionar minha atuação para o desenvolvimento de ambientes virtuais interativos.</p>
-    
-    <p><strong>Hoje, me dedico à criação de experiências imersivas utilizando softwares e tecnologias que transformam espaços físicos em ambientes digitais interativos. Minha atuação envolve desde modelagem 3D otimizada para aplicações interativas e tours virtuais 360°, até projetos em realidade virtual voltados para cultura, bem-estar e inovação, unindo design, storytelling e tecnologia para criar jornadas imersivas significativas.</strong></p>
-  </div>
-</div>
+      <!-- Conteúdo que pode ser expandido -->
+      <div class="texto-conteudo" id="texto-conteudo">
+        <div class="gradient-mask">
+          <p>Minha trajetória começou na arquitetura e urbanismo, com especialização em projetos arquitetônicos e neuroarquitetura, áreas que me proporcionaram uma base sólida em percepção espacial e design funcional de ambientes. Com o tempo, senti a necessidade de expandir além dos limites tradicionais da arquitetura, explorando a tecnologia como um novo território de criação.</p>
+          
+          <p>Nesse processo, aprofundei meus estudos em programação e descobri as tecnologias imersivas (XR), que se tornaram o elo natural entre minha formação em arquitetura e as infinitas possibilidades digitais. A partir daí, passei a direcionar minha atuação para o desenvolvimento de ambientes virtuais interativos.</p>
+          
+          <p><strong>Hoje, me dedico à criação de experiências imersivas utilizando softwares e tecnologias que transformam espaços físicos em ambientes digitais interativos. Minha atuação envolve desde modelagem 3D otimizada para aplicações interativas e tours virtuais 360°, até projetos em realidade virtual voltados para cultura, bem-estar e inovação, unindo design, storytelling e tecnologia para criar jornadas imersivas significativas.</strong></p>
+        </div>
+      </div>
 
       <!-- Botão de expandir -->
       <button id="btn-expandir" class="expand-button">Ver mais</button>
@@ -1251,9 +1356,8 @@
   <!-- NOVA SEÇÃO DE CURRÍCULO -->
   <section class="curriculum-cta" id="curriculum">
     <div class="curriculum-content">
-      <!-- <h3>Conheça Minhas Habilidades Técnicas</h3> -->
-       <a href="portfolio.html" class="curriculum-button">Acessar Meu Currículo Profissional</a>
-       <p>Explore meu currículo técnico para entender as ferramentas, tecnologias e metodologias que utilizo para criar experiências imersivas e outros projetos.</p>
+      <a href="portfolio.html" class="curriculum-button">Acessar Meu Portfólio</a>
+      <p>Explore meu currículo técnico para ver as ferramentas, tecnologias e metodologias que utilizo para criar experiências imersivas e outros projetos da minha trajetória profissional.</p>
     </div>
   </section>
 
@@ -1271,82 +1375,81 @@
         <p>Cada projeto é uma ponte entre o real e o virtual, entre o que já vivemos e o que ainda podemos imaginar, uma exploração envolvente que convida ao reencontro com nossas próprias histórias.</p>
       </div>
 
-      <!-- Seção Projetos Lançados -->
-<!-- Seção Projetos Ativos -->
-<div class="projects-section">
-  <h2 class="section-title">PROJETOS ATIVOS</h2> <!-- "Ativos" engloba tanto os prontos quanto os sob demanda -->
-  
-  <div class="projects-grid">
-    <!-- Projeto Memories Live -->
-    <a href="project-memories-live.html" class="project-card-link">
-      <article class="project-card">
-        <div class="project-image">
-          <img src="/imagens/vr_memorieslive.png" alt="Memories Live" loading="lazy">
-        </div>
-        <div class="project-content">
-          <h3 class="project-title">Memories Live</h3>
-          <p class="project-description">Imersão poética para reviver memórias especiais de forma personalizada, combinando tecnologia VR com narrativas emocionais.</p>
-          <div class="project-tech">
-            <span class="tech-tag">A-frame</span>
-            <span class="tech-tag">WebVR</span>
-            <span class="tech-tag">360 Video</span>
-          </div>
-          <span class="project-status status-released">Disponível</span>
-        </div>
-      </article>
-    </a>
+      <!-- Seção Projetos Ativos -->
+      <div class="projects-section">
+        <h2 class="section-title">PROJETOS ATIVOS</h2>
+        
+        <div class="projects-grid">
+          <!-- Projeto Memories Live -->
+          <a href="project-memories-live.html" class="project-card-link">
+            <article class="project-card">
+              <div class="project-image">
+                <img src="/imagens/vr_memorieslive.png" alt="Memories Live" loading="lazy">
+              </div>
+              <div class="project-content">
+                <h3 class="project-title">Memories Live</h3>
+                <p class="project-description">Imersão poética para reviver memórias especiais de forma personalizada, combinando tecnologia VR com narrativas emocionais.</p>
+                <div class="project-tech">
+                  <span class="tech-tag">A-frame</span>
+                  <span class="tech-tag">WebVR</span>
+                  <span class="tech-tag">360 Video</span>
+                </div>
+                <span class="project-status status-released">Disponível</span>
+              </div>
+            </article>
+          </a>
 
-    <!-- Projeto de Interiores em VR (AGORA NA SEÇÃO DE ATIVOS) -->
-    <a href="project-immersive-design.html" class="project-card-link">
-      <article class="project-card">
-        <div class="project-image">
-          <img src="/imagens/VR_img.png" alt="Interiores Imersivos VR" loading="lazy">
+          <!-- Projeto de Interiores em VR -->
+          <a href="project-immersive-design.html" class="project-card-link">
+            <article class="project-card">
+              <div class="project-image">
+                <img src="/imagens/VR_img.png" alt="Interiores Imersivos VR" loading="lazy">
+              </div>
+              <div class="project-content">
+                <h3 class="project-title">Immersive Design</h3>
+                <p class="project-description">
+                  Visualização de projetos arquitetônicos residenciais em realidade virtual a partir de modelos 3D do SketchUp.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">SketchUp</span>
+                  <span class="tech-tag">Meta Quest</span>
+                  <span class="tech-tag">Arquitetura</span>
+                </div>
+                <span class="project-status status-released">Execução Sob Demanda</span>
+              </div>
+            </article>
+          </a>
         </div>
-        <div class="project-content">
-          <h3 class="project-title">Immersive Design</h3>
-          <p class="project-description">
-            Visualização de projetos arquitetônicos residenciais em realidade virtual a partir de modelos 3D do SketchUp.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">SketchUp</span>
-            <span class="tech-tag">Meta Quest</span>
-            <span class="tech-tag">Arquitetura</span>
-          </div>
-          <!-- Status que reflete que é um serviço sob demanda -->
-          <span class="project-status status-released">Execução Sob Demanda</span>
-        </div>
-      </article>
-    </a>
-  </div>
-</div>
+      </div>
 
-<!-- Seção Projetos em Desenvolvimento -->
-<div class="projects-section">
-  <h2 class="section-title">PROJETOS EM DESENVOLVIMENTO</h2>
-  
-  <div class="projects-grid">
-    <!-- Projeto Histórico em Realidade Virtual -->
-    <a href="project-story-scape.html" class="project-card-link">
-      <article class="project-card">
-        <div class="project-image">
-          <img src="/imagens/vr_citytime.png" alt="Story Scape VR" loading="lazy">
+      <!-- Seção Projetos em Desenvolvimento -->
+      <div class="projects-section">
+        <h2 class="section-title">PROJETOS EM DESENVOLVIMENTO</h2>
+        
+        <div class="projects-grid">
+          <!-- Projeto Histórico em Realidade Virtual -->
+          <a href="project-story-scape.html" class="project-card-link">
+            <article class="project-card">
+              <div class="project-image">
+                <img src="/imagens/vr_citytime.png" alt="Story Scape VR" loading="lazy">
+              </div>
+              <div class="project-content">
+                <h3 class="project-title">Story Scape</h3>
+                <p class="project-description">
+                  Uma experiência imersiva onde o usuário pode explorar a transformação de uma cidade ao longo do tempo, revivendo a história de lugares reais.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">A-Frame</span>
+                  <span class="tech-tag">WebVR</span>
+                  <span class="tech-tag">História Urbana</span>
+                </div>
+                <span class="project-status status-development">Em Planejamento</span>
+              </div>
+            </article>
+          </a> 
         </div>
-        <div class="project-content">
-          <h3 class="project-title">Story Scape</h3>
-          <p class="project-description">
-            Uma experiência imersiva onde o usuário pode explorar a transformação de uma cidade ao longo do tempo, revivendo a história de lugares reais.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">A-Frame</span>
-            <span class="tech-tag">WebVR</span>
-            <span class="tech-tag">História Urbana</span>
-          </div>
-          <span class="project-status status-development">Em Planejamento</span>
-        </div>
-      </article>
-    </a> 
-  </div>
-</div>
+      </div>
+      
       <!-- Detalhamento do Memories Live -->
       <section class="project-detail">
         <h2 class="section-title">VR MEMORIES LIVE</h2>
@@ -1376,16 +1479,20 @@
           <p>It is also a study of how immersive experiences can awaken deep connections and open paths to self-knowledge, healing and transformation.</p>
         </div>
         
-<div style="width:100%;max-width:1280px;margin:0 auto;aspect-ratio:16/9;">
-  <iframe src="https://player.vimeo.com/video/1124202316?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
-          frameborder="0" 
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
-          referrerpolicy="strict-origin-when-cross-origin"
-          style="width:100%;height:100%;border:none;display:block;"
-          title="MemoriesLive">
-  </iframe>
-  <script src="https://player.vimeo.com/api/player.js"></script>
-</div>
+        <div style="width:100%;max-width:1280px;margin:0 auto;aspect-ratio:16/9;">
+          <iframe src="https://player.vimeo.com/video/1124202316?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                  frameborder="0" 
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  style="width:100%;height:100%;border:none;display:block;"
+                  title="MemoriesLive">
+          </iframe>
+          <script src="https://player.vimeo.com/api/player.js"></script>
+        </div>
+      </section>
+    </div>
+  </section>
+
   <footer id="contact">
     <div class="footer-content">
       <p>Disponível para projetos colaborativos e experiências sob demanda</p>
@@ -1400,14 +1507,55 @@
   </footer>
 
   <script type="text/javascript">
-   const toggleBtn = document.querySelector(".menu-toggle");
-    const navMenu = document.querySelector(".nav-menu");
+    // Menu mobile melhorado
+    const menuToggle = document.getElementById("menuToggle");
+    const navMenu = document.getElementById("navMenu");
+    const menuOverlay = document.getElementById("menuOverlay");
+    const closeMenu = document.getElementById("closeMenu");
 
-    toggleBtn.addEventListener("click", () => {
-      navMenu.classList.toggle("show");
+    function toggleMenu() {
+      const isOpen = navMenu.classList.contains("show");
+      
+      if (isOpen) {
+        // Fechar menu
+        navMenu.classList.remove("show");
+        menuToggle.classList.remove("active");
+        menuOverlay.classList.remove("active");
+        document.body.style.overflow = "auto";
+      } else {
+        // Abrir menu
+        navMenu.classList.add("show");
+        menuToggle.classList.add("active");
+        menuOverlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    // Event listeners para abrir/fechar menu
+    menuToggle.addEventListener("click", toggleMenu);
+    closeMenu.addEventListener("click", toggleMenu);
+    menuOverlay.addEventListener("click", toggleMenu);
+
+    // Fechar menu ao clicar em um link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          toggleMenu();
+        }
+      });
     });
 
+    // Fechar menu ao redimensionar a tela para desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        navMenu.classList.remove("show");
+        menuToggle.classList.remove("active");
+        menuOverlay.classList.remove("active");
+        document.body.style.overflow = "auto";
+      }
+    });
 
+    // Restante do JavaScript permanece igual...
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
         pageLanguage: 'pt',
