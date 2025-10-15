@@ -212,8 +212,14 @@
         padding: 0 15px;
       }
       
+      /* Logo visível no mobile também */
       .nav-logo {
-        display: none;
+        display: block;
+        font-size: 1.4rem;
+      }
+      
+      .logo-subtitle {
+        font-size: 0.45rem;
       }
       
       /* Botão hamburguer visível no mobile */
@@ -298,8 +304,9 @@
         display: none; /* Remove o sublinhado animado no mobile */
       }
       
-      /* Botão de fechar personalizado */
+      /* Botão de fechar personalizado - DENTRO DO MENU MOBILE */
       .close-menu {
+        display: none;
         position: absolute;
         top: 20px;
         right: 20px;
@@ -311,7 +318,6 @@
         z-index: 1000;
         width: 40px;
         height: 40px;
-        display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
@@ -322,6 +328,13 @@
         background: rgba(255, 255, 255, 0.1);
         color: var(--primary);
       }
+      
+      /* Mostrar botão de fechar apenas no mobile quando o menu estiver aberto */
+      @media (max-width: 768px) {
+        .close-menu {
+          display: flex;
+        }
+      }
     }
     
     /* Ajustes para telas muito pequenas */
@@ -329,6 +342,14 @@
       .nav-menu {
         width: 250px;
         padding: 70px 20px 20px;
+      }
+      
+      .nav-logo {
+        font-size: 1.2rem;
+      }
+      
+      .logo-subtitle {
+        font-size: 0.4rem;
       }
     }
 
@@ -1300,9 +1321,6 @@
       </button>
 
       <ul class="nav-menu" id="navMenu">
-        <button class="close-menu" id="closeMenu" aria-label="Fechar menu">
-          <i class="fas fa-times"></i>
-        </button>
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#about">Sobre</a></li>
         <li><a href="#curriculum">Portfólio</a></li>
@@ -1511,7 +1529,6 @@
     const menuToggle = document.getElementById("menuToggle");
     const navMenu = document.getElementById("navMenu");
     const menuOverlay = document.getElementById("menuOverlay");
-    const closeMenu = document.getElementById("closeMenu");
 
     function toggleMenu() {
       const isOpen = navMenu.classList.contains("show");
@@ -1533,15 +1550,39 @@
 
     // Event listeners para abrir/fechar menu
     menuToggle.addEventListener("click", toggleMenu);
-    closeMenu.addEventListener("click", toggleMenu);
     menuOverlay.addEventListener("click", toggleMenu);
 
-    // Fechar menu ao clicar em um link
+    // Fechar menu ao clicar em qualquer link do menu
     document.querySelectorAll('.nav-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-          toggleMenu();
+      link.addEventListener('click', (e) => {
+        // Prevenir comportamento padrão apenas para links âncora
+        if (link.getAttribute('href').startsWith('#')) {
+          e.preventDefault();
+          
+          // Obter o alvo da seção
+          const targetId = link.getAttribute('href').substring(1);
+          const targetSection = document.getElementById(targetId);
+          
+          if (targetSection) {
+            // Fechar menu mobile se estiver aberto
+            if (window.innerWidth <= 768) {
+              toggleMenu();
+            }
+            
+            // Scroll suave para a seção
+            targetSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+            
+            // Atualizar classe ativa
+            document.querySelectorAll('.nav-menu a').forEach(navLink => {
+              navLink.classList.remove('active');
+            });
+            link.classList.add('active');
+          }
         }
+        // Para links externos, deixar o comportamento padrão
       });
     });
 
@@ -1606,20 +1647,26 @@
       }
     }
 
-    // Navegação suave
+    // Navegação suave para todos os links âncora
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+        const targetId = this.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
         
-        // Atualizar classe ativa
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-          link.classList.remove('active');
-        });
-        this.classList.add('active');
+        if (targetSection) {
+          targetSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          
+          // Atualizar classe ativa
+          document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.classList.remove('active');
+          });
+          this.classList.add('active');
+        }
       });
     });
 
