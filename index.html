@@ -57,6 +57,8 @@
       display: flex;
       gap: 1px;
       background: none;
+   
+
     }
     .language-bar button {
       background: none;
@@ -382,7 +384,7 @@
     }
     
     .hero h1 {
-      font-size: 2.5rem;
+      font-size: 2.0rem;
       font-weight: bold;
       line-height: 1.2;
       color: #333;
@@ -606,6 +608,15 @@
     .curriculum-button:hover::before {
       left: 100%;
     }
+
+    .vr-research-note {
+  max-width: 760px;
+  margin: 1.4rem auto 2.4rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  font-style: italic;
+}
+
 
     /* Seção VR Experiences - Transição suave do escuro para o background estrelado */
     .vr-section {
@@ -1109,7 +1120,16 @@
       .vr-description p {
         margin-bottom: 15px;
       }
-      
+
+      .vr-research-note {
+  max-width: 760px;
+  margin: 1.2rem auto 2.2rem;
+  font-size: 0.85rem;
+  opacity: 0.75;
+  line-height: 1.5;
+}
+
+
       .projects-section {
         margin: 40px 0;
       }
@@ -1343,17 +1363,38 @@
       <a href="#vr" class="vr-logo">VR E<span class="neon-x">X</span>PERIENCES</a>
       <h2 class="vr-subtitle">EXPERIÊNCIAS AUTORAIS EM REALIDADE VIRTUAL</h2>
       
-      <div class="vr-description">
-        <p>Meu trabalho une <span class="highlight">expressão criativa</span>, <span class="highlight">storytelling imersivo</span> e <span class="highlight">tecnologia</span> para dar vida a histórias de pessoas, cidades e espaços, criando mundos virtuais que despertam emoção, reflexão e conexão.</p>
-        
-        <p>Através da realidade virtual, desenvolvo experiências que capturam a essência de momentos efêmeros, transformando memórias pessoais e patrimônios culturais em jornadas que permanecem no imaginário.</p>
-        
-        <p>Cada projeto é uma ponte entre o real e o virtual, entre o que já vivemos e o que ainda podemos imaginar, uma exploração envolvente que convida ao reencontro com nossas próprias histórias.</p>
-      </div>
+     <div class="vr-description">
+  <p>
+    Meu trabalho explora a interseção entre <span class="highlight">realidade virtual</span>, 
+    <span class="highlight">storytelling imersivo</span> e <span class="highlight">arquitetura</span>, 
+    criando experiências autorais que conectam pessoas a histórias, lugares e espaços.
+  </p>
+
+  <p>
+    Desenvolvo projetos em VR que vão desde visualização arquitetônica até narrativas sensoriais, 
+    utilizando tecnologias imersivas para provocar emoção, reflexão e presença.
+  </p>
+
+  <p>
+    Dentro dessa prática, investigo especialmente como experiências imersivas podem ativar memória, 
+    identidade e percepção espacial, eixo que dá origem ao projeto <strong>REMEMBER</strong>.
+  </p>
+</div>
+
+<!-- Nota de pesquisa / REMEMBER -->
+<div class="vr-research-note">
+  <p>
+    Parte das experiências apresentadas aqui surge de uma investigação contínua sobre memória, identidade 
+    e percepção espacial em ambientes imersivos. Essa pesquisa orienta o desenvolvimento do projeto 
+    <strong>REMEMBER</strong>, do qual <em>Memories Live</em> é o primeiro experimento.
+  </p>
+</div>
+
+
 
       <!-- Seção Projetos Ativos -->
       <div class="projects-section">
-        <h2 class="section-title">PROJETOS ATIVOS</h2>
+        <h2 class="section-title">XR PROJECTS & EXPERIMENTS</h2>
         
         <div class="projects-grid">
           <!-- Projeto Memories Live -->
@@ -1364,13 +1405,15 @@
               </div>
               <div class="project-content">
                 <h3 class="project-title">Memories Live</h3>
-                <p class="project-description">Imersão poética para reviver memórias especiais de forma personalizada, combinando tecnologia VR com narrativas emocionais.</p>
+                <p class="project-description"> Primeiro projeto desenvolvido dentro da linha de pesquisa Remember. 
+  Uma experiência imersiva que explora memória e emoção por meio de 
+  narrativas espaciais em realidade virtual.</p>
                 <div class="project-tech">
                   <span class="tech-tag">A-frame</span>
                   <span class="tech-tag">WebVR</span>
-                  <span class="tech-tag">360 Video</span>
+                  <span class="tech-tag">Narrative Experience</span>
                 </div>
-                <span class="project-status status-released">Disponível</span>
+                <!-- <span class="project-status status-released">Disponível</span> -->
               </div>
             </article>
           </a>
@@ -1384,25 +1427,20 @@
               <div class="project-content">
                 <h3 class="project-title">Immersive Design</h3>
                 <p class="project-description">
-                  Visualização de projetos arquitetônicos residenciais em realidade virtual a partir de modelos 3D do SketchUp.
+                 Aplicação de realidade virtual para visualização arquitetônica, 
+  transformando modelos 3D em ambientes imersivos navegáveis 
+  com foco em percepção espacial e experiência do usuário.
                 </p>
                 <div class="project-tech">
-                  <span class="tech-tag">SketchUp</span>
+                  <span class="tech-tag">VR Sketch</span>
                   <span class="tech-tag">Meta Quest</span>
-                  <span class="tech-tag">Arquitetura</span>
+                  <span class="tech-tag">Architectural Visualization</span>
                 </div>
-                <span class="project-status status-released">Execução Sob Demanda</span>
+                <!-- <span class="project-status status-released">Execução Sob Demanda</span> -->
               </div>
             </article>
           </a>
-        </div>
-      </div>
-
-      <!-- Seção Projetos em Desenvolvimento -->
-      <div class="projects-section">
-        <h2 class="section-title">PROJETOS EM DESENVOLVIMENTO</h2>
-        
-        <div class="projects-grid">
+               <div class="projects-grid">
           <!-- Projeto Histórico em Realidade Virtual -->
           <a href="project-story-scape.html" class="project-card-link">
             <article class="project-card">
@@ -1412,19 +1450,27 @@
               <div class="project-content">
                 <h3 class="project-title">Story Scape</h3>
                 <p class="project-description">
-                  Uma experiência imersiva onde o usuário pode explorar a transformação de uma cidade ao longo do tempo, revivendo a história de lugares reais.
+                   Experiência imersiva que investiga a transformação de cidades ao longo do tempo,
+  permitindo ao usuário explorar narrativas urbanas e camadas históricas 
+  por meio de ambientes virtuais.
                 </p>
                 <div class="project-tech">
-                  <span class="tech-tag">A-Frame</span>
-                  <span class="tech-tag">WebVR</span>
-                  <span class="tech-tag">História Urbana</span>
+                  <span class="tech-tag">VR Experience</span>
+<span class="tech-tag">Spatial Storytelling</span>
+<span class="tech-tag">Urban History</span>
+
                 </div>
-                <span class="project-status status-development">Em Planejamento</span>
+                <!-- <span class="project-status status-development">Em Planejamento</span> -->
               </div>
             </article>
           </a> 
         </div>
+        </div>
+          
       </div>
+      </div>
+
+ 
       
       <!-- Detalhamento do Memories Live -->
       <section class="project-detail">
@@ -1436,23 +1482,46 @@
         </div>
         
         <div class="manifesto-text pt">
-          <p>Memories Live é um projeto em realidade virtual voltado para a exploração e reconexão com a própria história de vida.</p>
-          
-          <p>A experiência é construída a partir das lembranças pessoais do usuário: fotos originais, fornecidas pela própria pessoa ou por alguém que deseja presentear, são integradas em um ambiente imersivo que permite reviver momentos desde a infância até os dias atuais.</p>
-          
-          <p>Mais do que uma experiência tecnológica, Memories Live é uma jornada sensível pelo passado, pelas lembranças que moldaram quem você é hoje. É um convite para reativar memórias esquecidas, reconectar-se com sua essência, sonhos e sentimentos que talvez tenham ficado pelo caminho.</p>
-          
-          <p>É também um estudo sobre como experiências imersivas podem despertar conexões profundas e abrir caminhos para autoconhecimento, cura e transformação.</p>
+      <p>
+  Memories Live é uma experiência em realidade virtual desenvolvida como o primeiro projeto da linha de pesquisa <strong>REMEMBER</strong>, 
+  que investiga o uso de ambientes imersivos para ativar memória, identidade e conexão emocional.
+</p>
+
+<p>
+  A experiência é construída a partir das lembranças pessoais do usuário: fotografias originais, fornecidas pela própria pessoa ou por alguém que deseja presentear, são integradas em um ambiente virtual que permite revisitar momentos marcantes da infância à vida adulta.
+</p>
+
+<p>
+  Mais do que uma experiência tecnológica, Memories Live propõe uma jornada sensível pelo passado — pelas memórias que moldaram quem somos hoje. 
+  É um convite ao reencontro com sentimentos, sonhos e narrativas pessoais que, muitas vezes, ficam adormecidos ao longo da vida.
+</p>
+
+<p>
+  O projeto também funciona como um campo experimental para explorar como narrativas imersivas podem apoiar processos de reflexão, autoconhecimento e reconexão emocional.
+</p>
+
         </div>
         
         <div class="manifesto-text en">
-          <p>Memories Live is a virtual reality project focused on exploring and reconnecting with one's own life story.</p>
-          
-          <p>The experience is built from the user's personal memories: original photos, provided by the person themselves or by someone who wants to gift the experience, are integrated into an immersive environment that allows reliving moments from childhood to the present day.</p>
-          
-          <p>More than a technological experience, Memories Live is a sensitive journey into the past, into the memories that shaped who you are today. It's an invitation to reactivate forgotten memories, reconnect with your essence, dreams and feelings that may have been left behind.</p>
-          
-          <p>It is also a study of how immersive experiences can awaken deep connections and open paths to self-knowledge, healing and transformation.</p>
+       <p>
+  Memories Live is a virtual reality experience developed as the first project within the <strong>REMEMBER</strong> research line, 
+  which explores how immersive environments can activate memory, identity, and emotional connection.
+</p>
+
+<p>
+  The experience is built from the user’s personal memories. Original photographs, provided by the participant or by someone gifting the experience, 
+  are integrated into a virtual environment that allows revisiting meaningful moments from childhood to adulthood.
+</p>
+
+<p>
+  More than a technological experience, Memories Live proposes a sensitive journey into personal memory — the experiences that shape who we are.
+  It invites users to reconnect with emotions, dreams, and narratives that may have faded over time.
+</p>
+
+<p>
+  The project also serves as an experimental framework for researching how immersive storytelling can support reflection, self-awareness, and emotional reconnection.
+</p>
+
         </div>
         
         <div style="width:100%;max-width:1280px;margin:0 auto;aspect-ratio:16/9;">

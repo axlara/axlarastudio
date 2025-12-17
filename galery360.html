@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AXLARA — Galeria Imersiva</title>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <style>
+    html, body { height: 100%; margin: 0; background: #000; }
+    #wrapper { width: 100%; height: 100vh; overflow: hidden; }
+
+    /* ÍCONE DE ÓCULOS VR (BASE64 - FUNCIONA EM TODOS OS NAVEGADORES) */
+    a-scene {
+      cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAJJSURBVHja7ZlNSBRhHMZnZnd21931Y5VdP9Z1XfEgSBBEh04dKjp06VREJ0GI6FREhyA6iBBBiCIkKEgQJBQhQRBESEFEUEREUBRFkUVEREREUBRFUZT1a3V3Z92ZnXfGcXd2XXfXdWeXeZ5hZt93/8/z/v7vzLsiEoko/1dKpVKpVCqVSqVSqVQqlUqlUqlUKpVKpVLJQgDQDuAcgA8ADgLQAKABgAbgAIB9AHqSyeQkAHR0dOixWGwRwD0A0wBqAGQB2ABgAqgCcAPA5WQyOV9fX6/zfS8A3AHwGMAjABcAdAFoBNAEoA5ACYDfAH4AeJVMJqcA3E4mk+u5DABAK4BbAJ4A+BdAPYBWAE0AzAAKALYA/AbwDsD9ZDKZzGUAmACuA3gN4CyARgAtAMoBGAAMAMYBvAHwIJlMpnMZgEqlUgHQBuAFgE4AlQDOAGgBYAHIA7AJYB7AEwDXksnkai4CsFqtVgC0AXgFoBdAAwATQA2AIgBqACoAFQCuAHgM4FYymVzJlQAYDAZdoVAoAFYAaAVwGkA9AAuAIgAlALIA/AYwA+BOoVD8zIkAGAwGXaFQKAAsAG0AugA0AigFUAKgAEAWgAXgO4APAD4mk8mVdAaAYRgGgDYAVwB0A2gCYAHIA7AFYBnAMIB7hULxcycABsMwCoVCAWARwEUAPQDaAdQAKAHgArAC4CuAGQBDBYVixk0ADMNQCoVCAXARwDUApwFUAKgBYABYCWARwDiA+4VCsZxuAAzDUAqFQgFgEcANAD0A6gAUAygEsAVgDcAEgMeFQrGYagAMw1AKhUIBYBHAfQDXAHQAqABQBEABsA5gHsB9ADcKhWItVQAYhqEUCoUCwCKABwCuAegAUAOgCIAKYB3AJIBHAShm3QTAaDRqtVqtAsAigIcArgDoBlADwAKgA1gC8B7AzUKh+OUmAI1Go9ZqtSoAiwCeA7gMoBNADYBSADqAXwAmAIwUCsW2HQAYhqHV6/Vqo9GoAVgG8BbAFQDdAKoBFALYAeAC+BfAOIA3hUIRtRsAhmEYDodDBbAG4D2AqwB6AdQCMAHsAPgHYA7AGIBnhUKxbicADMNQXS6X2mg0qgC2AXwC8BjAPwAOAOgAMADsAvgK4AWAh4VCsWsFAMMwVKfTqTUajRoADcAvgE8AnhUKxbodAMxms+l2u1Wn06kC0AGsAXgHYCSbzfqcAFCr1arX61U9Ho8KQAOwAuAdgJFsNrvvBADTNFvD4XCLz+dTAagAVgCMA3iSzWa3jw2A2Wxu2e32Fq/XqwLYAbAO4D2AJ9lsdvvIADAMozUcDrucTqcKQAWwDmASwGi2WCzuewHA4/G0+ny+FgAqgC0AawDeAHiWLRYL5aMAwOv1tnq93hYAKoAtAJsAJgC8zBaLRX0/ADwej9rhcLQEg0EVgAZgDcAbAI+zxeL/zz4Mw1BDodC+Z8uyqB0Oh9rhcmkBj5eS6XSaaZpm0jTNhMPhZDwerxSLxYrb7Tb9fv9JAKcBnAJwEkAJgBIAVgAmABOA7nA4NIfDobndbq3RaBhut9tkGKYZCoVMhmGafr/fDAQCptfrNV0ul+Z0OtVQKGT6/X6z0WgYHo/HDIVCptPpVEOhkOl2uzWn06n5fD7T6XSaoVBI83q9mtfrNX0+n+Z2uzW32615PB6NYYZCoVAzGAy2+P1+zev1aoFAwAqFQk2GYWiBQMAKhUJNM5PJNBwOh8owzGYwGGwGg0HNZrM17XZ7k2GYpsPhUBmGYbpcrlYgEGgGg8EWu93eZJimpmlak2VZNRAImEaj0WQYptlgGKYZDAabwWCwGQqFmuFwuMVmszVdLlfL4/E0/X5/y+v1tnw+X8vj8bTY8Xg8LabZ/AdK+3ZrN5vQjgAAAABJRU5ErkJggg==") 16 16, pointer;
+    }
+
+    .hint {
+      position: fixed; left: 20px; bottom: 20px; z-index: 20;
+      background: rgba(0,0,0,0.5); color: #bfe; padding: 10px 14px; border-radius: 8px; font-family: sans-serif;
+      box-shadow: 0 8px 30px rgba(0,255,255,0.04);
+    }
+
+    .projects-grid { display: none; }
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <div class="hint">Use o mouse / touch para olhar ao redor • Clique nos cards para abrir o projeto</div>
+
+    <!-- A-FRAME SCENE -->
+    <a-scene fog="type: exponential; color: #000000; density: 0.02" background="color: #000000">
+
+      <!-- FONDO PANORÂMICO HDRI LOCAL -->
+      <a-sky src="/imagens/background.jpg" radius="50"></a-sky>
+
+      <!-- LUZES -->
+      <a-entity light="type: ambient; color: #444444; intensity: 0.2"></a-entity>
+      <a-entity light="type: point; color: #00ffff; intensity: 0.6; distance: 25" position="0 3 0"></a-entity>
+      <a-entity light="type: point; color: #00aaff; intensity: 0.4; distance: 20" position="-3 2 -4"></a-entity>
+      <a-entity light="type: point; color: #0088ff; intensity: 0.4; distance: 20" position="3 2 -4"></a-entity>
+
+      <!-- CÂMERA -->
+      <a-entity id="cameraRig" position="0 1.6 0" movement-controls>
+        <a-camera look-controls="reverseMouseDrag: true;"></a-camera>
+      </a-entity>
+
+      <!-- CARDS -->
+      <a-entity id="cards" position="0 1.6 0" rotation="0 0 0">
+
+        <!-- CARD 1 -->
+        <a-entity class="card" position="-2.5 2 2" rotation="0 135 0" geometry="primitive: plane; height: 1.8; width: 1.3" material="color: #000000; opacity: 0.1" onclick="window.location='project-memories-live.html'">
+          <a-image src="/imagens/vr_memorieslive.png" position="0 0.35 0.01" width="1.3" height="1" class="card-image"></a-image>
+          <a-text value="Memories Live" align="center" position="0 -0.4 0.01" width="1.8" color="#00ffff"></a-text>
+        </a-entity>
+
+        <!-- CARD 2 -->
+        <a-entity class="card" position="-4 2 0.5" rotation="0 110 0" geometry="primitive: plane; height: 1.8; width: 1.3" material="color: #000000; opacity: 0.1" onclick="window.location='project-immersive-design.html'">
+          <a-image src="/imagens/VR_img.png" position="0 0.35 0.01" width="1.25" height="1" class="card-image"></a-image>
+          <a-text value="Immersive Design" align="center" position="0 -0.4 0.01" width="1.8" color="#00ffff"></a-text>
+        </a-entity>
+
+        <!-- CARD 3 -->
+        <a-entity class="card" position="-3.5 2 -1" rotation="0 90 0" geometry="primitive: plane; height: 1.8; width: 1.3" material="color: #000000; opacity: 0.1" onclick="window.location='project-story-scape.html'">
+          <a-image src="/imagens/vr_citytime.png" position="0 0.35 0.01" width="1.25" height="1" class="card-image"></a-image>
+          <a-text value="Story Scape" align="center" position="0 -0.4 0.01" width="1.8" color="#00ffff"></a-text>
+        </a-entity>
+
+        <!-- CARD 4 - Imagem grande -->
+        <a-entity class="card" position="0 1 3.5" rotation="0 180 0" geometry="primitive: plane; height: 1.8; width: 1.3" material="color: #000000; opacity: 0" onclick="window.location='project-vr-project.html'">
+          <a-image src="/imagens/vr_project.png" position="0.05 1 0.01" width="3.8" height="2.2" class="card-image"></a-image>
+        </a-entity>
+
+      </a-entity>
+
+    </a-scene>
+  </div>
+<script>
+  // EFEITO DE FLUTUAÇÃO E PULSAÇÃO
+  function startFloating() {
+    const cards = document.querySelectorAll('.card');
+    const images = document.querySelectorAll('.card-image');
+
+    let time = 0;
+    function animate() {
+      time += 0.015;
+      
+      cards.forEach((card, index) => {
+        if (!card.object3D) return;
+
+        const offset = index * 1.2;
+        const yFloat = Math.sin(time + offset) * 0.12; // Flutuação mais pronunciada
+        const scalePulse = 1 + Math.sin(time * 0.6 + offset) * 0.03; // Pulsação mais sutil
+        
+        // Rotação sutil enquanto flutua
+        const rotationY = Math.sin(time * 0.4 + offset) * 0.01;
+        const rotationX = Math.cos(time * 0.3 + offset) * 0.008;
+
+        const baseY = (index === 3) ? 1 : 2;
+        card.object3D.position.y = baseY + yFloat;
+        card.object3D.scale.set(scalePulse, scalePulse, scalePulse);
+        
+        // Aplica rotação suave
+        card.object3D.rotation.y += rotationY;
+        card.object3D.rotation.x += rotationX;
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    // EFEITO DE HOVER NAS IMAGENS
+    images.forEach(image => {
+      // Adiciona evento mouseenter
+      image.addEventListener('mouseenter', function() {
+        if (this.object3D) {
+          // Aumenta ligeiramente e adiciona brilho
+          this.object3D.scale.set(1.05, 1.05, 1.05);
+          
+          // Adiciona emissão para efeito de brilho
+          const material = this.components.material.material;
+          if (material) {
+            material.emissive = new THREE.Color(0x00ffff);
+            material.emissiveIntensity = 0.3;
+          }
+        }
+      });
+
+      // Adiciona evento mouseleave
+      image.addEventListener('mouseleave', function() {
+        if (this.object3D) {
+          // Volta ao tamanho normal
+          this.object3D.scale.set(1, 1, 1);
+          
+          // Remove o brilho
+          const material = this.components.material.material;
+          if (material) {
+            material.emissive = new THREE.Color(0x000000);
+            material.emissiveIntensity = 0;
+          }
+        }
+      });
+    });
+
+    // Adiciona sombra suave aos cards
+    cards.forEach(card => {
+      if (card.object3D) {
+        card.object3D.traverse(function(child) {
+          if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+          }
+        });
+      }
+    });
+
+    animate();
+  }
+
+  // Inicia só depois que a cena estiver totalmente carregada
+  const scene = document.querySelector('a-scene');
+  if (scene.hasLoaded) {
+    startFloating();
+  } else {
+    scene.addEventListener('loaded', startFloating);
+  }
+
+  // Fallback
+  setTimeout(() => {
+    if (!scene.hasLoaded) {
+      document.querySelector('.projects-grid')?.style.display = 'grid';
+    }
+  }, 2500);
+</script>
+</body>
+</html>
