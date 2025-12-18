@@ -6,8 +6,8 @@
   <title>AX-LARA - MEMORIES LIVE VR</title>
   <!-- Fontes e Ícones -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link href="  https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css  " rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
     :root {
       --primary: #00fff7;
@@ -236,7 +236,6 @@
       }
     }
 
-    /* Estilo para o link que envolve o card */
     .project-card-link {
       text-decoration: none;
       color: inherit;
@@ -246,9 +245,8 @@
       text-decoration: none;
     }
 
-    /* Conteúdo Principal da Página de Detalhes */
     main {
-      margin-top: 80px; /* Espaço para a nav fixa */
+      margin-top: 80px;
     }
 
     .project-detail {
@@ -290,7 +288,6 @@
       margin-bottom: 1.2rem;
     }
 
-    /* Estilo para seção de tecnologias - MODIFICADO */
     .tech-section {
       margin: 40px 0;
       padding: 25px;
@@ -337,7 +334,6 @@
       margin: 0;
     }
 
-    /* ============ GALERIA DE IMAGENS ============ */
     .project-gallery {
       margin: 40px 0;
       position: relative;
@@ -359,7 +355,7 @@
 
     .gallery-slide {
       min-width: 100%;
-      height: 400px; /* Altura fixa para desktop */
+      height: 400px;
     }
 
     .gallery-slide img {
@@ -369,7 +365,6 @@
       display: block;
     }
 
-    /* Controles do Carrossel */
     .gallery-nav {
       display: flex;
       justify-content: center;
@@ -390,7 +385,6 @@
       background: var(--primary);
     }
 
-    /* ============ VÍDEO DO PROJETO ============ */
     .video-container {
       width: 100%;
       margin: 40px auto;
@@ -399,7 +393,7 @@
       overflow: hidden;
       background: #000;
       position: relative;
-      padding-top: 56.25%; /* Proporção 16:9 */
+      padding-top: 56.25%;
       border: 1px solid rgba(123, 97, 255, 0.2);
     }
     .video-container video,
@@ -412,7 +406,6 @@
       border: none;
     }
 
-    /* Botão de Voltar */
     .back-button-container {
       text-align: center;
       margin-top: 40px;
@@ -434,21 +427,7 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(106, 66, 245, 0.6);
     }
-    .back-button::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: 0.5s;
-    }
-    .back-button:hover::before {
-      left: 100%;
-    }
 
-    /* Footer */
     footer {
       background: rgba(10, 10, 15, 0.9);
       color: var(--light);
@@ -511,7 +490,6 @@
       color: var(--primary);
     }
 
-    /* ============ RESPONSIVIDADE GERAL ============ */
     @media (max-width: 768px) {
       main {
         margin-top: 70px;
@@ -528,7 +506,7 @@
         line-height: 1.7;
       }
       .gallery-slide {
-        height: 250px; /* Altura reduzida para mobile */
+        height: 250px;
       }
       .tech-grid {
         grid-template-columns: 1fr;
@@ -542,11 +520,9 @@
         width: 90%;
         max-width: 350px;
       }
-      
-      /* Ajustes para a barra de idiomas em mobile */
       .language-bar {
         top: 15px;
-        right: 60px; /* Evita sobreposição com o menu hamburguer */
+        right: 60px;
       }
     }
 
@@ -554,11 +530,9 @@
       .gallery-slide {
         height: 200px;
       }
-      
       .nav-logo {
         font-size: 1.4rem;
       }
-      
       .logo-subtitle {
         font-size: 0.4rem;
         letter-spacing: 4px;
@@ -567,232 +541,164 @@
   </style>
 </head>
 <body>
-  <!-- Barra de Idiomas -->
-  <div class="language-bar">
-    <button onclick="translateTo('en')" aria-label="English">
-      <img src="https://flagcdn.com/gb.svg  " alt="English" width="24" height="16">
+
+<!-- Google Translate Element (OBRIGATÓRIO) -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<!-- Barra de Idiomas -->
+<div class="language-bar">
+  <button onclick="triggerTranslate('en');" aria-label="English">
+    <img src="https://flagcdn.com/gb.svg" alt="English" width="24" height="16">
+  </button>
+  <button onclick="triggerTranslate('es');" aria-label="Español">
+    <img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
+  </button>
+</div>
+
+<!-- Overlay para quando o menu está aberto -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- Navegação -->
+<nav class="main-nav">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></a>
+    <button class="menu-toggle" aria-label="Abrir menu" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
-    <button onclick="translateTo('es')" aria-label="Español">
-      <img src="https://flagcdn.com/es.svg  " alt="Español" width="24" height="16">
-    </button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="index.html#about">Sobre</a></li>
+      <li><a href="index.html#curriculum">Currículo</a></li>
+      <li><a href="index.html#vr" class="active">VR Experiences</a></li>
+      <li><a href="index.html#contact">Contato</a></li>
+    </ul>
   </div>
+</nav>
 
-  <!-- Overlay para quando o menu está aberto -->
-  <div class="nav-overlay" id="navOverlay"></div>
+<main>
+  <section class="project-detail">
+    <h2 class="section-title">MEMORIES LIVE VR</h2>
 
-  <!-- Navegação -->
-  <nav class="main-nav">
-    <div class="nav-container">
-      <a href="index.html" class="nav-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></a>
-      <button class="menu-toggle" aria-label="Abrir menu" id="menuToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="index.html#home">Home</a></li>
-        <li><a href="index.html#about">Sobre</a></li>
-        <li><a href="index.html#curriculum">Currículo</a></li>
-        <li><a href="index.html#vr" class="active">VR Experiences</a></li>
-        <li><a href="index.html#contact">Contato</a></li>
-      </ul>
+    <div class="manifesto-text">
+      <p><strong>Memories Live</strong> nasceu como um presente especial de aniversário de 60 anos para minha mãe. A ideia era criar uma experiência onde ela pudesse "voltar no tempo" e reviver momentos marcantes de sua vida através de suas próprias memórias.</p>
+      
+      <p>O processo começou com a seleção cuidadosa de fotos de toda a cronologia da vida dela - desde a infância até os dias atuais. Reuni essas imagens com o objetivo de criar uma jornada de autoconhecimento, onde cada foto pudesse despertar lembranças e emoções genuínas.</p>
+      
+      <p>Para desenvolver essa experiência imersiva, escolhi o A-Frame JS como tecnologia principal. Ele se mostrou uma solução muito mais leve e simplificada comparada a engines pesadas como Unity ou Unreal Engine. Com o A-Frame, encontrei uma forma rápida e acessível de criar ambientes VR que funcionam diretamente no navegador, sem necessidade de instalações complexas.</p>
+      
+      <p>O resultado foi incrível: minha mãe pôs o headset e literalmente mergulhou em sua própria história, revivendo momentos especiais e se reconectando com sua trajetória de uma forma profundamente emocional.</p>
+      
+      <p>Essa abordagem pode ser aplicada para qualquer pessoa que queira presentear alguém especial, contar sua história ou simplesmente proporcionar uma experiência de reconexão consigo mesma e com seu passado. As possibilidades são infinitas com essa tecnologia acessível e poderosa.</p>
     </div>
-  </nav>
 
-  <!-- Conteúdo Principal -->
-  <main>
-    <section class="project-detail">
-      <h2 class="section-title">MEMORIES LIVE VR</h2>
-
-      <!-- Texto em Português - MODIFICADO -->
-      <div class="manifesto-text">
-        <p><strong>Memories Live</strong> nasceu como um presente especial de aniversário de 60 anos para minha mãe. A ideia era criar uma experiência onde ela pudesse "voltar no tempo" e reviver momentos marcantes de sua vida através de suas próprias memórias.</p>
-        
-        <p>O processo começou com a seleção cuidadosa de fotos de toda a cronologia da vida dela - desde a infância até os dias atuais. Reuni essas imagens com o objetivo de criar uma jornada de autoconhecimento, onde cada foto pudesse despertar lembranças e emoções genuínas.</p>
-        
-        <p>Para desenvolver essa experiência imersiva, escolhi o A-Frame JS como tecnologia principal. Ele se mostrou uma solução muito mais leve e simplificada comparada a engines pesadas como Unity ou Unreal Engine. Com o A-Frame, encontrei uma forma rápida e acessível de criar ambientes VR que funcionam diretamente no navegador, sem necessidade de instalações complexas.</p>
-        
-        <p>O resultado foi incrível: minha mãe pôs o headset e literalmente mergulhou em sua própria história, revivendo momentos especiais e se reconectando com sua trajetória de uma forma profundamente emocional.</p>
-        
-        <p>Essa abordagem pode ser aplicada para qualquer pessoa que queira presentear alguém especial, contar sua história ou simplesmente proporcionar uma experiência de reconexão consigo mesma e com seu passado. As possibilidades são infinitas com essa tecnologia acessível e poderosa.</p>
-      </div>
-
-      <!-- ============ SEÇÃO DE TECNOLOGIAS SIMPLIFICADA ============ -->
-      <div class="tech-section">
-        <h3>TECNOLOGIA UTILIZADA</h3>
-        
-        <p class="tech-description">
-          Para este projeto, optei por uma abordagem simplificada e eficiente, utilizando o <strong>A-Frame JS</strong> como tecnologia principal. 
-          Esta framework baseada em HTML permite criar experiências WebVR de forma mais leve e acessível do que engines tradicionais.
-        </p>
-        
-        <div class="tech-grid">
-          <div class="tech-item">
-            <h4>A-Frame JS</h4>
-            <p>Framework WebVR que permite criar experiências de realidade virtual diretamente no navegador, sem necessidade de instalação. Escolhido por sua simplicidade, desempenho e compatibilidade cross-platform.</p>
-          </div>
-          <div class="tech-item">
-            <h4>JavaScript & Three.js</h4>
-            <p>Para a lógica de animação, transições suaves entre cenas e manipulação dinâmica dos elementos 3D. O Three.js, que está por trás do A-Frame, oferece controle total sobre a renderização.</p>
-          </div>
+    <div class="tech-section">
+      <h3>TECNOLOGIA UTILIZADA</h3>
+      <p class="tech-description">
+        Para este projeto, optei por uma abordagem simplificada e eficiente, utilizando o <strong>A-Frame JS</strong> como tecnologia principal. 
+        Esta framework baseada em HTML permite criar experiências WebVR de forma mais leve e acessível do que engines tradicionais.
+      </p>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <h4>A-Frame JS</h4>
+          <p>Framework WebVR que permite criar experiências de realidade virtual diretamente no navegador, sem necessidade de instalação. Escolhido por sua simplicidade, desempenho e compatibilidade cross-platform.</p>
         </div>
-      </div>
-
-      <!-- ============ GALERIA DE IMAGENS ============ -->
-      <div class="project-gallery">
-        <h3 style="text-align: center; margin-bottom: 20px; color: var(--light-gray);">Galeria do Projeto</h3>
-        <div class="gallery-container">
-          <div class="gallery-wrapper" id="galleryWrapper">
-            <!-- Slide 1 -->
-            <div class="gallery-slide">
-              <img src="/imagens/vr_memorieslive.png" alt="Memories Live - Cena de infância" loading="lazy">
-            </div>
-            <!-- Slide 2 -->
-            <div class="gallery-slide">
-              <img src="/imagens/vr_memorieslive_02.jpg" alt="Memories Live - Interface de upload" loading="lazy">
-            </div>
-            <!-- Slide 3 -->
-            <div class="gallery-slide">
-              <img src="/imagens/vr_memorieslive_03.jpg" alt="Memories Live - Ambiente imersivo" loading="lazy">
-            </div>
-          </div>
+        <div class="tech-item">
+          <h4>JavaScript & Three.js</h4>
+          <p>Para a lógica de animação, transições suaves entre cenas e manipulação dinâmica dos elementos 3D. O Three.js, que está por trás do A-Frame, oferece controle total sobre a renderização.</p>
         </div>
-        <div class="gallery-nav" id="galleryNav">
-          <span class="gallery-dot active" onclick="currentSlide(0)"></span>
-          <span class="gallery-dot" onclick="currentSlide(1)"></span>
-          <span class="gallery-dot" onclick="currentSlide(2)"></span>
-        </div>
-      </div>
-
-      <!-- ============ VÍDEO DO PROJETO ============ -->
-      <h3 style="text-align: center; margin: 30px 0 15px; color: var(--light-gray);">Vídeo Demonstrativo</h3>
-      <div class="video-container">
-        <!-- Para vídeo do YouTube (RECOMENDADO) -->
-  <iframe src="https://player.vimeo.com/video/1124202316?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="memorieslives"></iframe>
-      </div>
-
-      <!-- Botão de Voltar -->
-      <div class="back-button-container">
-        <a href="index.html#vr" class="back-button">← Voltar para o início </a>
-      </div>
-    </section>
-  </main>
-
-  <!-- Rodapé -->
-  <footer id="contact">
-    <div class="footer-content">
-      <p>Disponível para projetos colaborativos e experiências sob demanda</p>
-      <p>Entre em contato: <a href="mailto:studio.axlara@gmail.com" class="contact-link">studio.axlara@gmail.com</a></p>
-      <div class="social-links">
-        <a href="  https://www.linkedin.com/in/laranegreiros  " target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.instagram.com/aivrse/  "><i class="fab fa-instagram"></i></a>
-        <a href="https://github.com/axlara  " target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://wa.me/+5584996249406  " target="_blank"><i class="fab fa-whatsapp"></i></a>
       </div>
     </div>
-  </footer>
 
-  <!-- Scripts -->
-  <script type="text/javascript">
-    // Script do Menu Hamburguer
-    const toggleBtn = document.getElementById("menuToggle");
-    const navMenu = document.getElementById("navMenu");
-    const navOverlay = document.getElementById("navOverlay");
-    
-    if (toggleBtn && navMenu) {
-      toggleBtn.addEventListener("click", () => {
-        navMenu.classList.toggle("show");
-        toggleBtn.classList.toggle("active");
-        navOverlay.classList.toggle("show");
-        document.body.style.overflow = navMenu.classList.contains("show") ? "hidden" : "";
-      });
-      
-      // Fechar o menu ao clicar em um link
-      const navLinks = document.querySelectorAll(".nav-menu a");
-      navLinks.forEach(link => {
-        link.addEventListener("click", () => {
-          navMenu.classList.remove("show");
-          toggleBtn.classList.remove("active");
-          navOverlay.classList.remove("show");
-          document.body.style.overflow = "";
-        });
-      });
-      
-      // Fechar o menu ao clicar no overlay
-      navOverlay.addEventListener("click", () => {
-        navMenu.classList.remove("show");
-        toggleBtn.classList.remove("active");
-        navOverlay.classList.remove("show");
-        document.body.style.overflow = "";
-      });
+    <div class="project-gallery">
+      <h3 style="text-align: center; margin-bottom: 20px; color: var(--light-gray);">Galeria do Projeto</h3>
+      <div class="gallery-container">
+        <div class="gallery-wrapper" id="galleryWrapper">
+          <div class="gallery-slide">
+            <img src="/imagens/vr_memorieslive.png" alt="Memories Live - Cena de infância" loading="lazy">
+          </div>
+          <div class="gallery-slide">
+            <img src="/imagens/vr_memorieslive_02.jpg" alt="Memories Live - Interface de upload" loading="lazy">
+          </div>
+          <div class="gallery-slide">
+            <img src="/imagens/vr_memorieslive_03.jpg" alt="Memories Live - Ambiente imersivo" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="gallery-nav" id="galleryNav">
+        <span class="gallery-dot active" onclick="currentSlide(0)"></span>
+        <span class="gallery-dot" onclick="currentSlide(1)"></span>
+        <span class="gallery-dot" onclick="currentSlide(2)"></span>
+      </div>
+    </div>
+
+    <h3 style="text-align: center; margin: 30px 0 15px; color: var(--light-gray);">Vídeo Demonstrativo</h3>
+    <div class="video-container">
+      <iframe src="https://player.vimeo.com/video/1124202316?badge=0&autopause=0&player_id=0&app_id=58479" width="1280" height="720" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="memorieslives"></iframe>
+    </div>
+
+    <div class="back-button-container">
+      <a href="index.html#vr" class="back-button">← Voltar para o início </a>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="footer-content">
+    <p>Disponível para projetos colaborativos e experiências sob demanda</p>
+    <p>Entre em contato: <a href="mailto:studio.axlara@gmail.com" class="contact-link">studio.axlara@gmail.com</a></p>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/laranegreiros" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/aivrse/"><i class="fab fa-instagram"></i></a>
+      <a href="https://github.com/axlara" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/+5584996249406" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Script do Google Translate -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'pt',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+  }, 'google_translate_element');
+}
+
+// Função para ativar tradução
+function triggerTranslate(langCode) {
+  // Garante que o script do Google Translate está carregado
+  if (typeof google === 'undefined' || typeof google.translate === 'undefined') {
+    const script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    document.head.appendChild(script);
+  }
+
+  // Aguarda e dispara a tradução
+  setTimeout(() => {
+    const select = document.querySelector('.goog-te-combo');
+    if (select) {
+      select.value = langCode;
+      select.dispatchEvent(new Event('change'));
     }
+  }, 500);
+}
+</script>
 
-    // Script do Google Translate
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'pt',
-        includedLanguages: 'en,es,pt',
-        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
-        autoDisplay: false
-      }, 'google_translate_element');
-    }
-    (function () {
-      var gt = document.createElement('script');
-      gt.type = 'text/javascript';
-      gt.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      document.body.appendChild(gt);
-    })();
+<script>
+// (Opcional) Carrossel - mantido do seu original
+let currentSlideIndex = 0;
+function currentSlide(n) {
+  currentSlideIndex = n;
+  document.getElementById('galleryWrapper').style.transform = `translateX(-${n * 100}%)`;
+  const dots = document.querySelectorAll('.gallery-dot');
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === n);
+  });
+}
+</script>
 
-    function translateTo(lang) {
-      const select = document.querySelector('.goog-te-combo');
-      if (select) {
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-      } else {
-        setTimeout(() => translateTo(lang), 500);
-      }
-    }
-
-    // ============ SCRIPT DO CARROSSEL DE IMAGENS ============
-    let slideIndex = 0;
-    const slides = document.querySelectorAll('.gallery-slide');
-    const dots = document.querySelectorAll('.gallery-dot');
-
-    function showSlides() {
-      if (!slides.length) return;
-
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-        dots[i].classList.remove('active');
-      }
-
-      slideIndex++;
-      if (slideIndex > slides.length) {slideIndex = 1}
-
-      slides[slideIndex-1].style.display = "block";
-      dots[slideIndex-1].classList.add('active');
-
-      setTimeout(showSlides, 5000); // Muda a imagem a cada 5 segundos
-    }
-
-    function currentSlide(n) {
-      slideIndex = n;
-      showSlides();
-    }
-
-    // Inicia o carrossel quando a página carrega
-    document.addEventListener('DOMContentLoaded', function() {
-      if (slides.length > 0) {
-        showSlides();
-      }
-    });
-
-    // Adiciona evento de clique aos dots
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        currentSlide(index);
-      });
-    });
-  </script>
 </body>
 </html>

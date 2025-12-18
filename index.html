@@ -617,7 +617,55 @@
   font-style: italic;
 }
 
+/* Estilo para o link dentro do parágrafo */
+.research-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+}
 
+.research-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.research-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Botão discreto e integrado à nota */
+.remember-inline-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 6px 16px;
+  background: rgba(108, 66, 245, 0.08);
+  color: var(--light-gray);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: 6px;
+  border: 1px solid rgba(108, 66, 245, 0.2);
+  transition: all 0.25s ease;
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.4px;
+}
+
+.remember-inline-btn:hover {
+  background: rgba(108, 66, 245, 0.18);
+  color: var(--primary);
+  border-color: rgba(108, 66, 245, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 255, 247, 0.1);
+}
     /* Seção VR Experiences - Transição suave do escuro para o background estrelado */
     .vr-section {
       padding: 100px 20px;
@@ -1362,35 +1410,33 @@
     <div class="container">
       <a href="#vr" class="vr-logo">VR E<span class="neon-x">X</span>PERIENCES</a>
       <h2 class="vr-subtitle">EXPERIÊNCIAS AUTORAIS EM REALIDADE VIRTUAL</h2>
-      
-     <div class="vr-description">
+   <div class="vr-description">
   <p>
     Meu trabalho explora a interseção entre <span class="highlight">realidade virtual</span>, 
     <span class="highlight">storytelling imersivo</span> e <span class="highlight">arquitetura</span>, 
     criando experiências autorais que conectam pessoas a histórias, lugares e espaços.
   </p>
-
   <p>
     Desenvolvo projetos em VR que vão desde visualização arquitetônica até narrativas sensoriais, 
     utilizando tecnologias imersivas para provocar emoção, reflexão e presença.
   </p>
-
   <p>
     Dentro dessa prática, investigo especialmente como experiências imersivas podem ativar memória, 
-    identidade e percepção espacial, eixo que dá origem ao projeto <strong>REMEMBER</strong>.
+    identidade e percepção espacial, eixo que dá origem ao projeto 
+    <a href="remember.html" class="highlight">REMEMBER</a>.
   </p>
 </div>
 
-<!-- Nota de pesquisa / REMEMBER -->
+
+<!-- Nota de pesquisa + botão integrado -->
 <div class="vr-research-note">
   <p>
     Parte das experiências apresentadas aqui surge de uma investigação contínua sobre memória, identidade 
     e percepção espacial em ambientes imersivos. Essa pesquisa orienta o desenvolvimento do projeto 
-    <strong>REMEMBER</strong>, do qual <em>Memories Live</em> é o primeiro experimento.
+    REMEMBER, do qual <em>Memories Live</em> é o primeiro experimento.
   </p>
+  <a href="remember.html" class="remember-inline-btn">→ Explore the REMEMBER project</a>
 </div>
-
-
 
       <!-- Seção Projetos Ativos -->
       <div class="projects-section">
@@ -1413,7 +1459,7 @@
                   <span class="tech-tag">WebVR</span>
                   <span class="tech-tag">Narrative Experience</span>
                 </div>
-                <!-- <span class="project-status status-released">Disponível</span> -->
+            
               </div>
             </article>
           </a>
@@ -1436,7 +1482,7 @@
                   <span class="tech-tag">Meta Quest</span>
                   <span class="tech-tag">Architectural Visualization</span>
                 </div>
-                <!-- <span class="project-status status-released">Execução Sob Demanda</span> -->
+             
               </div>
             </article>
           </a>
@@ -1460,7 +1506,7 @@
 <span class="tech-tag">Urban History</span>
 
                 </div>
-                <!-- <span class="project-status status-development">Em Planejamento</span> -->
+               
               </div>
             </article>
           </a> 
