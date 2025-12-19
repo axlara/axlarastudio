@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portfolio Freelancer - AX-LARA</title>
+  <title>Freelance Portfolio - AX-LARA</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
@@ -39,13 +39,14 @@
       margin: 0;
     }
     
- header h2 {
-  font-size: 1.3rem;
-  color: var(--dark); /* Texto principal em preto */
-  margin: 0;
-  letter-spacing: 1px;
-}
- /* Barra de Idiomas */
+    header h2 {
+      font-size: 1.3rem;
+      color: var(--dark);
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    /* Language Bar */
     .language-bar {
       position: fixed;
       top: 10px;
@@ -68,12 +69,14 @@
     .language-bar button:hover {
       opacity: 0.7;
     }
-header h2 span {
-  color: var(--primary); /* X em azul */
-  position: relative;
-  display: inline-block;
-  margin: 0 2px;
-}
+
+    header h2 span {
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      margin: 0 2px;
+    }
+
     header p {
       font-size: 1rem;
       color: #555;
@@ -98,7 +101,7 @@ header h2 span {
       margin-bottom: 15px;
     }
 
-    /* Botão do Portfólio */
+    /* Portfolio Button */
     .btn-portfolio {
       display: inline-block;
       background: linear-gradient(135deg, var(--portfolio-accent), var(--portfolio-accent-light));
@@ -126,7 +129,7 @@ header h2 span {
       margin-right: 8px;
     }
 
-    /* Botão de Download do CV */
+    /* CV Download Button */
     .btn-cv {
       display: inline-block;
       background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
@@ -218,7 +221,7 @@ header h2 span {
       color: var(--primary-dark);
     }
 
-    /* Botão flutuante do WhatsApp */
+    /* WhatsApp Floating Button */
     .float-whatsapp {
       position: fixed;
       bottom: 30px;
@@ -242,6 +245,7 @@ header h2 span {
       transform: scale(1.1);
       box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
     }
+
     .btn-voltar {
       background-color: #1a1a1a8c;
       border: 1px solid #00fff7;
@@ -272,6 +276,7 @@ header h2 span {
       background-color: #00fff7;
       color: #000;
     }
+
     /* Responsividade */
     @media (max-width: 767px) {
       header h1 {
@@ -314,128 +319,152 @@ header h2 span {
   </style>
 </head>
 <body>
-  <!-- Cabeçalho -->
-<header>
-  <h2>A<span style="color: var(--primary);">X</span>LARA</h2>
-  <h1>Architect of Xperience</h1>
-  <p>Perfil Técnico Profissional - Lara E. Negreiros</p>
-     <!-- Barra de Idiomas -->
-  <div class="language-bar">
-    <button onclick="translateTo('en')" aria-label="English">
-      <img src="https://flagcdn.com/gb.svg" alt="English" width="24" height="16">
-    </button>
-    <button onclick="translateTo('es')" aria-label="Español">
-      <img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
-    </button>
-  </div>
+  <!-- Header -->
+  <header>
+    <h2>A<span style="color: var(--primary);">X</span>LARA</h2>
+    <h1>Architect of Xperience</h1>
+    <p>Professional Technical Profile – Lara E. Negreiros</p>
+    
+    <!-- Language Bar: BR and ES only -->
+    <div class="language-bar">
+      <button onclick="translateTo('pt')" aria-label="Português (Brasil)">
+        <img src="https://flagcdn.com/br.svg" alt="Português (Brasil)" width="24" height="16">
+      </button>
+      <button onclick="translateTo('es')" aria-label="Español">
+        <img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
+      </button>
+    </div>
 
-  <!-- Google Translate Script -->
-  <div id="google_translate_element" style="display: none;"></div>
+    <!-- Google Translate Script -->
+    <div id="google_translate_element" style="display: none;"></div>
+  </header>
 
-</header>
-  <!-- Container Principal -->
+  <!-- Main Content -->
   <div class="container">
-    <!-- Introdução -->
     <div class="intro">
-  <p>
-  Esta página reúne minhas principais habilidades, experiências e formações nas áreas de arquitetura, modelagem 3D, Realidade Virtual (VR), Realidade Aumentada (AR) e tours virtuais 360°.
-</p>
-<p>
-  Aqui apresento meu portfólio, currículo com opção para download e projetos que representam minha atuação no desenvolvimento de experiências imersivas e ambientes interativos. Trabalho com integração de inteligência artificial e ferramentas digitais que otimizam processos criativos e técnicos, sempre explorando novas formas de conectar design e tecnologia.
-</p>
+      <p>
+        This page gathers my core skills, experiences, and education in architecture, 3D modeling, Virtual Reality (VR), Augmented Reality (AR), and 360° virtual tours.
+      </p>
+      <p>
+        Here you’ll find my portfolio, downloadable résumé, and key projects that showcase my work in developing immersive experiences and interactive environments. I integrate artificial intelligence and digital tools to enhance creative and technical workflows, always exploring new ways to connect design and technology.
+      </p>
 
-
-      
       <div class="button-group">
         <a href="portproj.html" class="btn-portfolio">
-          <i class="fas fa-images"></i> Ver todos os Projetos
+          <i class="fas fa-images"></i> View All Projects
         </a>
         <a href="Lara_Negreiros_CV_EN.pdf" download="Lara_Negreiros_CV_EN.pdf" class="btn-cv">
           <i class="fas fa-download"></i> Download CV (English)
         </a>
       </div>
     </div>
-  
-    <!-- Modelagem 3D -->
+
+    <!-- 3D Modeling -->
     <div class="section">
-      <h2>Modelagem 3D</h2>
+      <h2>3D Modeling</h2>
       <ul>
         <li>SketchUp</li>
         <li>Revit</li>
         <li>AutoCAD</li>
-        <li>Lumion (render)</li>
-        <li>Twinmotion (render)</li>
-        <li>Otimização de texturas e modelagem para exportação</li>
+        <li>Lumion (rendering)</li>
+        <li>Twinmotion (rendering)</li>
+        <li>Texture and model optimization for export</li>
       </ul>
     </div>
 
-    <!-- Tecnologias Imersivas -->
+    <!-- Immersive Technologies -->
     <div class="section">
-      <h2>Tecnologias Imersivas</h2>
+      <h2>Immersive Technologies</h2>
       <ul>
         <li>Unreal Engine (VR)</li>
         <li>Unity (AR)</li>
         <li>A-Frame (WebVR/WebXR)</li>
-        <li>AR.js (AR web)</li>
-        <li>Pannellum (Tour 360°)</li>
-        <li>Tours Virtuais 360° (com integração em plataformas como Kuula, Panoee, entre outros)</li>
+        <li>AR.js (Web-based AR)</li>
+        <li>Pannellum (360° Tours)</li>
+        <li>360° Virtual Tours (integrated with platforms like Kuula, Panoee, etc.)</li>
       </ul>
     </div>
 
     <!-- Front-end -->
     <div class="section">
-      <h2>Front-end e Integrações</h2>
+      <h2>Front-end & Integrations</h2>
       <ul>
         <li>HTML, CSS</li>
         <li>JavaScript</li>
-        <li>Integrações Web com AR.js e Pannellum</li>
+        <li>Web integrations with AR.js and Pannellum</li>
       </ul>
     </div>
 
-    <!-- Colaboração -->
+    <!-- Collaboration Tools -->
     <div class="section">
-      <h2>Ferramentas de Colaboração</h2>
+      <h2>Collaboration Tools</h2>
       <ul>
-        <li>Figma (prototipagem e design colaborativo)</li>
-        <li>Git (controle de versões)</li>
-        <li>VS Code (desenvolvimento)</li>
+        <li>Figma (prototyping & collaborative design)</li>
+        <li>Git (version control)</li>
+        <li>VS Code (development)</li>
       </ul>
     </div>
 
-    <!-- Formação Acadêmica -->
+    <!-- Education -->
     <div class="section">
-      <h2>Formação Acadêmica</h2>
+      <h2>Education</h2>
       <ul>
-        <li>Especialização em Projeto de Arquitetura: da concepção ao edifício – PUC PR (2018)</li>
-        <li>Bacharelado em Arquitetura e Urbanismo – UNP (2015)</li>
-        <li>English Language Exchange Program - Atlas Language School, Liverpool - UK (2025)</li>
+        <li>Specialization in Architectural Design: From Concept to Building – PUC PR (2018)</li>
+        <li>Bachelor’s in Architecture and Urbanism – UNP (2015)</li>
+        <li>English Language Exchange Program - Atlas Language School, Liverpool – UK (2025)</li>
       </ul>
-      <h2>Cursos Complementares</h2>
+      <h2>Additional Courses</h2>
       <ul>
-        <li>UE5 - Do zero ao 360° - VR Academy</li>
-        <li>Desenvolvedor Full-stack – SENAC</li>
-        <li>CAP Light Design - Iluminação Comercial e Corporativa - IPOG</li>
-        <li>Neuroarquitetura - Princípios de Neurociência Aplicada - Neuroarq Academy</li>
-        <li>Produto & Projeto de Mobiliário - Dalmobile fabric.</li>
+        <li>UE5 – From Zero to 360° – VR Academy</li>
+        <li>Full-Stack Developer – SENAC</li>
+        <li>CAP Light Design – Commercial & Corporate Lighting – IPOG</li>
+        <li>Neuroarchitecture – Neuroscience Principles Applied – Neuroarq Academy</li>
+        <li>Product & Furniture Design – Dalmobile fabric.</li>
       </ul>
     </div>
   </div>
 
   <!-- Footer -->
   <footer>
-    
     <div class="social-icons">
       <a href="https://github.com/larangrs" target="_blank"><i class="fab fa-github"></i></a>
       <a href="https://www.linkedin.com/in/laranegreiros/" target="_blank"><i class="fab fa-linkedin"></i></a>
       <a href="https://wa.me/+5584996249406" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
     <a href="index.html" class="btn-voltar"></a>
-    <p>&copy; 2025 AX-LARA Studio | Todos os direitos reservados</p>
+    <p>&copy; 2025 AX-LARA Studio | All rights reserved</p>
   </footer>
 
-  <!-- Botão flutuante do WhatsApp -->
-  <a href="https://wa.me/+5584996249406" class="float-whatsapp" title="Fale pelo WhatsApp">
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/+5584996249406" class="float-whatsapp" title="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
+
+  <!-- Google Translate -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'pt,es,en',
+        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+    (function () {
+      var gt = document.createElement('script');
+      gt.type = 'text/javascript';
+      gt.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      document.body.appendChild(gt);
+    })();
+    function translateTo(lang) {
+      const select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+      } else {
+        setTimeout(() => translateTo(lang), 500);
+      }
+    }
+  </script>
 </body>
 </html>

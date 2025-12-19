@@ -24,12 +24,16 @@
       --overlay: rgba(24, 24, 24, 0.699);
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
       background: url('/imagens/background.jpg') center center fixed;
       background-size: cover;
-      min-height: 100vh;
+      min-height: 100dvh; /* dvh > vh em mobile moderno */
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       color: var(--text-light);
       line-height: 1.6;
@@ -59,10 +63,14 @@
     }
 
     .remember-section {
-      padding: 100px 0 80px;
+      padding: 100px 20px 80px;
       max-width: 1000px;
       margin: 0 auto;
-      padding: 0 20px;
+      width: 100%;
+    }
+
+    .container {
+      width: 100%;
     }
 
     .section-title {
@@ -102,8 +110,6 @@
           0 0 45px rgba(17, 112, 141, 0.2);
       }
     }
-
-   
 
     @keyframes lineShine {
       0%, 100% {
@@ -193,8 +199,7 @@
     }
 
     .remember-list li {
-      padding: 16px 0;
-      padding-left: 35px;
+      padding: 16px 0 16px 35px;
       position: relative;
       color: var(--text-medium);
       font-size: 1.1rem;
@@ -296,6 +301,8 @@
       box-shadow: 0 4px 20px rgba(17, 112, 141, 0.4);
       position: relative;
       z-index: 1;
+      max-width: 100%;
+      justify-content: center;
     }
 
     .remember-link:hover {
@@ -334,6 +341,8 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
       position: relative;
       z-index: 1;
+      max-width: 100%;
+      width: fit-content;
     }
 
     .btn-voltar:hover {
@@ -360,6 +369,7 @@
       color: var(--text-medium);
       font-size: 0.95rem;
       margin-top: 20px;
+      width: 100%;
     }
 
     .social-icons {
@@ -381,7 +391,7 @@
 
     /* RESPONSIVO */
     @media (max-width: 768px) {
-      .remember-section { padding: 60px 0 40px; }
+      .remember-section { padding: 60px 20px 40px; }
       .section-title { font-size: 2.8rem; }
       .section-subtitle { font-size: 1.2rem; margin-bottom: 50px; }
       .remember-intro, .remember-block { 
@@ -398,16 +408,26 @@
       .remember-section { padding: 40px 15px; }
       .section-title { font-size: 2.2rem; letter-spacing: 1px; }
       .remember-intro, .remember-block { 
-        padding: 25px 20px;
+        padding: 22px 18px;
         backdrop-filter: blur(8px);
       }
-      .remember-intro p, .remember-block p { font-size: 1rem; }
+      .remember-intro p, .remember-block p { font-size: 1rem; line-height: 1.7; }
       .remember-quote { font-size: 1.1rem; padding: 20px; }
       .remember-quote::before { font-size: 3rem; top: 5px; }
       .remember-highlight::before { animation: shimmer 4s infinite; }
-      .social-icons a { margin: 0 8px; font-size: 1.2rem; }
+      .social-icons a { margin: 0 6px; font-size: 1.2rem; }
+      .btn-voltar, .remember-link {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+      }
     }
-
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-size: 170% auto;      /* <── controle do "zoom" aqui */
+    background-position: center top; /* ajuste fino do posicionamento */
+  }
+}
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -434,17 +454,17 @@
       <h2 class="section-title">REMEMBER</h2>
       <p class="section-subtitle">Immersive Research on Memory, Identity & Presence</p>
 
-      <div class="remember-intro">
-        <p>
-          REMEMBER is the first project of a broader research dedicated to investigating human behavior and how technology, especially virtual reality, can help people reconnect with themselves.
-        </p>
-        <p>
-          It is an immersive research exploring how virtual environments can support self-knowledge, emotional clarity, and a sense of belonging, creating spaces where memory, presence, and perception work together in a sensitive and intentional way.
-        </p>
-        <p>
-          The project is rooted in the understanding that remembering who we truly are directly impacts how we live — bringing more lightness, direction, and inner coherence.
-        </p>
-      </div>
+<div class="remember-intro">
+  <p>
+    REMEMBER is the first project of a broader research dedicated to investigating human behavior and the ways technology — especially virtual reality — can engage with deeper layers of human experience.
+  </p>
+  <p>
+    It is an immersive research exploring how virtual environments can support processes related to perception, memory, and emotional awareness, creating spaces where presence and experience are approached in a sensitive and intentional way.
+  </p>
+  <p>
+    The project is grounded in the understanding that our internal narratives shape how we exist in the world — influencing meaning, direction, and the way we relate to ourselves and to life.
+  </p>
+</div>
 
       <div class="remember-block">
         <h3 class="remember-title">The origin of REMEMBER</h3>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AX-LARA - IMMERSIVE DESIGN</title>
-  <!-- Fontes e Ícones -->
+  <!-- Fonts and Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@
       line-height: 1.6;
     }
 
-    /* Barra de Idiomas */
+    /* Language Bar */
     .language-bar {
       position: fixed;
       top: 10px;
@@ -59,7 +59,7 @@
       opacity: 0.7;
     }
 
-    /* Navegação */
+    /* Navigation */
     .main-nav {
       position: fixed;
       top: 0;
@@ -120,7 +120,7 @@
       }
     }
 
-    /* Botão hamburguer */
+    /* Hamburger Button */
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -141,7 +141,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Menu padrão (desktop) */
     .nav-menu {
       display: flex;
       list-style: none;
@@ -172,11 +171,11 @@
     .nav-menu a.active::after {
       width: 100%;
     }
-   @media (max-width: 768px) {
+
+    @media (max-width: 768px) {
       .menu-toggle {
         display: flex;
       }
-      
       .nav-menu {
         position: fixed;
         top: 0;
@@ -193,25 +192,18 @@
         padding: 50px 0;
         border-left: 1px solid rgba(123, 97, 255, 0.15);
       }
-      
       .nav-menu.show {
         right: 0;
       }
-      
-      /* Animação do botão hamburguer para X */
       .menu-toggle.active span:nth-child(1) {
         transform: translateY(8.5px) rotate(45deg);
       }
-      
       .menu-toggle.active span:nth-child(2) {
         opacity: 0;
       }
-      
       .menu-toggle.active span:nth-child(3) {
         transform: translateY(-8.5px) rotate(-45deg);
       }
-      
-      /* Overlay quando o menu está aberto */
       .nav-overlay {
         position: fixed;
         top: 0;
@@ -225,13 +217,12 @@
         visibility: hidden;
         transition: all 0.4s ease;
       }
-      
       .nav-overlay.show {
         opacity: 1;
         visibility: visible;
       }
     }
-    /* Estilo para o link que envolve o card */
+
     .project-card-link {
       text-decoration: none;
       color: inherit;
@@ -241,9 +232,8 @@
       text-decoration: none;
     }
 
-    /* Conteúdo Principal da Página de Detalhes */
     main {
-      margin-top: 80px; /* Espaço para a nav fixa */
+      margin-top: 80px;
     }
 
     .project-detail {
@@ -315,107 +305,106 @@
     .manifesto-text p {
       margin-bottom: 1.2rem;
     }
-    .pt { display: block; }
-    .en { display: none; }
+    .pt { display: none; }
+    .en { display: block; }
 
-    /* ============ GALERIA DE IMAGENS ============ */
-         .project-gallery {
-            max-width: 900px;
-            margin: 0 auto;
-            border-radius: 10px;
-            padding: 20px;
-           
-        }
-        
-        .project-gallery h3 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--light-gray);
-            font-weight: 300;
-            font-size: 1.8rem;
-        }
-        
-        .gallery-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            background-color: #000;
-            aspect-ratio: 16/9;
-        }
-        
-        .gallery-wrapper {
-            display: flex;
-            transition: transform 0.5s ease;
-            height: 100%;
-        }
-        
-        .gallery-slide {
-            min-width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .gallery-slide video,
-        .gallery-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        
-        .gallery-nav {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px;
-            gap: 10px;
-        }
-        
-        .gallery-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .gallery-dot.active {
-            background-color: var(--accent-color);
-        }
-        
-        .gallery-controls {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px;
-            gap: 15px;
-        }
-        
-        .gallery-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .gallery-btn:hover {
-            background-color: #3a5a8a;
-        }
-        
-        @media (max-width: 768px) {
-            .project-gallery {
-                padding: 15px;
-            }
-            
-            .project-gallery h3 {
-                font-size: 1.5rem;
-            }
-        }
-    /* ============ VÍDEO DO PROJETO ============ */
+    /* Project Gallery */
+    .project-gallery {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .project-gallery h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--light-gray);
+      font-weight: 300;
+      font-size: 1.8rem;
+    }
+    .gallery-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background-color: #000;
+      aspect-ratio: 16/9;
+    }
+    .gallery-wrapper {
+      display: flex;
+      transition: transform 0.5s ease;
+      height: 100%;
+    }
+    .gallery-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .gallery-slide video,
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .gallery-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      gap: 10px;
+    }
+    .gallery-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .gallery-dot.active {
+      background-color: var(--primary);
+    }
+    @media (max-width: 768px) {
+      .project-gallery {
+        padding: 15px;
+      }
+      .project-gallery h3 {
+        font-size: 1.5rem;
+      }
+      .project-detail {
+        padding: 25px;
+        margin: 40px 15px;
+      }
+      .section-title {
+        font-size: 1.5rem;
+      }
+      .manifesto-text {
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+      .language-toggle button {
+        font-size: 0.9rem;
+        margin: 0 0.5rem;
+        padding: 0.3rem 0;
+      }
+      .gallery-slide {
+        height: 250px;
+      }
+      .back-button {
+        padding: 10px 25px;
+        font-size: 0.95rem;
+        width: 90%;
+        max-width: 350px;
+      }
+    }
+    @media (max-width: 480px) {
+      .gallery-slide {
+        height: 200px;
+      }
+    }
+
+    /* Video */
     .video-container {
       width: 100%;
       margin: 40px auto;
@@ -424,10 +413,9 @@
       overflow: hidden;
       background: #000;
       position: relative;
-      padding-top: 56.25%; /* Proporção 16:9 */
+      padding-top: 56.25%;
       border: 1px solid rgba(123, 97, 255, 0.2);
     }
-    .video-container video,
     .video-container iframe {
       position: absolute;
       top: 0;
@@ -437,7 +425,7 @@
       border: none;
     }
 
-    /* Botão de Voltar */
+    /* Back Button */
     .back-button-container {
       text-align: center;
       margin-top: 40px;
@@ -458,19 +446,6 @@
     .back-button:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(106, 66, 245, 0.6);
-    }
-    .back-button::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: 0.5s;
-    }
-    .back-button:hover::before {
-      left: 100%;
     }
 
     /* Footer */
@@ -535,94 +510,61 @@
     .social-links a:hover {
       color: var(--primary);
     }
-
-    /* ============ RESPONSIVIDADE ============ */
-    @media (max-width: 768px) {
-      main {
-        margin-top: 70px;
-      }
-      .project-detail {
-        padding: 25px;
-        margin: 40px 15px;
-      }
-      .section-title {
-        font-size: 1.5rem;
-      }
-      .manifesto-text {
-        font-size: 0.95rem;
-        line-height: 1.7;
-      }
-      .language-toggle button {
-        font-size: 0.9rem;
-        margin: 0 0.5rem;
-        padding: 0.3rem 0;
-      }
-      .gallery-slide {
-        height: 250px; /* Altura reduzida para mobile */
-      }
-      .video-container {
-        margin: 30px auto;
-      }
-      .back-button {
-        padding: 10px 25px;
-        font-size: 0.95rem;
-        width: 90%;
-        max-width: 350px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .gallery-slide {
-        height: 200px;
-      }
-    }
   </style>
 </head>
 <body>
-  <!-- Barra de Idiomas -->
+  <!-- Language Bar: BR + ES -->
   <div class="language-bar">
-    <button onclick="translateTo('en')" aria-label="English">
-      <img src="https://flagcdn.com/gb.svg" alt="English" width="24" height="16">
+    <button onclick="translateTo('pt')" aria-label="Português (Brasil)">
+      <img src="https://flagcdn.com/br.svg" alt="Português (Brasil)" width="24" height="16">
     </button>
     <button onclick="translateTo('es')" aria-label="Español">
       <img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
     </button>
   </div>
 
-  <!-- Google Translate Script (oculto) -->
+  <!-- Google Translate Script (hidden) -->
   <div id="google_translate_element" style="display: none;"></div>
 
-  <!-- Navegação -->
+  <!-- Navigation -->
   <nav class="main-nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></a>
-      <button class="menu-toggle" aria-label="Abrir menu">
+      <button class="menu-toggle" aria-label="Open menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
       <ul class="nav-menu">
         <li><a href="index.html#home">Home</a></li>
-        <li><a href="index.html#about">Sobre</a></li>
-        <li><a href="index.html#curriculum">Currículo</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#curriculum">Portfolio</a></li>
         <li><a href="index.html#vr" class="active">VR Experiences</a></li>
-        <li><a href="index.html#contact">Contato</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Conteúdo Principal -->
+  <!-- Main Content -->
   <main>
     <section class="project-detail">
       <h2 class="section-title">IMMERSIVE DESIGN</h2>
 
-      <!-- Alternador de Idioma -->
+      <!-- Language Toggle -->
       <div class="language-toggle">
-        <button class="active" onclick="toggleLanguage('pt')">Português</button>
-        <button onclick="toggleLanguage('en')">English</button>
+        <button onclick="toggleLanguage('pt')">Português</button>
+        <button class="active" onclick="toggleLanguage('en')">English</button>
       </div>
 
-      <!-- Texto em Português -->
+      <!-- English Content (default) -->
+      <div class="manifesto-text en">
+        <p><strong>Immersive Design</strong> is a revolutionary tool for architects, interior designers, and clients who wish to experience an architectural and interior project before it’s built. This project transforms 3D models created in SketchUp into navigable, fully immersive virtual reality environments.</p>
+        <p>The experience allows users to “step into” the designed space, walk through rooms, feel real proportions, evaluate natural light conditions, and interact with materials and finishes at a 1:1 scale. It’s a powerful way to validate design decisions, anticipate adjustments, and build an emotional connection with the future space.</p>
+        <p>Built to run on headsets like the Meta Quest, Immersive Design provides realistic and intuitive visualization—eliminating the abstraction of technical drawings and offering deep, instinctive spatial understanding.</p>
+        <p>This project embodies the convergence of architectural precision and the transformative potential of VR technology, introducing a new phase in the design process: <em>experiencing before executing</em>.</p>
+      </div>
+
+      <!-- Portuguese Content (hidden by default) -->
       <div class="manifesto-text pt">
         <p><strong>Immersive Design</strong> é uma ferramenta revolucionária para arquitetos, designers de interiores e clientes que desejam experimentar um projeto de arquitetura e interiores antes mesmo de sua construção. Este projeto transforma modelos 3D criados no SketchUp em ambientes de realidade virtual navegáveis e totalmente imersivos.</p>
         <p>A experiência permite que o usuário “entre” no espaço projetado, caminhe pelos cômodos, sinta as proporções reais, avalie a incidência de luz natural e interaja com os materiais e acabamentos em escala 1:1. É uma forma poderosa de validar decisões de design, antecipar ajustes e criar uma conexão emocional com o futuro lar.</p>
@@ -630,72 +572,55 @@
         <p>Este projeto representa a convergência entre a precisão da arquitetura e o potencial transformador da tecnologia VR, criando uma nova etapa no processo de design: a experiência antes da execução.</p>
       </div>
 
-      <!-- Texto em Inglês -->
-      <div class="manifesto-text en">
-        <p><strong>Immersive Design</strong> is a revolutionary tool for architects, interior designers, and clients who wish to experience a residential project before its construction. This project transforms 3D models created in SketchUp into navigable, fully immersive virtual reality environments.</p>
-        <p>The experience allows users to “step into” the designed space, walk through rooms, feel real proportions, evaluate natural light, and interact with materials and finishes at a 1:1 scale. It’s a powerful way to validate design decisions, anticipate adjustments, and create an emotional connection with the future home.</p>
-        <p>Built to run on headsets like the Meta Quest, Immersive Design offers realistic and intuitive visualization, eliminating the abstraction of technical drawings and providing deep, intuitive spatial understanding.</p>
-        <p>This project represents the convergence of architectural precision and the transformative potential of VR technology, creating a new stage in the design process: experiencing before executing.</p>
-      </div>
-
-      <!-- ============ GALERIA DE IMAGENS ============ -->
- <div class="project-gallery">
-        <h3>Galeria do Projeto</h3>
+      <!-- Project Gallery -->
+      <div class="project-gallery">
+        <h3>Project Gallery</h3>
         <div class="gallery-container">
-            <div class="gallery-wrapper" id="galleryWrapper">
-                
-                <!-- Slide 1 -->
-                <div class="gallery-slide">
-                    <img src="/imagens/IDimg.png" alt="Immersive Design - Rooftop design project" loading="lazy">
-                </div>
-                  <div class="gallery-slide">
-                  <iframe src="https://player.vimeo.com/video/1124202192?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="832" height="464" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="IDproject1"></iframe>
-                </div>
-                <!-- Slide 3 -->
-                <!-- <div class="gallery-slide">
-                    <img src="/imagens/IDimg.png" alt="Immersive Design - Rooftop design project" loading="lazy">
-                </div> -->
+          <div class="gallery-wrapper" id="galleryWrapper">
+            <div class="gallery-slide">
+              <img src="/imagens/IDimg.png" alt="Immersive Design - Rooftop design project" loading="lazy">
             </div>
+            <div class="gallery-slide">
+              <iframe 
+                src="https://player.vimeo.com/video/1124202192?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                width="832" height="464" frameborder="0" 
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                title="IDproject1">
+              </iframe>
+            </div>
+          </div>
         </div>
         <div class="gallery-nav" id="galleryNav">
-            <span class="gallery-dot active" onclick="currentSlide(0)"></span>
-            <span class="gallery-dot" onclick="currentSlide(1)"></span>
-            <span class="gallery-dot" onclick="currentSlide(2)"></span>
+          <span class="gallery-dot active" onclick="currentSlide(0)"></span>
+          <span class="gallery-dot" onclick="currentSlide(1)"></span>
         </div>
-        <!-- <div class="gallery-controls">
-            <button class="gallery-btn" onclick="previousSlide()">Anterior</button>
-            <button class="gallery-btn" onclick="toggleVideo()" id="videoToggle">Pausar Vídeo</button>
-            <button class="gallery-btn" onclick="nextSlide()">Próximo</button>
-        </div> -->
-    </div>
+      </div>
 
-      <!-- ============ VÍDEO DO PROJETO ============ -->
-      <h3 style="text-align: center; margin: 30px 0 15px; color: var(--light-gray);">Vídeo Demonstrativo</h3>
+      <!-- Video Section -->
+      <h3 style="text-align: center; margin: 30px 0 15px; color: var(--light-gray);">Demo Video</h3>
       <div class="video-container">
-     
- <iframe src="https://player.vimeo.com/video/1124202207?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="ImmersiveDesignProject1"></iframe>
-      
-        <!-- Para vídeo do YouTube (RECOMENDADO) -->
-        <iframe
-          src="https://player.vimeo.com/video/1124202207?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="ImmersiveDesignProject1"
-          title="Vídeo Immersive Design"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
+        <iframe 
+          src="https://player.vimeo.com/video/1124202207?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+          width="1280" height="720" frameborder="0" 
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          title="ImmersiveDesignProject1">
         </iframe>
       </div>
 
-      <!-- Botão de Voltar -->
+      <!-- Back Button -->
       <div class="back-button-container">
-        <a href="index.html#vr" class="back-button">← Voltar para o início</a>
+        <a href="index.html#vr" class="back-button">← Back to Projects</a>
       </div>
     </section>
   </main>
 
-  <!-- Rodapé -->
+  <!-- Footer -->
   <footer id="contact">
     <div class="footer-content">
-      <p>Disponível para projetos colaborativos e experiências sob demanda</p>
-      <p>Entre em contato: <a href="mailto:studio.axlara@gmail.com" class="contact-link">studio.axlara@gmail.com</a></p>
+      <p>Available for collaborative projects and custom immersive experiences</p>
+      <p>Contact: <a href="mailto:studio.axlara@gmail.com" class="contact-link">studio.axlara@gmail.com</a></p>
       <div class="social-links">
         <a href="https://www.linkedin.com/in/laranegreiros" target="_blank"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.instagram.com/aivrse/"><i class="fab fa-instagram"></i></a>
@@ -707,20 +632,18 @@
 
   <!-- Scripts -->
   <script type="text/javascript">
-    // Script do Menu Hamburguer
+    // Hamburger Menu
     const toggleBtn = document.querySelector(".menu-toggle");
     const navMenu = document.querySelector(".nav-menu");
-    if (toggleBtn && navMenu) {
-      toggleBtn.addEventListener("click", () => {
-        navMenu.classList.toggle("show");
-      });
+    if (toggle && navMenu) {
+      toggleBtn.addEventListener("click", () => navMenu.classList.toggle("show"));
     }
 
-    // Script do Google Translate
+    // Google Translate
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
-        pageLanguage: 'pt',
-        includedLanguages: 'en,es,pt',
+        pageLanguage: 'en',
+        includedLanguages: 'pt,es,en',
         layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
         autoDisplay: false
       }, 'google_translate_element');
@@ -731,7 +654,6 @@
       gt.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
       document.body.appendChild(gt);
     })();
-
     function translateTo(lang) {
       const select = document.querySelector('.goog-te-combo');
       if (select) {
@@ -742,14 +664,14 @@
       }
     }
 
-    // Script para alternar idioma do conteúdo
+    // Language Toggle
     function toggleLanguage(lang) {
       if (lang === 'pt') {
         document.querySelector('.pt').style.display = 'block';
         document.querySelector('.en').style.display = 'none';
         document.querySelectorAll('.language-toggle button')[0].classList.add('active');
         document.querySelectorAll('.language-toggle button')[1].classList.remove('active');
-      } else if (lang === 'en') {
+      } else {
         document.querySelector('.pt').style.display = 'none';
         document.querySelector('.en').style.display = 'block';
         document.querySelectorAll('.language-toggle button')[0].classList.remove('active');
@@ -757,125 +679,32 @@
       }
     }
 
-    // ============ SCRIPT DO CARROSSEL DE IMAGENS ============
-     // Configurações da galeria
-        let currentSlideIndex = 0;
-        const totalSlides = document.querySelectorAll('.gallery-slide').length;
-        const galleryWrapper = document.getElementById('galleryWrapper');
-        const videoElement = document.getElementById('mainVideo');
-        const videoToggle = document.getElementById('videoToggle');
-        let isVideoPlaying = true;
-        
-        // Inicializar o vídeo para reprodução automática
-        window.addEventListener('DOMContentLoaded', function() {
-            // Tenta reproduzir o vídeo automaticamente
-            videoElement.play().catch(error => {
-                console.log("Reprodução automática bloqueada: ", error);
-                // Se a reprodução automática falhar, mostra controles
-                videoElement.controls = true;
-                isVideoPlaying = false;
-                videoToggle.textContent = 'Reproduzir Vídeo';
-            });
-        });
-        
-        // Função para navegar para um slide específico
-        function currentSlide(index) {
-            currentSlideIndex = index;
-            updateGallery();
-            
-            // Se estamos no slide do vídeo, reiniciar a reprodução
-            if (index === 0) {
-                if (videoElement.paused && isVideoPlaying) {
-                    videoElement.play().catch(error => {
-                        console.log("Erro ao reproduzir vídeo: ", error);
-                    });
-                }
-            } else {
-                // Se não estamos no slide do vídeo, pausar
-                if (!videoElement.paused) {
-                    videoElement.pause();
-                }
-            }
-        }
-        
-        // Função para navegar para o próximo slide
-        function nextSlide() {
-            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
-            updateGallery();
-            
-            // Se estamos indo para o slide do vídeo, iniciar reprodução
-            if (currentSlideIndex === 0 && isVideoPlaying) {
-                videoElement.play().catch(error => {
-                    console.log("Erro ao reproduzir vídeo: ", error);
-                });
-            } else if (currentSlideIndex !== 0) {
-                // Se estamos saindo do slide do vídeo, pausar
-                if (!videoElement.paused) {
-                    videoElement.pause();
-                }
-            }
-        }
-        
-        // Função para navegar para o slide anterior
-        function previousSlide() {
-            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
-            updateGallery();
-            
-            // Se estamos indo para o slide do vídeo, iniciar reprodução
-            if (currentSlideIndex === 0 && isVideoPlaying) {
-                videoElement.play().catch(error => {
-                    console.log("Erro ao reproduzir vídeo: ", error);
-                });
-            } else if (currentSlideIndex !== 0) {
-                // Se estamos saindo do slide do vídeo, pausar
-                if (!videoElement.paused) {
-                    videoElement.pause();
-                }
-            }
-        }
-        
-        // Função para atualizar a galeria
-        function updateGallery() {
-            // Atualiza a posição do wrapper
-            galleryWrapper.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
-            
-            // Atualiza os dots de navegação
-            const dots = document.querySelectorAll('.gallery-dot');
-            dots.forEach((dot, index) => {
-                if (index === currentSlideIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-        }
-        
-        // Função para pausar/reproduzir o vídeo
-        function toggleVideo() {
-            if (videoElement.paused) {
-                videoElement.play();
-                isVideoPlaying = true;
-                videoToggle.textContent = 'Pausar Vídeo';
-            } else {
-                videoElement.pause();
-                isVideoPlaying = false;
-                videoToggle.textContent = 'Reproduzir Vídeo';
-            }
-        }
-        
-        // Navegação por teclado
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowLeft') {
-                previousSlide();
-            } else if (event.key === 'ArrowRight') {
-                nextSlide();
-            } else if (event.key === ' ') {
-                // Espaço para pausar/reproduzir quando no slide do vídeo
-                if (currentSlideIndex === 0) {
-                    toggleVideo();
-                }
-            }
-        });
+    // Simple Gallery (2 slides)
+    let currentSlideIndex = 0;
+    const totalSlides = 2;
+    const galleryWrapper = document.getElementById('galleryWrapper');
+    const dots = document.querySelectorAll('.gallery-dot');
+
+    function currentSlide(index) {
+      currentSlideIndex = index;
+      galleryWrapper.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    }
+
+    function nextSlide() {
+      currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+      currentSlide(currentSlideIndex);
+    }
+
+    function previousSlide() {
+      currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+      currentSlide(currentSlideIndex);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') previousSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    });
   </script>
 </body>
 </html>

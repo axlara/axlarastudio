@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -547,8 +547,8 @@
 
 <!-- Barra de Idiomas -->
 <div class="language-bar">
-  <button onclick="triggerTranslate('en');" aria-label="English">
-    <img src="https://flagcdn.com/gb.svg" alt="English" width="24" height="16">
+  <button onclick="triggerTranslate('pt');" aria-label="Português">
+    <img src="https://flagcdn.com/br.svg" alt="Português" width="24" height="16">
   </button>
   <button onclick="triggerTranslate('es');" aria-label="Español">
     <img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
@@ -562,17 +562,17 @@
 <nav class="main-nav">
   <div class="nav-container">
     <a href="index.html" class="nav-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></a>
-    <button class="menu-toggle" aria-label="Abrir menu" id="menuToggle">
+    <button class="menu-toggle" aria-label="Open menu" id="menuToggle">
       <span></span>
       <span></span>
       <span></span>
     </button>
     <ul class="nav-menu" id="navMenu">
       <li><a href="index.html#home">Home</a></li>
-      <li><a href="index.html#about">Sobre</a></li>
-      <li><a href="index.html#curriculum">Currículo</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#curriculum">Portfolio</a></li>
       <li><a href="index.html#vr" class="active">VR Experiences</a></li>
-      <li><a href="index.html#contact">Contato</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
     </ul>
   </div>
 </nav>
@@ -582,47 +582,47 @@
     <h2 class="section-title">MEMORIES LIVE VR</h2>
 
     <div class="manifesto-text">
-      <p><strong>Memories Live</strong> nasceu como um presente especial de aniversário de 60 anos para minha mãe. A ideia era criar uma experiência onde ela pudesse "voltar no tempo" e reviver momentos marcantes de sua vida através de suas próprias memórias.</p>
+      <p><strong>Memories Live</strong> was born as a special 60th birthday gift for my mother. The idea was to create an experience where she could "go back in time" and relive meaningful moments of her life through her own memories.</p>
       
-      <p>O processo começou com a seleção cuidadosa de fotos de toda a cronologia da vida dela - desde a infância até os dias atuais. Reuni essas imagens com o objetivo de criar uma jornada de autoconhecimento, onde cada foto pudesse despertar lembranças e emoções genuínas.</p>
+      <p>The process began with careful selection of photos from her entire life chronology - from childhood to present day. I gathered these images with the goal of creating a self-knowledge journey, where each photo could awaken genuine memories and emotions.</p>
       
-      <p>Para desenvolver essa experiência imersiva, escolhi o A-Frame JS como tecnologia principal. Ele se mostrou uma solução muito mais leve e simplificada comparada a engines pesadas como Unity ou Unreal Engine. Com o A-Frame, encontrei uma forma rápida e acessível de criar ambientes VR que funcionam diretamente no navegador, sem necessidade de instalações complexas.</p>
+      <p>To develop this immersive experience, I chose A-Frame JS as the main technology. It proved to be a much lighter and simplified solution compared to heavy engines like Unity or Unreal Engine. With A-Frame, I found a quick and accessible way to create VR environments that work directly in the browser, without complex installations.</p>
       
-      <p>O resultado foi incrível: minha mãe pôs o headset e literalmente mergulhou em sua própria história, revivendo momentos especiais e se reconectando com sua trajetória de uma forma profundamente emocional.</p>
+      <p>The result was incredible: my mother put on the headset and literally immersed herself in her own history, reliving special moments and reconnecting with her journey in a deeply emotional way.</p>
       
-      <p>Essa abordagem pode ser aplicada para qualquer pessoa que queira presentear alguém especial, contar sua história ou simplesmente proporcionar uma experiência de reconexão consigo mesma e com seu passado. As possibilidades são infinitas com essa tecnologia acessível e poderosa.</p>
+      <p>This approach can be applied to anyone who wants to gift someone special, tell their story, or simply provide an experience of reconnection with themselves and their past. The possibilities are endless with this accessible and powerful technology.</p>
     </div>
 
     <div class="tech-section">
-      <h3>TECNOLOGIA UTILIZADA</h3>
+      <h3>TECHNOLOGY USED</h3>
       <p class="tech-description">
-        Para este projeto, optei por uma abordagem simplificada e eficiente, utilizando o <strong>A-Frame JS</strong> como tecnologia principal. 
-        Esta framework baseada em HTML permite criar experiências WebVR de forma mais leve e acessível do que engines tradicionais.
+        For this project, I opted for a simplified and efficient approach, using <strong>A-Frame JS</strong> as the main technology. 
+        This HTML-based framework allows creating WebVR experiences in a lighter and more accessible way than traditional engines.
       </p>
       <div class="tech-grid">
         <div class="tech-item">
           <h4>A-Frame JS</h4>
-          <p>Framework WebVR que permite criar experiências de realidade virtual diretamente no navegador, sem necessidade de instalação. Escolhido por sua simplicidade, desempenho e compatibilidade cross-platform.</p>
+          <p>WebVR framework that allows creating virtual reality experiences directly in the browser, without installation. Chosen for its simplicity, performance, and cross-platform compatibility.</p>
         </div>
         <div class="tech-item">
           <h4>JavaScript & Three.js</h4>
-          <p>Para a lógica de animação, transições suaves entre cenas e manipulação dinâmica dos elementos 3D. O Three.js, que está por trás do A-Frame, oferece controle total sobre a renderização.</p>
+          <p>For animation logic, smooth transitions between scenes, and dynamic manipulation of 3D elements. Three.js, which powers A-Frame, offers complete control over rendering.</p>
         </div>
       </div>
     </div>
 
     <div class="project-gallery">
-      <h3 style="text-align: center; margin-bottom: 20px; color: var(--light-gray);">Galeria do Projeto</h3>
+      <h3 style="text-align: center; margin-bottom: 20px; color: var(--light-gray);">Project Gallery</h3>
       <div class="gallery-container">
         <div class="gallery-wrapper" id="galleryWrapper">
           <div class="gallery-slide">
-            <img src="/imagens/vr_memorieslive.png" alt="Memories Live - Cena de infância" loading="lazy">
+            <img src="/imagens/vr_memorieslive.png" alt="Memories Live - Childhood scene" loading="lazy">
           </div>
           <div class="gallery-slide">
-            <img src="/imagens/vr_memorieslive_02.jpg" alt="Memories Live - Interface de upload" loading="lazy">
+            <img src="/imagens/vr_memorieslive_02.jpg" alt="Memories Live - Upload interface" loading="lazy">
           </div>
           <div class="gallery-slide">
-            <img src="/imagens/vr_memorieslive_03.jpg" alt="Memories Live - Ambiente imersivo" loading="lazy">
+            <img src="/imagens/vr_memorieslive_03.jpg" alt="Memories Live - Immersive environment" loading="lazy">
           </div>
         </div>
       </div>
@@ -633,21 +633,21 @@
       </div>
     </div>
 
-    <h3 style="text-align: center; margin: 30px 0 15px; color: var(--light-gray);">Vídeo Demonstrativo</h3>
+    <h3 style="text-align: center; margin: 30px 0 15px; color: var(--light-gray);">Demo Video</h3>
     <div class="video-container">
       <iframe src="https://player.vimeo.com/video/1124202316?badge=0&autopause=0&player_id=0&app_id=58479" width="1280" height="720" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="memorieslives"></iframe>
     </div>
 
     <div class="back-button-container">
-      <a href="index.html#vr" class="back-button">← Voltar para o início </a>
+      <a href="index.html#vr" class="back-button">← Back to home </a>
     </div>
   </section>
 </main>
 
 <footer id="contact">
   <div class="footer-content">
-    <p>Disponível para projetos colaborativos e experiências sob demanda</p>
-    <p>Entre em contato: <a href="mailto:studio.axlara@gmail.com" class="contact-link">studio.axlara@gmail.com</a></p>
+    <p>Available for collaborative projects and on-demand experiences</p>
+    <p>Contact me: <a href="mailto:studio.axlara@gmail.com" class="contact-link">studio.axlara@gmail.com</a></p>
     <div class="social-links">
       <a href="https://www.linkedin.com/in/laranegreiros" target="_blank"><i class="fab fa-linkedin"></i></a>
       <a href="https://www.instagram.com/aivrse/"><i class="fab fa-instagram"></i></a>
@@ -661,7 +661,7 @@
 <script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
-    pageLanguage: 'pt',
+    pageLanguage: 'en',
     autoDisplay: false,
     layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
   }, 'google_translate_element');
