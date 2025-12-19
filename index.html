@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
-    /* SEU CSS EXISTENTE AQUI - MANTIDO IGUAL */
     :root {
       --primary: #00fff7;
       --primary-dark: #00c9c3;
@@ -20,56 +19,80 @@
       --card-bg: rgba(23, 22, 27, 0.8);
       --section-bg: rgba(17, 15, 15, 0.475);
       --hero-bg: #afaeae;
+      
+      /* Variáveis de tipografia padronizadas */
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --font-accent: 'Poppins', sans-serif;
+      
+      /* Hierarquia de tamanhos */
+      --text-xxl: 2rem;      /* Títulos principais */
+      --text-xl: 1.6rem;     /* Subtítulos */
+      --text-lg: 1.3rem;     /* Lead/Introdução */
+      --text-md: 1.05rem;    /* Corpo do texto */
+      --text-sm: 0.95rem;    /* Texto menor */
+      --text-xs: 0.45rem;    /* Notas/rodapé */s
+      
+      /* Cores de texto padronizadas */
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.9);
+      --text-tertiary: rgba(255, 255, 255, 0.7);
+      --text-accent: var(--primary);
     }
-
+    
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
+    
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
+      font-family: var(--font-body);
       background-color: var(--dark);
-      color: var(--light);
+      color: var(--text-secondary);
       overflow-x: hidden;
       line-height: 1.6;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     
-    /* Solução CSS para scroll com navbar fixa */
     html {
-      scroll-padding-top: 80px; /* Altura aproximada da sua navbar */
+      scroll-padding-top: 80px;
     }
-
+    
     @media (max-width: 768px) {
       html {
-        scroll-padding-top: 70px; /* Menor no mobile se necessário */
+        scroll-padding-top: 70px;
       }
     }
 
     /* Barra de Idiomas */
     .language-bar {
       position: fixed;
-      top: 10px;
+      top: 18px;
       right: 15px;
       z-index: 1000;
       display: flex;
-      gap: 1px;
+      gap: 6px;
       background: none;
-   
-
     }
+    
     .language-bar button {
       background: none;
       border: none;
       padding: 2px;
       cursor: pointer;
     }
+    
     .language-bar img {
       border-radius: 3px;
       display: block;
+      width: 22px;
+      height: 16px;
     }
+    
     .language-bar button:hover {
       opacity: 0.7;
     }
@@ -97,11 +120,11 @@
     }
     
     .nav-logo {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.6rem;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
       letter-spacing: 3px;
       font-weight: 700;
-      color: var(--light);
+      color: var(--text-primary);
       text-decoration: none;
       text-transform: uppercase;
     }
@@ -118,11 +141,11 @@
     
     .logo-subtitle {
       display: block;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.5rem;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
       letter-spacing: 6px;
       font-weight: 400;
-      color: var(--light-gray);
+      color: var(--text-tertiary);
       margin-top: 2px;
       text-transform: uppercase;
     }
@@ -139,8 +162,7 @@
           0 0 15px var(--primary);
       }
     }
-    
-    /* Botão hamburguer - MELHORADO */
+
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -163,8 +185,19 @@
       transition: all 0.3s ease;
       transform-origin: center;
     }
+    
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
 
-    /* Menu padrão (desktop) */
     .nav-menu {
       display: flex;
       list-style: none;
@@ -172,16 +205,18 @@
     }
     
     .nav-menu a {
-      color: var(--light-gray);
+      color: var(--text-tertiary);
       text-decoration: none;
+      font-family: var(--font-body);
       font-weight: 500;
+      font-size: var(--text-sm);
       transition: color 0.3s ease;
       position: relative;
     }
     
     .nav-menu a:hover,
     .nav-menu a.active {
-      color: var(--primary);
+      color: var(--text-accent);
     }
     
     .nav-menu a::after {
@@ -199,17 +234,13 @@
     .nav-menu a.active::after {
       width: 100%;
     }
-    
-    /* ============ MENU MOBILE MELHORADO ============ */
-    /* Menu mobile - agora é um painel lateral */
+
     @media (max-width: 768px) {
       .nav-container {
         padding: 0 15px;
       }
       
-      /* Logo visível no mobile também */
       .nav-logo {
-        display: block;
         font-size: 1.4rem;
       }
       
@@ -217,29 +248,15 @@
         font-size: 0.45rem;
       }
       
-      /* Botão hamburguer visível no mobile */
       .menu-toggle {
         display: flex;
+        margin-left: 10px;
       }
       
-      /* Transformação do hamburguer para X quando ativo */
-      .menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px);
-      }
-      
-      .menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-      }
-      
-      .menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
-      }
-
-      /* Menu mobile - painel lateral */
       .nav-menu {
         position: fixed;
         top: 0;
-        right: -300px; /* Começa fora da tela */
+        right: -300px;
         width: 280px;
         height: 100vh;
         background: rgba(10, 10, 15, 0.98);
@@ -253,7 +270,6 @@
         overflow-y: auto;
       }
       
-      /* Quando o menu está ativo */
       .nav-menu.show {
         right: 0;
       }
@@ -266,13 +282,11 @@
         transition: all 0.3s ease;
       }
       
-      /* Animação de entrada dos itens do menu */
       .nav-menu.show li {
         opacity: 1;
         transform: translateX(0);
       }
       
-      /* Delay para cada item do menu */
       .nav-menu.show li:nth-child(1) { transition-delay: 0.1s; }
       .nav-menu.show li:nth-child(2) { transition-delay: 0.15s; }
       .nav-menu.show li:nth-child(3) { transition-delay: 0.2s; }
@@ -280,27 +294,39 @@
       .nav-menu.show li:nth-child(5) { transition-delay: 0.3s; }
       
       .nav-menu a {
-        font-size: 1.1rem;
+        font-size: var(--text-md);
         padding: 12px 0;
         display: block;
-        color: var(--light);
+        color: var(--text-primary);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease;
       }
       
       .nav-menu a:hover,
       .nav-menu a.active {
-        color: var(--primary);
-        border-bottom-color: var(--primary);
+        color: var(--text-accent);
+        border-bottom-color: var(--text-accent);
         padding-left: 10px;
       }
       
       .nav-menu a::after {
         display: none; 
       }
+
+      /* POSICIONAMENTO DAS BANDEIRAS AO LADO DO HAMBURGUER */
+      .language-bar {
+        top: 18px;
+        right: auto;
+        left: 60px;
+        gap: 6px;
+      }
+      
+      .language-bar img {
+        width: 22px;
+        height: 16px;
+      }
     }
-    
-    /* Ajustes para telas muito pequenas */
+
     @media (max-width: 480px) {
       .nav-menu {
         width: 250px;
@@ -316,8 +342,7 @@
       }
     }
 
-    /* Restante do seu CSS aqui... */
-    /* Seção Hero - Gradiente unificado */
+    /* Hero - Padronizado */
     .hero {
       display: flex;
       align-items: center;
@@ -330,7 +355,6 @@
       overflow: hidden;
     }
     
-    /* Elementos gráficos de fundo - mais sutis */
     .hero::before {
       content: "";
       position: absolute;
@@ -360,8 +384,8 @@
     }
     
     .hero-logo {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.6rem;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
       letter-spacing: 3px;
       font-weight: 700;
       color: #333;
@@ -369,7 +393,7 @@
       display: inline-block;
       padding-bottom: 5px;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 1.5rem;
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
     }
     
@@ -383,28 +407,39 @@
       animation: pulse 2s infinite alternate;
     }
     
+    .hero-logo .logo-subtitle {
+      color: #666;
+    }
+    
     .hero h1 {
-      font-size: 2.0rem;
-      font-weight: bold;
+      font-family: var(--font-heading);
+      font-size: var(--text-xxl);
+      font-weight: 600;
       line-height: 1.2;
       color: #333;
+      margin-bottom: 0.5rem;
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+      letter-spacing: 1px;
     }
     
     .hero h2 {
-      font-size: 1.5rem;
-      color: #b1afaf;
-      margin-top: 1rem;
+      font-family: var(--font-body);
+      font-size: var(--text-lg);
+      color: #555;
+      margin-bottom: 0.25rem;
+      font-weight: 400;
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
     }
     
     .hero .byline {
-      font-size: 0.9rem;
-      color: #999;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: #777;
       margin-top: 0.5rem;
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+      font-weight: 300;
     }
-
+    
     .image-container {
       position: relative;
       width: 350px;
@@ -412,7 +447,7 @@
       overflow: hidden;
       border-radius: 30px; 
     }
-
+    
     .image-container img {
       width: 100%;
       height: auto;
@@ -420,8 +455,7 @@
       opacity: 0.9;
       animation: float-image 4s ease-in-out infinite;
     }
-
-    /* Gradiente linear na parte inferior para suavizar o corte */
+    
     .image-container::after {
       content: '';
       position: absolute;
@@ -429,17 +463,17 @@
       left: 0;
       right: 0;
       height: 30px;
-      background: linear-gradient(to top, rgb(2, 247, 255), rgba(0, 0, 0, 0));
+      background: linear-gradient(to top, var(--primary), rgba(0, 0, 0, 0));
       pointer-events: none;
       z-index: 1;
     }
-    
-    /* Seção Sobre - Continuação do gradiente */
+
+    /* SEÇÃO ABOUT - Padronizada */
     .about {
       background: linear-gradient(180deg, #2b2b2b 0%, #1a1a1a 50%, #0f0f0f 100%);
-      color: #fff;
+      color: var(--text-primary);
       padding: 100px 20px;
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-body);
       position: relative;
     }
     
@@ -454,48 +488,67 @@
     }
     
     .about-container {
-      max-width: 900px;
+      max-width: 720px;
       margin: 0 auto;
+    }
+
+    .about-lead {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin: 0 auto 2.5rem;
       text-align: center;
-    }
-    
-    .about h2 {
-      font-size: 1.5rem;
       font-weight: 500;
-      margin-bottom: 1rem;
-      line-height: 1.4;
-      color: var(--light);
+      letter-spacing: 0.5px;
     }
-    
-    .about .ola {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary);
-      display: block;
-      line-height: 1.2;
-    }
-    
+
+    /* ESPAÇAMENTO ENTRE PARÁGRAFOS */
     .about p {
-      font-size: 1.2rem;
-      line-height: 1.7;
-      color: var(--light-gray);
-      margin-top: 1rem;
-      margin-bottom: 1.5rem;
-      text-align: left;
+      font-family: var(--font-body);
+      font-size: var(--text-md);
+      line-height: 1.75;
+      color: var(--text-secondary);
+      margin-bottom: 1.7rem;
+      text-align: justify;
+    }
+
+    .about strong {
+      color: var(--text-accent);
+      font-weight: 600;
+    }
+
+    /* ASSINATURA */
+    .about-signature {
+      margin-top: 2.8rem;
+      font-family: var(--font-heading);
+      font-size: var(--text-md);
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--text-accent);
+      text-align: center;
+      position: relative;
+      padding-top: 1.2rem;
+      text-transform: uppercase;
     }
     
-    .about strong {
-      color: var(--primary);
-      font-weight: 600;
+    .about-signature::before {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      margin: 0 auto 1rem;
     }
 
     .gradient-mask {
       position: relative;
-      max-height: 150px;
+      max-height: 300px;
       overflow: hidden;
-      transition: max-height 0.4s ease-out;
+      transition: max-height 0.5s ease;
+      margin-bottom: 1.5rem;
     }
-
+    
     .gradient-mask::after {
       content: '';
       position: absolute;
@@ -503,34 +556,45 @@
       left: 0;
       width: 100%;
       height: 60px;
-      background: linear-gradient(to top, rgba(33, 33, 33, 1), transparent);
+      background: linear-gradient(to top, #0f0f0f, transparent);
       pointer-events: none;
-      z-index: 1;
+      z-index: 2;
     }
-
+    
     .gradient-mask.expanded {
       max-height: 2000px;
+    }
+    
+    .gradient-mask.expanded::after {
+      display: none;
     }
 
     .expand-button {
       display: block;
-      margin: 1rem auto 0;
-      padding: 10px 20px;
-      background-color: var(--primary);
-      color: #111;
-      border: none;
+      margin: 1.5rem auto 0;
+      padding: 11px 28px;
+      background: transparent;
+      color: var(--text-accent);
+      border: 1px solid var(--text-accent);
       border-radius: 6px;
       cursor: pointer;
-      font-weight: bold;
-      z-index: 2;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      letter-spacing: 0.8px;
+      transition: all 0.3s ease;
+      z-index: 3;
       position: relative;
+      text-transform: uppercase;
     }
-
+    
     .expand-button:hover {
-      background-color: #00d0df;
+      background: rgba(0, 255, 247, 0.1);
+      box-shadow: 0 0 12px rgba(0, 255, 247, 0.3);
+      transform: translateY(-2px);
     }
 
-    /* Seção Currículo - Transição para o escuro */
+    /* Seção Portfolio/Curriculum - Padronizada */
     .curriculum-cta {
       background: linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 50%, #050505 100%);
       padding: 80px 20px;
@@ -554,10 +618,10 @@
     }
     
     .curriculum-content h3 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem;
-      color: var(--light);
-      margin-bottom: 20px;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
       background: linear-gradient(90deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -565,10 +629,11 @@
     }
     
     .curriculum-content p {
-      font-size: 1.1rem;
-      color: var(--light-gray);
-      padding-top: 20px;
-      margin-bottom: 20px;
+      font-family: var(--font-body);
+      font-size: var(--text-md);
+      color: var(--text-tertiary);
+      padding-top: 1.5rem;
+      margin-bottom: 1.5rem;
       line-height: 1.6;
     }
     
@@ -578,15 +643,17 @@
       border: none;
       border-radius: 30px;
       text-decoration: none;
+      font-family: var(--font-heading);
       font-weight: 600;
+      font-size: var(--text-md);
+      letter-spacing: 1px;
       transition: all 0.3s ease;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      font-size: 1.1rem;
-      letter-spacing: 0.5px;
       box-shadow: 0 5px 20px rgba(106, 66, 245, 0.4);
       position: relative;
       overflow: hidden;
+      text-transform: uppercase;
     }
     
     .curriculum-button:hover {
@@ -610,68 +677,70 @@
     }
 
     .vr-research-note {
-  max-width: 760px;
-  margin: 1.4rem auto 2.4rem;
-  font-size: 0.85rem;
-  opacity: 0.7;
-  font-style: italic;
-}
+      max-width: 760px;
+      margin: 1.4rem auto 2.4rem;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      opacity: 0.7;
+      font-style: italic;
+      color: var(--text-tertiary);
+    }
+    
+    .research-link {
+      color: var(--text-accent);
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+    }
+    
+    .research-link::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--text-accent);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    
+    .research-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    
+    .remember-inline-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 16px;
+      background: rgba(52, 39, 238, 0.479);
+      color: var(--text-tertiary);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      text-decoration: none;
+      border-radius: 6px;
+      border: 1px solid rgba(108, 66, 245, 0.2);
+      transition: all 0.25s ease;
+      backdrop-filter: blur(4px);
+      letter-spacing: 0.4px;
+    }
+    
+    .remember-inline-btn:hover {
+      background: rgba(108, 66, 245, 0.18);
+      color: var(--text-accent);
+      border-color: rgba(108, 66, 245, 0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 255, 247, 0.1);
+    }
 
-/* Estilo para o link dentro do parágrafo */
-.research-link {
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 600;
-  position: relative;
-}
-
-.research-link::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: var(--primary);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
-
-.research-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* Botão discreto e integrado à nota */
-.remember-inline-btn {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 6px 16px;
-  background: rgba(108, 66, 245, 0.08);
-  color: var(--light-gray);
-  font-size: 0.85rem;
-  text-decoration: none;
-  border-radius: 6px;
-  border: 1px solid rgba(108, 66, 245, 0.2);
-  transition: all 0.25s ease;
-  backdrop-filter: blur(4px);
-  letter-spacing: 0.4px;
-}
-
-.remember-inline-btn:hover {
-  background: rgba(108, 66, 245, 0.18);
-  color: var(--primary);
-  border-color: rgba(108, 66, 245, 0.4);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 255, 247, 0.1);
-}
-    /* Seção VR Experiences - Transição suave do escuro para o background estrelado */
+    /* Seção VR - Padronizada */
     .vr-section {
       padding: 100px 20px;
       position: relative;
       background: 
-             linear-gradient(180deg, 
+        linear-gradient(180deg, 
           #050505 0%, 
           rgba(5, 5, 5, 0.95) 0%,
           rgba(5, 5, 5, 0.85) 10%,
@@ -679,7 +748,6 @@
         url('/imagens/bgstars2.png') no-repeat center center fixed;
       background-size: cover;
       text-align: center;
-
     }
     
     .vr-section::before {
@@ -693,18 +761,19 @@
     }
     
     .vr-logo {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
       font-weight: 600;
-      color: var(--light);
+      color: var(--text-primary);
       text-decoration: none;
       display: inline-block;
-      margin-bottom: 25px;
+      margin-bottom: 1.5rem;
       letter-spacing: 2px;
+      text-transform: uppercase;
     }
     
     .vr-logo .neon-x {
-      color: var(--primary);
+      color: var(--text-accent);
       display: inline-block;
       text-shadow: 
         0 0 5px var(--primary),
@@ -713,10 +782,11 @@
     }
     
     .vr-subtitle {
-      font-size: 1.6rem;
-      color: var(--light);
-      margin-bottom: 30px;
-      font-weight: 400;
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+      font-weight: 500;
       background: linear-gradient(90deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -726,17 +796,18 @@
     }
     
     .vr-description {
-      font-size: 1.1rem;
+      font-family: var(--font-body);
+      font-size: var(--text-md);
       max-width: 800px;
-      margin: 0 auto 50px;
+      margin: 0 auto 3rem;
       text-align: center;
       line-height: 1.8;
       padding: 0 30px;
-      color: var(--light-gray);
+      color: var(--text-secondary);
     }
     
     .vr-description p {
-      margin-bottom: 20px;
+      margin-bottom: 1.5rem;
     }
     
     .highlight {
@@ -746,21 +817,22 @@
       background-clip: text;
       font-weight: 600;
     }
-    
-    /* Seção de projetos */
+
+    /* Seção Projects - Padronizada */
     .projects-section {
       margin: 60px 0;
       position: relative;
     }
     
     .section-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.6rem;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
       font-weight: 600;
-      color: var(--light);
-      margin-bottom: 40px;
+      color: var(--text-primary);
+      margin-bottom: 2.5rem;
       text-align: center;
       position: relative;
+      text-transform: uppercase;
     }
     
     .section-title::after {
@@ -815,7 +887,7 @@
       object-fit: cover;
       transition: transform 0.5s ease;
     }
-
+    
     .project-card:hover .project-image img {
       transform: scale(1.05);
     }
@@ -842,18 +914,21 @@
     }
     
     .project-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.3rem;
-      color: var(--light);
-      margin-bottom: 10px;
+      font-family: var(--font-heading);
+      font-size: var(--text-md);
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
       font-weight: 500;
+      letter-spacing: 0.5px;
     }
     
     .project-description {
-      font-size: 0.95rem;
-      color: var(--light-gray);
-      margin-bottom: 15px;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--text-tertiary);
+      margin-bottom: 1rem;
       line-height: 1.6;
+      text-align: justify;
     }
     
     .project-tech {
@@ -861,29 +936,31 @@
       flex-wrap: wrap;
       gap: 6px;
       margin-bottom: 15px;
-       justify-content: center;
+      justify-content: center;
     }
     
     .tech-tag {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
       background: rgba(123, 97, 255, 0.12);
-      color: var(--primary);
+      color: var(--text-accent);
       padding: 4px 10px;
       border-radius: 3px;
-      font-size: 0.8rem;
       border: 1px solid rgba(123, 97, 255, 0.2);
+      font-weight: 500;
     }
     
     .project-status {
       display: inline-block;
       padding: 5px 12px;
       border-radius: 3px;
-      font-size: 0.8rem;
+      font-size: var(--text-xs);
       font-weight: 500;
     }
     
     .status-released {
       background: rgba(59, 130, 246, 0.12);
-      color: var(--primary);
+      color: var(--text-accent);
       border: 1px solid rgba(59, 130, 246, 0.2);
     }
     
@@ -893,17 +970,16 @@
       border: 1px solid rgba(255, 165, 0, 0.2);
     }
     
-    /* Estilo para o link que envolve o card */
     .project-card-link {
       text-decoration: none;
       color: inherit;
       display: block;
     }
+    
     .project-card-link:hover {
       text-decoration: none;
     }
-    
-    /* Detalhes do projeto */
+
     .project-detail {
       margin: 80px auto;
       max-width: 850px;
@@ -936,11 +1012,12 @@
     }
     
     .manifesto-text {
-      font-size: 1.05rem;
+      font-family: var(--font-body);
+      font-size: var(--text-md);
       line-height: 1.8;
       margin-bottom: 1.5rem;
       text-align: left;
-      color: var(--light-gray);
+      color: var(--text-secondary);
     }
     
     .manifesto-text p {
@@ -955,20 +1032,20 @@
     .language-toggle button {
       background: none;
       border: none;
-      color: var(--light-gray);
+      color: var(--text-tertiary);
       cursor: pointer;
-      font-size: 0.95rem;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
       margin: 0 1rem;
       padding: 0.4rem 0;
       position: relative;
       font-weight: 500;
       transition: all 0.3s ease;
-      font-family: 'Montserrat', sans-serif;
     }
     
     .language-toggle button:hover,
     .language-toggle button.active {
-      color: var(--light);
+      color: var(--text-primary);
     }
     
     .language-toggle button.active::after {
@@ -983,11 +1060,11 @@
     
     .pt { display: block; }
     .en { display: none; }
-    
-    /* Footer */
+
+    /* Footer - Padronizado */
     footer {
       background: rgba(10, 10, 15, 0.9);
-      color: var(--light);
+      color: var(--text-primary);
       padding: 50px 0;
       text-align: center;
       border-top: 1px solid rgba(123, 97, 255, 0.15);
@@ -1012,12 +1089,17 @@
     }
     
     .footer-content p {
-      margin-bottom: 15px;
-      color: var(--light-gray);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--text-tertiary);
+      margin-bottom: 1rem;
+      line-height: 1.6;
     }
     
     .contact-link {
-      color: var(--primary);
+      font-family: var(--font-body);
+      font-weight: 500;
+      color: var(--text-accent);
       text-decoration: none;
       transition: all 0.3s ease;
       position: relative;
@@ -1030,12 +1112,12 @@
       left: 0;
       width: 0;
       height: 1px;
-      background: var(--primary);
+      background: var(--text-accent);
       transition: width 0.3s ease;
     }
     
     .contact-link:hover {
-      color: var(--light);
+      color: var(--text-primary);
     }
     
     .contact-link:hover::after {
@@ -1043,148 +1125,93 @@
     }
     
     .social-links {
-      margin-top: 20px;
+      margin-top: 1.5rem;
     }
     
     .social-links a {
-      color: var(--light-gray);
+      color: var(--text-tertiary);
       font-size: 1.5rem;
       margin: 0 10px;
       transition: all 0.3s ease;
     }
     
     .social-links a:hover {
-      color: var(--primary);
+      color: var(--text-accent);
     }
-    
-    /* ============ RESPONSIVIDADE ============ */
+
+    /* Animações */
+    @keyframes float-image {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Responsividade Padronizada */
     @media (max-width: 1024px) {
+      :root {
+        --text-xxl: 1.8rem;
+        --text-xl: 1.5rem;
+        --text-lg: 1.2rem;
+        --text-md: 1rem;
+      }
+      
       .hero {
         padding: 6rem 2rem 3rem;
       }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero h2 {
-        font-size: 1.2rem;
-      }
     }
-
+    
     @media (max-width: 768px) {
-      /* HERO */
+      :root {
+        --text-xxl: 1.6rem;
+        --text-xl: 1.4rem;
+        --text-lg: 1.1rem;
+        --text-md: 0.95rem;
+        --text-sm: 0.9rem;
+        --text-xs: 0.8rem;
+      }
+      
       .hero {
         flex-direction: column;
         padding: 6rem 1rem 2rem;
         text-align: center;
         min-height: auto;
       }
-
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-      .hero h2 {
-        font-size: 1.1rem;
-        color: #cdcccc;
-      }
-      .hero .byline {
-        font-size: 0.8rem;
-        color: #b7b7b7;
-      }
-      .image-container{
-         margin-top: -20px;
-         align-items: center;
-         width: 250px;
+      
+      .image-container {
+        margin-top: -20px;
+        width: 250px;
       }
       
       .image-container::after {
         height: 30px;
       }
-
-      /* ABOUT */
+      
       .about {
         padding: 60px 15px;
       }
-      .about .ola {
-        font-size: 1.8rem;
-      }
-      .about h2 {
-        font-size: 1.2rem;
-      }
-      .about p {
-        font-size: 1rem;
-        text-align: center;
-      }
-
-      /* CURRICULUM */
+      
       .curriculum-cta {
         padding: 60px 15px;
       }
-      .curriculum-content h3 {
-        font-size: 1.4rem;
-      }
-      .curriculum-content p {
-        font-size: 1rem;
-        margin-top: 15px;
-      }
       
-      /* Ajuste do botão de currículo para mobile */
       .curriculum-button {
         padding: 12px 25px;
-        font-size: 1rem;
         width: 100%;
         max-width: 400px;
       }
-
-      /* VR SECTION */
+      
       .vr-section {
         padding: 40px 15px;
         background-size: auto;
         background-position: center top;
-        background-repeat: repeat-y; 
-      }
-      
-      .vr-logo {
-        font-size: 1.4rem;
-        margin-bottom: 15px;
-      }
-      
-      .vr-subtitle {
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-        padding: 0 10px;
-        line-height: 1.4;
+        background-repeat: repeat-y;
       }
       
       .vr-description {
-        font-size: 0.9rem !important;
-        padding: 0 10px;
-        margin-bottom: 30px;
-        line-height: 1.6;
         text-align: justify;
       }
       
-      .vr-description p {
-        margin-bottom: 15px;
-      }
-
-      .vr-research-note {
-  max-width: 760px;
-  margin: 1.2rem auto 2.2rem;
-  font-size: 0.85rem;
-  opacity: 0.75;
-  line-height: 1.5;
-}
-
-
       .projects-section {
         margin: 40px 0;
-      }
-      
-      .section-title {
-        font-size: 1.3rem;
-        margin-bottom: 25px;
       }
       
       .projects-grid {
@@ -1195,16 +1222,8 @@
       }
       
       .project-card {
-        margin: 0 auto;
         max-width: 350px;
-      }
-      
-      .project-title {
-        font-size: 1.1rem;
-      }
-      
-      .project-description {
-        font-size: 0.9rem;
+        margin: 0 auto;
       }
       
       .project-detail {
@@ -1213,8 +1232,6 @@
       }
       
       .manifesto-text {
-        font-size: 0.95rem;
-        line-height: 1.7;
         text-align: justify;
       }
       
@@ -1222,103 +1239,47 @@
         margin: 1.5rem 0;
       }
       
-      .language-toggle button {
-        font-size: 0.9rem;
-        margin: 0 0.5rem;
-      }
-      
       .video-container {
         margin: 20px auto;
       }
+      
+      /* Garanta alinhamento consistente */
+      .hero h1,
+      .about-lead,
+      .vr-subtitle,
+      .section-title {
+        text-align: center;
+      }
+      
+      /* Ajuste espaçamentos */
+      .about p,
+      .vr-description p,
+      .project-description {
+        text-align: justify;
+        hyphens: auto;
+      }
     }
-
+    
     @media (max-width: 480px) {
-      .hero h1 {
-        font-size: 1.5rem;
+      :root {
+        --text-xxl: 1.4rem;
+        --text-xl: 1.2rem;
+        --text-lg: 1rem;
+        --text-md: 0.9rem;
       }
-      .hero h2 {
-        font-size: 1rem;
-      }
-      .about .ola {
-        font-size: 1.5rem;
-      }
-      .about h2 {
-        font-size: 1rem;
-      }
-      .about p {
-        font-size: 0.95rem;
-      }
+      
       .curriculum-content h3 {
         font-size: 1.2rem;
       }
     }
-  
-    /* VR SECTION - AJUSTES ADICIONAIS PARA TELAS MUITO PEQUENAS */
-    .vr-logo {
-      font-size: 1.2rem;
-    }
-    
-    .vr-subtitle {
-      font-size: 1rem;
-      letter-spacing: 0.5px;
-    }
-    
-    .vr-description {
-      font-size: 1.1rem;
-      line-height: 1.5;
-    }
-    
-    .section-title {
-      font-size: 1.1rem;
-    }
-    
-    .project-content {
-      padding: 15px;
-    }
-    
-    .project-tech {
-      gap: 4px;
-    }
-    
-    .tech-tag {
-      padding: 3px 8px;
-      font-size: 0.75rem;
-    }
-    
-    .project-status {
-      padding: 4px 10px;
-      font-size: 0.75rem;
-    }
-    
-    .language-bar {
-      top: 5px;
-      right: 10px;
-    }
-    
-    .language-bar button img {
-      width: 20px;
-      height: 14px;
-    }
 
-    /* Ajustes específicos para iPhone 11 */
-    @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
-      .hero {
-        padding-top: 7rem;
-      }
-      
-      .nav-container {
-        padding: 0 15px;
-      }
-      
-      .hero-image {
-        width: 240px;
-        height: 240px;
-      }
-      
-      .curriculum-button {
-        padding: 14px 20px;
-        font-size: 0.95rem;
-      }
+    /* Melhore o espaçamento entre seções */
+    section {
+      padding: 80px 0;
+    }
+    
+    section + section {
+      padding-top: 0;
     }
   </style>
 </head>
@@ -1333,10 +1294,8 @@
     </button>
   </div>
 
-  <!-- Google Translate Script -->
   <div id="google_translate_element" style="display: none;"></div>
 
-  <!-- Navegação -->
   <nav class="main-nav">
     <div class="nav-container">
       <a href="#" class="nav-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></a>
@@ -1345,7 +1304,6 @@
         <span></span>
         <span></span>
       </button>
-
       <ul class="nav-menu" id="navMenu">
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -1356,8 +1314,6 @@
     </div>
   </nav>
 
-  <!-- Restante do conteúdo permanece igual... -->
-  <!-- Seção Hero -->
   <section class="hero" id="home">
     <div class="hero-container">
       <div class="hero-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></div>
@@ -1372,32 +1328,31 @@
     </div>
   </section>
 
-  <!-- Seção Sobre -->
+  <!-- SEÇÃO ABOUT PADRONIZADA -->
   <section class="about" id="about">
     <div class="about-container">
-      <h2><span class="ola">Hello,</span> I'm Lara E. Negreiros</h2>
-
-      <!-- Conteúdo visível por padrão -->
-      <p>Creator of customized immersive experiences, I explore how spaces influence emotions and behaviors. I transform this relationship into digital projects that unite design, storytelling and technology, connecting the physical and virtual worlds in meaningful ways.
-      </p>
-
-      <!-- Conteúdo que pode ser expandido -->
-      <div class="texto-conteudo" id="texto-conteudo">
-        <div class="gradient-mask">
-          <p>My journey began in architecture and urbanism, with specialization in architectural projects and neuroarchitecture, areas that provided me with a solid foundation in spatial perception and functional environmental design. Over time, I felt the need to expand beyond the traditional boundaries of architecture, exploring technology as a new territory for creation.</p>
-          
-          <p>In this process, I deepened my studies in programming and discovered immersive technologies (XR), which became the natural link between my architecture background and the infinite digital possibilities. From there, I began to direct my work towards the development of interactive virtual environments.</p>
-          
-          <p><strong>Today, I dedicate myself to creating immersive experiences using software and technologies that transform physical spaces into interactive digital environments. My work ranges from 3D modeling optimized for interactive applications and 360° virtual tours, to virtual reality projects focused on culture, well-being and innovation, uniting design, storytelling and technology to create meaningful immersive journeys.</strong></p>
-        </div>
+      <h3 class="about-lead">
+        I design immersive experiences at the intersection of space, technology, and human perception.
+      </h3>
+      <div class="gradient-mask" id="about-content">
+        <p>
+          Creator of customized immersive experiences, I explore how spaces influence emotions and behaviors. I transform this relationship into digital projects that unite design, storytelling and technology, connecting the physical and virtual worlds in meaningful ways.
+        </p>
+        <p>
+          My journey began in architecture and urbanism, with specialization in architectural projects and neuroarchitecture, areas that provided me with a solid foundation in spatial perception and functional environmental design. Over time, I felt the need to expand beyond the traditional boundaries of architecture, exploring technology as a new territory for creation.
+        </p>
+        <p>
+          In this process, I deepened my studies in programming and discovered immersive technologies (XR), which became the natural link between my architecture background and the infinite digital possibilities. From there, I began to direct my work towards the development of interactive virtual environments.
+        </p>
+        <p><strong>
+          Today, I dedicate myself to creating immersive experiences using software and technologies that transform physical spaces into interactive digital environments.
+        </strong></p>
       </div>
-
-      <!-- Botão de expandir -->
-      <button id="btn-expandir" class="expand-button">See more</button>
+      <button class="expand-button" id="expand-about">See more</button>
+      <p class="about-signature">— Lara E. Negreiros</p>
     </div>
   </section>
 
-  <!-- NOVA SEÇÃO DE CURRÍCULO -->
   <section class="curriculum-cta" id="curriculum">
     <div class="curriculum-content">
       <a href="portfolio.html" class="curriculum-button">Access My Portfolio</a>
@@ -1405,45 +1360,37 @@
     </div>
   </section>
 
-  <!-- Seção VR Experiences -->
   <section class="vr-section" id="vr">
     <div class="container">
       <a href="#vr" class="vr-logo">VR E<span class="neon-x">X</span>PERIENCES</a>
       <h2 class="vr-subtitle">AUTHORIAL EXPERIENCES IN VIRTUAL REALITY</h2>
-   <div class="vr-description">
-  <p>
-    My work explores the intersection between <span class="highlight">virtual reality</span>, 
-    <span class="highlight">immersive storytelling</span> and <span class="highlight">architecture</span>, 
-    creating authorial experiences that connect people to stories, places and spaces.
-  </p>
-  <p>
-    I develop VR projects ranging from architectural visualization to sensory narratives, 
-    using immersive technologies to provoke emotion, reflection and presence.
-  </p>
-  <p>
-    Within this practice, I especially investigate how immersive experiences can activate memory, 
-    identity and spatial perception, an axis that gives rise to the 
-    <a href="remember.html" class="highlight">REMEMBER</a> project.
-  </p>
-</div>
-
-
-<!-- Nota de pesquisa + botão integrado -->
-<div class="vr-research-note">
-  <p>
-    Part of the experiences presented here emerges from ongoing research on memory, identity 
-    and spatial perception in immersive environments. This research guides the development of the 
-    REMEMBER project, of which <em>Memories Live</em> is the first experiment.
-  </p>
-  <a href="remember.html" class="remember-inline-btn">→ Explore the REMEMBER project</a>
-</div>
-
-      <!-- Seção Projetos Ativos -->
+      <div class="vr-description">
+        <p>
+          My work explores the intersection between <span class="highlight">virtual reality</span>, 
+          <span class="highlight">immersive storytelling</span> and <span class="highlight">architecture</span>, 
+          creating authorial experiences that connect people to stories, places and spaces.
+        </p>
+        <p>
+          I develop VR projects ranging from architectural visualization to sensory narratives, 
+          using immersive technologies to provoke emotion, reflection and presence.
+        </p>
+        <p>
+          Within this practice, I especially investigate how immersive experiences can activate memory, 
+          identity and spatial perception, an axis that gives rise to the 
+          <a href="remember.html" class="highlight">REMEMBER</a> project.
+        </p>
+      </div>
+      <div class="vr-research-note">
+        <p>
+          Part of the experiences presented here emerges from ongoing research on memory, identity 
+          and spatial perception in immersive environments. This research guides the development of the 
+          REMEMBER project, of which <em>Memories Live</em> is the first experiment.
+        </p>
+        <a href="remember.html" class="remember-inline-btn">→ Explore the REMEMBER project</a>
+      </div>
       <div class="projects-section">
         <h2 class="section-title">XR PROJECTS & EXPERIMENTS</h2>
-        
         <div class="projects-grid">
-          <!-- Projeto Memories Live -->
           <a href="project-memories-live.html" class="project-card-link">
             <article class="project-card">
               <div class="project-image">
@@ -1451,20 +1398,17 @@
               </div>
               <div class="project-content">
                 <h3 class="project-title">Memories Live</h3>
-                <p class="project-description"> First project developed within the Remember research line. 
-  An immersive experience that explores memory and emotion through 
-  spatial narratives in virtual reality.</p>
+                <p class="project-description">First project developed within the Remember research line. 
+                An immersive experience that explores memory and emotion through 
+                spatial narratives in virtual reality.</p>
                 <div class="project-tech">
                   <span class="tech-tag">A-frame</span>
                   <span class="tech-tag">WebVR</span>
                   <span class="tech-tag">Narrative Experience</span>
                 </div>
-            
               </div>
             </article>
           </a>
-
-          <!-- Projeto de Interiores em VR -->
           <a href="project-immersive-design.html" class="project-card-link">
             <article class="project-card">
               <div class="project-image">
@@ -1473,21 +1417,18 @@
               <div class="project-content">
                 <h3 class="project-title">Immersive Design</h3>
                 <p class="project-description">
-                 Application of virtual reality for architectural visualization, 
-  transforming 3D models into navigable immersive environments 
-  with focus on spatial perception and user experience.
+                  Application of virtual reality for architectural visualization, 
+                  transforming 3D models into navigable immersive environments 
+                  with focus on spatial perception and user experience.
                 </p>
                 <div class="project-tech">
                   <span class="tech-tag">VR Sketch</span>
                   <span class="tech-tag">Meta Quest</span>
                   <span class="tech-tag">Architectural Visualization</span>
                 </div>
-             
               </div>
             </article>
           </a>
-               <div class="projects-grid">
-          <!-- Projeto Histórico em Realidade Virtual -->
           <a href="project-story-scape.html" class="project-card-link">
             <article class="project-card">
               <div class="project-image">
@@ -1496,25 +1437,21 @@
               <div class="project-content">
                 <h3 class="project-title">Story Scape</h3>
                 <p class="project-description">
-                   Immersive experience that investigates the transformation of cities over time,
-  allowing the user to explore urban narratives and historical layers 
-  through virtual environments.
+                  Immersive experience that investigates the transformation of cities over time,
+                  allowing the user to explore urban narratives and historical layers 
+                  through virtual environments.
                 </p>
                 <div class="project-tech">
                   <span class="tech-tag">VR Experience</span>
-<span class="tech-tag">Spatial Storytelling</span>
-<span class="tech-tag">Urban History</span>
-
+                  <span class="tech-tag">Spatial Storytelling</span>
+                  <span class="tech-tag">Urban History</span>
                 </div>
-               
               </div>
             </article>
           </a> 
         </div>
-        </div>
-          
       </div>
-      </div>
+    </div>
   </section>
 
   <footer id="contact">
@@ -1531,85 +1468,44 @@
   </footer>
 
   <script type="text/javascript">
-    // ============ NAVEGAÇÃO MOBILE SIMPLIFICADA ============
-    
-    // Elementos do menu
+    // Navegação mobile
     const menuToggle = document.getElementById("menuToggle");
     const navMenu = document.getElementById("navMenu");
     const navLinks = document.querySelectorAll('.nav-menu a');
-
-    // Função para abrir/fechar menu
+    
     function toggleMenu() {
       const isOpen = navMenu.classList.contains("show");
-      
-      if (isOpen) {
-        // Fechar menu
-        navMenu.classList.remove("show");
-        menuToggle.classList.remove("active");
-        document.body.style.overflow = "auto";
-      } else {
-        // Abrir menu
-        navMenu.classList.add("show");
-        menuToggle.classList.add("active");
-        document.body.style.overflow = "hidden";
-      }
+      navMenu.classList.toggle("show");
+      menuToggle.classList.toggle("active");
+      document.body.style.overflow = isOpen ? "auto" : "hidden";
     }
-
-    // Event listener para abrir/fechar menu
+    
     menuToggle.addEventListener("click", toggleMenu);
 
-    // FUNÇÃO CORRIGIDA PARA NAVEGAÇÃO
     function handleNavClick(e) {
       if (!this.getAttribute('href').startsWith('#')) return;
       e.preventDefault();
-      
       const targetId = this.getAttribute('href').substring(1);
       const targetSection = document.getElementById(targetId);
-      
       if (targetSection) {
-        // Fechar menu mobile se estiver aberto
         const wasMenuOpen = window.innerWidth <= 768 && navMenu.classList.contains("show");
-        
-        if (wasMenuOpen) {
-          toggleMenu();
-        }
-        
-        // Função para executar o scroll
-        const performScroll = () => {
-          // Usando scrollIntoView com a propriedade CSS scroll-padding-top
-          targetSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        };
-        
-        // Se o menu estava aberto, aguardar um pouco para a animação de fechamento
-        if (wasMenuOpen) {
-          setTimeout(performScroll, 300);
-        } else {
-          performScroll();
-        }
-        
-        // Atualizar classe ativa
+        if (wasMenuOpen) toggleMenu();
+        setTimeout(() => {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, wasMenuOpen ? 300 : 0);
         navLinks.forEach(link => link.classList.remove('active'));
         this.classList.add('active');
       }
     }
+    
+    navLinks.forEach(link => link.addEventListener('click', handleNavClick));
 
-    // Aplicar a todos os links do menu
-    navLinks.forEach(link => {
-      link.addEventListener('click', handleNavClick);
-    });
-
-    // Fechar menu ao redimensionar para desktop
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768 && navMenu.classList.contains("show")) {
         toggleMenu();
       }
     });
 
-    // ============ FUNÇÕES EXISTENTES ============
-    
     // Google Translate
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -1637,33 +1533,18 @@
       }
     }
 
-    // Expandir texto
-    const btn = document.getElementById('btn-expandir');
-    const conteudo = document.querySelector('.gradient-mask');
-
-    if (btn && conteudo) {
-      btn.addEventListener('click', () => {
-        conteudo.classList.toggle('expanded');
-        btn.textContent = conteudo.classList.contains('expanded') ? 'See less' : 'See more';
+    // Botão "See more" funcional
+    const expandButton = document.getElementById('expand-about');
+    const aboutContent = document.getElementById('about-content');
+    
+    if (expandButton && aboutContent) {
+      expandButton.addEventListener('click', () => {
+        aboutContent.classList.toggle('expanded');
+        expandButton.textContent = aboutContent.classList.contains('expanded') ? 'See less' : 'See more';
       });
     }
 
-    // Alternar idioma do manifesto
-    function toggleLanguage(lang) {
-      if (lang === 'pt') {
-        document.querySelector('.pt').style.display = 'block';
-        document.querySelector('.en').style.display = 'none';
-        document.querySelectorAll('.language-toggle button')[0].classList.add('active');
-        document.querySelectorAll('.language-toggle button')[1].classList.remove('active');
-      } else {
-        document.querySelector('.pt').style.display = 'none';
-        document.querySelector('.en').style.display = 'block';
-        document.querySelectorAll('.language-toggle button')[0].classList.remove('active');
-        document.querySelectorAll('.language-toggle button')[1].classList.add('active');
-      }
-    }
-
-    // Atualizar navegação ativa ao scroll
+    // Atualiza link ativo ao rolar
     window.addEventListener('scroll', function() {
       let sections = document.querySelectorAll('section');
       let current = '';
@@ -1680,26 +1561,6 @@
         link.classList.remove('active');
         if (link.getAttribute('href').substring(1) === current) {
           link.classList.add('active');
-        }
-      });
-    });
-
-    // Navegação suave de backup para outros links âncora
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      // Pular links que já têm event listener do menu
-      if (Array.from(navLinks).includes(anchor)) return;
-      
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
-        
-        if (targetSection) {
-          targetSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
         }
       });
     });

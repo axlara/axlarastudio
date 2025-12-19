@@ -7,456 +7,446 @@
   <!-- Font Awesome para ícones sociais -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    :root {
-      --primary: #11708d;
-      --primary-light: #5a73ff;
-      --primary-dark: #0d5a72;
-      --secondary: #9ef5f0;
-      --secondary-dark: #4dc3d8;
-      --dark: #0a1929;
-      --dark-gray: #1a2c3a;
-      --medium-gray: #2d3e4f;
-      --light-gray: #e3f2fd;
-      --text-light: #ffffff;
-      --text-medium: #e0e0e0;
-      --text-dark: #b0bec5;
-      --white: #FFFFFF;
-      --overlay: rgba(24, 24, 24, 0.699);
-    }
+  :root {
+    --primary: #bacccf ;
+    --primary-light: #abddec;
+    --primary-dark: #73afc2;
+    --secondary: #246c81;
+    --secondary-dark: #b8e3eb;
+    --dark: #0a1929;
+    --dark-gray: #97aebe;
+    --medium-gray: #5e6b79;
+    --light-gray: #e3f2fd;
+    --text-light: #1a1a1a;     /* ESCURECIDO para contraste */
+    --text-medium: #333333;    /* ESCURECIDO para contraste */
+    --text-dark: #b0bec5;
+    --white: #FFFFFF;
+    --overlay: rgba(24, 24, 24, 0.05); /* QUASE TRANSPARENTE - fundo claro */
+  }
 
-    * {
-      box-sizing: border-box;
-    }
+  * {
+    box-sizing: border-box;
+  }
 
-    body {
-      margin: 0;
-      padding: 0;
-      background: url('/imagens/background.jpg') center center fixed;
-      background-size: cover;
-      min-height: 100dvh; /* dvh > vh em mobile moderno */
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      color: var(--text-light);
-      line-height: 1.6;
-      position: relative;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--overlay);
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    @keyframes subtlePan {
-      0% { background-position: 0% center; }
-      100% { background-position: -10% center; }
-    }
-
-    body {
-      animation: subtlePan 10s alternate infinite;
-      background-size: 110% auto;
-    }
-
-    .remember-section {
-      padding: 100px 20px 80px;
-      max-width: 1000px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .container {
-      width: 100%;
-    }
-
-    .section-title {
-      font-size: 4rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--secondary), var(--primary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      position: relative;
-      background-size: 200% auto;
-      animation: titleShine 3s ease-in-out infinite alternate;
-      text-shadow: 
-        0 0 10px rgba(140, 248, 243, 0.3),
-        0 0 20px rgba(77, 195, 216, 0.2),
-        0 0 30px rgba(17, 112, 141, 0.1);
-    }
-
-    @keyframes titleShine {
-      0% {
-        background-position: 0% center;
-        text-shadow: 
-          0 0 10px rgba(140, 248, 243, 0.3),
-          0 0 20px rgba(77, 195, 216, 0.2),
-          0 0 30px rgba(17, 112, 141, 0.1);
-      }
-      100% {
-        background-position: 100% center;
-        text-shadow: 
-          0 0 15px rgba(140, 248, 243, 0.5),
-          0 0 25px rgba(77, 195, 216, 0.4),
-          0 0 35px rgba(17, 112, 141, 0.3),
-          0 0 45px rgba(17, 112, 141, 0.2);
-      }
-    }
-
-    @keyframes lineShine {
-      0%, 100% {
-        background-position: -200% center;
-        box-shadow: 0 0 5px rgba(140, 248, 243, 0.5);
-      }
-      50% {
-        background-position: 200% center;
-        box-shadow: 0 0 5px rgba(140, 248, 243, 0.8),
-                    0 0 5px rgba(77, 195, 216, 0.4);
-      }
-    }
-
-    .section-subtitle {
-      font-size: 1.4rem;
-      text-align: center;
-      color: var(--text-medium);
-      margin-bottom: 70px;
-      font-weight: 400;
-      letter-spacing: 1px;
-      line-height: 1.6;
-    }
-
-    .remember-intro,
-    .remember-block {
-      background: rgba(34, 35, 36, 0.445);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 16px;
-      padding: 45px;
-      margin-bottom: 35px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(140, 248, 243, 0.1);
-      position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-      color: var(--text-medium);
-    }
-
-    .remember-intro:hover,
-    .remember-block:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-      background: rgba(26, 44, 58, 0.85);
-    }
-
-    .remember-intro {
-      border-left: 5px solid var(--secondary);
-    }
-
-    .remember-intro p,
-    .remember-block p {
-      margin-bottom: 22px;
-      font-size: 1.15rem;
-      line-height: 1.8;
-      color: var(--text-medium);
-    }
-
-    .remember-intro p:first-of-type {
-      color: var(--secondary);
-      font-weight: 600;
-    }
-
-    .remember-title {
-      font-size: 1.9rem;
-      color: var(--secondary);
-      margin-bottom: 25px;
-      font-weight: 700;
-      position: relative;
-      padding-bottom: 15px;
-    }
-
-    .remember-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(to right, var(--secondary), var(--primary));
-      border-radius: 1.5px;
-    }
-
-    .remember-list {
-      list-style: none;
-      margin: 30px 0;
-      padding: 0;
-    }
-
-    .remember-list li {
-      padding: 16px 0 16px 35px;
-      position: relative;
-      color: var(--text-medium);
-      font-size: 1.1rem;
-      border-bottom: 1px solid rgba(140, 248, 243, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    .remember-list li:last-child {
-      border-bottom: none;
-    }
-
-    .remember-list li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--secondary);
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-
-    .remember-list li:hover {
-      color: var(--secondary);
-      padding-left: 40px;
-      background-color: rgba(140, 248, 243, 0.05);
-    }
-
-    .remember-list li:hover::before {
-      transform: translateX(3px);
-      color: var(--primary-light);
-    }
-
-    .remember-quote {
-      background: rgba(17, 112, 141, 0.15);
-      border-left: 5px solid var(--secondary);
-      padding: 30px;
-      margin: 35px 0;
-      border-radius: 12px;
-      font-style: italic;
-      font-size: 1.3rem;
-      color: var(--text-light);
-      line-height: 1.6;
-      position: relative;
-      font-weight: 500;
-    }
-
-    .remember-quote::before {
-      content: '"';
-      position: absolute;
-      top: 10px;
-      left: 20px;
-      font-size: 4rem;
-      color: rgba(140, 248, 243, 0.2);
-      font-family: Georgia, serif;
-    }
-
-    .remember-highlight {
-      background: rgba(17, 112, 141, 0.2);
-      border: 2px solid var(--secondary);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .remember-highlight::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(140, 248, 243, 0.1), transparent);
-      animation: shimmer 3s infinite;
-    }
-
-    @keyframes shimmer {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
-    .remember-highlight strong {
-      color: var(--secondary);
-      font-weight: 700;
-    }
-
-    .remember-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 25px;
-      padding: 16px 36px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--text-light) !important;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      font-size: 1rem;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(17, 112, 141, 0.4);
-      position: relative;
-      z-index: 1;
-      max-width: 100%;
-      justify-content: center;
-    }
-
-    .remember-link:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(17, 112, 141, 0.6);
-      background: linear-gradient(135deg, var(--primary-light), var(--primary));
-    }
-
-    .remember-link::after {
-      content: '→';
-      font-size: 1.2rem;
-      transition: transform 0.3s ease;
-    }
-
-    .remember-link:hover::after {
-      transform: translateX(5px);
-    }
-
-    /* === BOTÃO VOLTAR === */
-    .btn-voltar {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin: 40px auto 30px;
-      padding: 16px 36px;
-      background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray));
-      color: var(--secondary) !important;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      font-size: 1rem;
-      border: 1px solid rgba(140, 248, 243, 0.2);
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-      position: relative;
-      z-index: 1;
-      max-width: 100%;
-      width: fit-content;
-    }
-
-    .btn-voltar:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-      background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
-      color: #ffffff !important;
-    }
-
-    .btn-voltar::before {
-      content: '←';
-      font-size: 1.2rem;
-      transition: transform 0.3s ease;
-    }
-
-    .btn-voltar:hover::before {
-      transform: translateX(-3px);
-    }
-
-    /* === FOOTER === */
-    footer {
-      text-align: center;
-      padding: 20px 0 40px;
-      color: var(--text-medium);
-      font-size: 0.95rem;
-      margin-top: 20px;
-      width: 100%;
-    }
-
-    .social-icons {
-      margin-bottom: 15px;
-    }
-
-    .social-icons a {
-      display: inline-block;
-      margin: 0 10px;
-      color: var(--text-medium);
-      font-size: 1.4rem;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    .social-icons a:hover {
-      color: var(--secondary);
-      transform: translateY(-3px);
-    }
-
-    /* RESPONSIVO */
-    @media (max-width: 768px) {
-      .remember-section { padding: 60px 20px 40px; }
-      .section-title { font-size: 2.8rem; }
-      .section-subtitle { font-size: 1.2rem; margin-bottom: 50px; }
-      .remember-intro, .remember-block { 
-        padding: 30px; 
-        margin-bottom: 25px;
-        backdrop-filter: blur(10px);
-      }
-      .remember-title { font-size: 1.6rem; }
-      .remember-quote { font-size: 1.15rem; padding: 25px; }
-      .remember-link, .btn-voltar { width: 100%; justify-content: center; }
-    }
-
-    @media (max-width: 480px) {
-      .remember-section { padding: 40px 15px; }
-      .section-title { font-size: 2.2rem; letter-spacing: 1px; }
-      .remember-intro, .remember-block { 
-        padding: 22px 18px;
-        backdrop-filter: blur(8px);
-      }
-      .remember-intro p, .remember-block p { font-size: 1rem; line-height: 1.7; }
-      .remember-quote { font-size: 1.1rem; padding: 20px; }
-      .remember-quote::before { font-size: 3rem; top: 5px; }
-      .remember-highlight::before { animation: shimmer 4s infinite; }
-      .social-icons a { margin: 0 6px; font-size: 1.2rem; }
-      .btn-voltar, .remember-link {
-        padding: 14px 20px;
-        font-size: 0.95rem;
-      }
-    }
-@media (max-width: 768px) {
   body {
-    background-attachment: scroll;
-    background-size: 170% auto;      /* <── controle do "zoom" aqui */
-    background-position: center top; /* ajuste fino do posicionamento */
+    margin: 0;
+    padding: 0;
+    background: url('/imagens/bg_clouds.jpg') center center fixed;
+    background-size: cover;
+    min-height: 100dvh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: var(--text-light);
+    line-height: 1.6;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--overlay);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  @keyframes subtlePan {
+    0% { background-position: 0% center; }
+    100% { background-position: -10% center; }
+  }
+
+  body {
+    animation: subtlePan 10s alternate infinite;
+    background-size: 200% auto;
+  }
+
+  .remember-section {
+    padding: 100px 20px 80px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+.section-title {
+  font-size: 4rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg,
+    #ffffff 0%,
+    #f8f9fa 15%,
+    #e9ecef 30%,
+    #dae0e5 50%,
+    #e9ecef 70%,
+    #f8f9fa 85%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  background-size: 200% auto;
+  
+  /* Efeitos de brilho metálico */
+  text-shadow: 
+    0 1px 0px rgba(255, 255, 255, 0.9),
+    0 2px 1px rgba(255, 255, 255, 0.8),
+    0 0 8px rgba(255, 255, 255, 0.6),
+    0 0 15px rgba(255, 255, 255, 0.4),
+    0 3px 3px rgba(0, 0, 0, 0.1),
+    0 6px 6px rgba(0, 0, 0, 0.562);
+  
+  /* Adicionando animação sutil de brilho */
+  animation: metallic-shine 4s ease-in-out infinite;
+}
+
+/* Sombra de destaque adicional */
+.section-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+/* Efeito de brilho metálico sutil */
+@keyframes metallic-shine {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
   }
 }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
 
-    .remember-intro,
-    .remember-block {
-      animation: fadeIn 0.6s ease-out forwards;
-      opacity: 0;
-    }
+.section-subtitle {
+  font-size: 1.4rem;
+  text-align: center;
+  color: var(--text-medium); 
+  margin-bottom: 70px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1.6;
+  text-shadow: 
+    0 1px 2px rgba(255, 255, 255, 0.336),   
+    0 2px 4px rgba(0, 0, 0, 0.315);          
+}
 
-    .remember-intro { animation-delay: 0.1s; }
-    .remember-block:nth-child(1) { animation-delay: 0.2s; }
-    .remember-block:nth-child(2) { animation-delay: 0.3s; }
-    .remember-block:nth-child(3) { animation-delay: 0.4s; }
-    .remember-block:nth-child(4) { animation-delay: 0.5s; }
-    .remember-block:nth-child(5) { animation-delay: 0.6s; }
-  </style>
+  .remember-intro,
+  .remember-block {
+    background: rgba(255, 255, 255, 0.295); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 16px;
+    padding: 45px;
+    margin-bottom: 35px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); 
+    border: 1px solid rgba(140, 248, 243, 0.1);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    color: var(--text-medium);
+  }
+
+  .remember-intro:hover,
+  .remember-block:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); /* SOMBRINHA MAIS FORTE NO HOVER */
+    background: rgba(255, 255, 255, 0.95); /* FICA MAIS BRANCO NO HOVER */
+  }
+
+  .remember-intro {
+    border-left: 5px solid var(--secondary);
+  }
+
+  .remember-intro p,
+  .remember-block p {
+    margin-bottom: 22px;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-medium);
+    
+  }
+
+
+  .remember-intro p:first-of-type {
+    color: var(--secondary);
+    font-weight: 600;
+  }
+
+  .remember-title {
+    font-size: 1.9rem;
+    color: var(--secondary);
+    margin-bottom: 25px;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+  }
+
+  .remember-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    border-radius: 1.5px;
+  }
+
+  .remember-list {
+    list-style: none;
+    margin: 30px 0;
+    padding: 0;
+  }
+
+  .remember-list li {
+    padding: 16px 0 16px 35px;
+    position: relative;
+    color: var(--text-medium);
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(140, 248, 243, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .remember-list li:last-child {
+    border-bottom: none;
+  }
+
+  .remember-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--secondary);
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .remember-list li:hover {
+    color: var(--secondary);
+    padding-left: 40px;
+    background-color: rgba(140, 248, 243, 0.05);
+  }
+
+  .remember-list li:hover::before {
+    transform: translateX(3px);
+    color: var(--primary-light);
+  }
+
+  .remember-quote {
+    background: rgba(17, 112, 141, 0.08); /* MAIS CLARO */
+    border-left: 5px solid var(--secondary);
+    padding: 30px;
+    margin: 35px 0;
+    border-radius: 12px;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    position: relative;
+    font-weight: 500;
+  }
+
+  .remember-quote::before {
+    content: '"';
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 4rem;
+    color: rgba(140, 248, 243, 0.15); /* MENOS OPACO */
+    font-family: Georgia, serif;
+  }
+
+  .remember-highlight {
+    background: rgba(17, 112, 141, 0.1); /* MAIS CLARO */
+    border: 2px solid var(--secondary);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .remember-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(140, 248, 243, 0.1), transparent);
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  .remember-highlight strong {
+    color: var(--secondary);
+    font-weight: 700;
+  }
+
+  .remember-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 25px;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--text-light) !important;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(17, 112, 141, 0.4);
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .remember-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(17, 112, 141, 0.6);
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  }
+
+  .remember-link::after {
+    content: '→';
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+
+  .remember-link:hover::after {
+    transform: translateX(5px);
+  }
+
+  /* === BOTÃO VOLTAR === */
+  .btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 40px auto 30px;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray));
+    color: var(--secondary) !important;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    border: 1px solid rgba(140, 248, 243, 0.2);
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    width: fit-content;
+  }
+
+  .btn-voltar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
+    color: #ffffff !important;
+  }
+
+  .btn-voltar::before {
+    content: '←';
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+
+  .btn-voltar:hover::before {
+    transform: translateX(-3px);
+  }
+
+  /* === FOOTER === */
+  footer {
+    text-align: center;
+    padding: 20px 0 40px;
+    color: var(--text-medium);
+    font-size: 0.95rem;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .social-icons {
+    margin-bottom: 15px;
+  }
+
+  .social-icons a {
+    display: inline-block;
+    margin: 0 10px;
+    color: var(--text-medium);
+    font-size: 1.4rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .social-icons a:hover {
+    color: var(--secondary);
+    transform: translateY(-3px);
+  }
+
+  /* RESPONSIVO */
+ @media (max-width: 768px) {
+  body {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .section-subtitle {
+    font-size: 1.1rem;       
+    margin-bottom: 40px;      
+    line-height: 1.5;         
+    padding: 0 10px;          
+  }
+ 
+  .remember-section { padding: 60px 20px 40px; }
+  .section-title { font-size: 2.8rem; }
+  .section-subtitle { font-size: 1.2rem; margin-bottom: 50px; }
+  .remember-intro, .remember-block { 
+    padding: 30px; 
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+  }
+  .remember-title { font-size: 1.6rem; }
+  .remember-quote { font-size: 1.15rem; padding: 25px; }
+  .remember-link, .btn-voltar { width: 100%; justify-content: center; }
+}
+</style>
 </head>
 <body>
 
   <section class="remember-section" id="remember">
     <div class="container">
       <h2 class="section-title">REMEMBER</h2>
-      <p class="section-subtitle">Immersive Research on Memory, Identity & Presence</p>
+      <p class="section-subtitle">An Immersive Research Exploring Memory, Identity and Presence</p>
 
 <div class="remember-intro">
   <p>
-    REMEMBER is the first project of a broader research dedicated to investigating human behavior and the ways technology — especially virtual reality — can engage with deeper layers of human experience.
+    REMEMBER is the first project of a broader research dedicated to investigating human behavior and the ways technology — especially Virtual Reality — can engage with deeper layers of human experience.
   </p>
   <p>
     It is an immersive research exploring how virtual environments can support processes related to perception, memory, and emotional awareness, creating spaces where presence and experience are approached in a sensitive and intentional way.
@@ -465,6 +455,7 @@
     The project is grounded in the understanding that our internal narratives shape how we exist in the world — influencing meaning, direction, and the way we relate to ourselves and to life.
   </p>
 </div>
+
 
       <div class="remember-block">
         <h3 class="remember-title">The origin of REMEMBER</h3>
