@@ -80,10 +80,12 @@
     }
     
     .language-bar button {
-      background: none;
-      border: none;
-      padding: 2px;
-      cursor: pointer;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    margin-right: -17px;
+    margin-top: 10px;
     }
     
     .language-bar img {
@@ -145,7 +147,7 @@
       font-size: var(--text-xs);
       letter-spacing: 6px;
       font-weight: 400;
-      color: var(--text-tertiary);
+      color: var(--light-gray);
       margin-top: 2px;
       text-transform: uppercase;
     }
@@ -236,23 +238,51 @@
     }
 
     @media (max-width: 768px) {
-      .nav-container {
-        padding: 0 15px;
-      }
+       .nav-container {
+    padding: 0 15px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; /* Alinha verticalmente */
+  }
       
       .nav-logo {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
       }
       
       .logo-subtitle {
-        font-size: 0.45rem;
+        font-size: 0.2rem;
       }
       
       .menu-toggle {
         display: flex;
         margin-left: 10px;
       }
-      
+       .language-bar {
+  /* Remove o position: fixed */
+    display: flex;
+    gap: 6px;
+    margin-left: 300px; /* Espaçamento da logo */
+    margin-right: 50px;
+    margin-top: -8px;
+   z-index: 1001;
+  }
+
+  .language-bar button {
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .language-bar img {
+    width: 22px;
+    height: 16px;
+    border-radius: 3px;
+  }
+
+  .language-bar button:hover {
+    opacity: 0.7;
+  }
       .nav-menu {
         position: fixed;
         top: 0;
@@ -314,16 +344,12 @@
       }
 
       /* POSICIONAMENTO DAS BANDEIRAS AO LADO DO HAMBURGUER */
-      .language-bar {
-        top: 18px;
-        right: auto;
-        left: 60px;
-        gap: 6px;
-      }
+ 
       
       .language-bar img {
         width: 22px;
         height: 16px;
+      
       }
     }
 
@@ -334,12 +360,52 @@
       }
       
       .nav-logo {
-        font-size: 1.2rem;
+        font-size: 1.0rem;
       }
       
       .logo-subtitle {
-        font-size: 0.4rem;
+        font-size: 0.35rem;
       }
+            .language-bar img {
+        width: 22px;
+        height: 16px;
+        margin-left: 5px;
+        margin-right:-10px;
+      
+      }
+          
+.hero h1 {
+font-size: 1.0rem;
+}
+
+.hero h2 {
+font-size: 1.0rem;
+}
+
+.hero .byline {
+
+}
+    
+    .image-container {
+ 
+    }
+    
+    .image-container img {
+     
+    }
+    
+    .image-container::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30px;
+      background: linear-gradient(to top, var(--primary), rgba(0, 0, 0, 0));
+      pointer-events: none;
+      z-index: 1;
+    }
+
     }
 
     /* Hero - Padronizado */
@@ -411,34 +477,34 @@
       color: #666;
     }
     
-    .hero h1 {
-      font-family: var(--font-heading);
-      font-size: var(--text-xxl);
-      font-weight: 600;
-      line-height: 1.2;
-      color: #333;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-      letter-spacing: 1px;
-    }
-    
-    .hero h2 {
-      font-family: var(--font-body);
-      font-size: var(--text-lg);
-      color: #555;
-      margin-bottom: 0.25rem;
-      font-weight: 400;
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-    }
-    
-    .hero .byline {
-      font-family: var(--font-body);
-      font-size: var(--text-sm);
-      color: #777;
-      margin-top: 0.5rem;
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-      font-weight: 300;
-    }
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-xxl);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #d1d0d0; /* Cor branca para melhor contraste */
+  margin-bottom: 0.5rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Sombra preta para maior legibilidade */
+  letter-spacing: 1px;
+}
+
+.hero h2 {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: #dfdfdf; /* Cor branca para melhor contraste */
+  margin-bottom: 0.25rem;
+  font-weight: 500; /* Aumentado para 500 */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Sombra preta para maior legibilidade */
+}
+
+.hero .byline {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: #ccc; /* Cinza claro para contraste moderado */
+  margin-top: 0.5rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Sombra preta para maior legibilidade */
+  font-weight: 300;
+}
     
     .image-container {
       position: relative;
@@ -517,38 +583,34 @@
       color: var(--text-accent);
       font-weight: 600;
     }
+.about-signature {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--text-accent);
+  text-align: center;
+  position: relative;
+  margin-top: 2.8rem;
+  padding-top: 1.2rem;
+  text-transform: uppercase;
+}
 
-    /* ASSINATURA */
-    .about-signature {
-      margin-top: 2.8rem;
-      font-family: var(--font-heading);
-      font-size: var(--text-md);
-      font-weight: 300;
-      letter-spacing: 0.3em;
-      color: var(--text-accent);
-      text-align: center;
-      position: relative;
-      padding-top: 1.2rem;
-      text-transform: uppercase;
-    }
-    
-    .about-signature::before {
-      content: "";
-      display: block;
-      width: 60px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-      margin: 0 auto 1rem;
-    }
-
-    .gradient-mask {
-      position: relative;
-      max-height: 300px;
-      overflow: hidden;
-      transition: max-height 0.5s ease;
-      margin-bottom: 1.5rem;
-    }
-    
+.about-signature::before {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  margin: 0 auto 1rem;
+}
+  .gradient-mask {
+  position: relative;
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  margin-bottom: 0.5rem; /* Reduzido de 1.5rem para 0.5rem */
+}
     .gradient-mask::after {
       content: '';
       position: absolute;
@@ -567,33 +629,61 @@
     
     .gradient-mask.expanded::after {
       display: none;
-    }
+    }/* === BOTÃO "SEE MORE" CORRIGIDO === */
+.expand-button {
+  display: block;
+  margin: 0 auto; /* Centraliza horizontalmente */
+  padding: 8px 20px; /* Reduz o padding para ficar mais compacto */
+  background: transparent; /* Mantém o fundo transparente */
+  color: var(--text-accent);
+  border: none; /* Remove a borda para ficar mais integrado */
+  border-radius: 4px; /* Arredonda levemente os cantos */
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.8px;
+  transition: all 0.3s ease;
+  z-index: 3;
+  position: relative;
+  text-transform: uppercase;
+  /* Adiciona uma sombra sutil para destacar */
+  box-shadow: 0 0 5px rgba(0, 255, 247, 0.2);
+}
 
-    .expand-button {
-      display: block;
-      margin: 1.5rem auto 0;
-      padding: 11px 28px;
-      background: transparent;
-      color: var(--text-accent);
-      border: 1px solid var(--text-accent);
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: var(--text-sm);
-      letter-spacing: 0.8px;
-      transition: all 0.3s ease;
-      z-index: 3;
-      position: relative;
-      text-transform: uppercase;
-    }
-    
-    .expand-button:hover {
-      background: rgba(0, 255, 247, 0.1);
-      box-shadow: 0 0 12px rgba(0, 255, 247, 0.3);
-      transform: translateY(-2px);
-    }
+/* A seta deve ser um pseudo-elemento do próprio botão */
+.expand-button::after {
+  content: "";
+  position: absolute;
+  bottom: -8px; /* Posiciona abaixo do botão */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--text-accent); /* Cor do texto accent */
+  opacity: 0.7; /* Transparência leve */
+  transition: opacity 0.3s ease;
+}
 
+/* Classe para quando o botão é clicado (seta para cima) */
+.expand-button.rotated::after {
+  transform: translateX(-50%) rotate(180deg); /* Gira a seta para cima */
+  border-top: none; /* Remove a borda superior */
+  border-bottom: 6px solid var(--text-accent); /* Adiciona borda inferior */
+}
+
+.expand-button:hover {
+  background: rgba(0, 255, 247, 0.05); /* Fundo mais claro ao hover */
+  box-shadow: 0 0 8px rgba(0, 255, 247, 0.4); /* Sombra mais intensa */
+  transform: translateY(-1px); /* Leve elevação */
+}
+
+/* A seta também deve reagir ao hover */
+.expand-button:hover::after {
+  opacity: 1; /* Torna a seta mais visível no hover */
+}
     /* Seção Portfolio/Curriculum - Padronizada */
     .curriculum-cta {
       background: linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 50%, #050505 100%);
@@ -1347,9 +1437,10 @@
         <p><strong>
           Today, I dedicate myself to creating immersive experiences using software and technologies that transform physical spaces into interactive digital environments.
         </strong></p>
+         <p class="about-signature">— Lara E. Negreiros</p>
       </div>
       <button class="expand-button" id="expand-about">See more</button>
-      <p class="about-signature">— Lara E. Negreiros</p>
+     
     </div>
   </section>
 
@@ -1533,16 +1624,17 @@
       }
     }
 
-    // Botão "See more" funcional
-    const expandButton = document.getElementById('expand-about');
-    const aboutContent = document.getElementById('about-content');
-    
-    if (expandButton && aboutContent) {
-      expandButton.addEventListener('click', () => {
-        aboutContent.classList.toggle('expanded');
-        expandButton.textContent = aboutContent.classList.contains('expanded') ? 'See less' : 'See more';
-      });
-    }
+// Botão "See more" funcional - CORRIGIDO
+const expandButton = document.getElementById('expand-about');
+const aboutContent = document.getElementById('about-content');
+if (expandButton && aboutContent) {
+  expandButton.addEventListener('click', () => {
+    aboutContent.classList.toggle('expanded');
+    // Adiciona/Remove a classe 'rotated' para girar a seta
+    expandButton.classList.toggle('rotated');
+    expandButton.textContent = aboutContent.classList.contains('expanded') ? 'See less' : 'See more';
+  });
+}
 
     // Atualiza link ativo ao rolar
     window.addEventListener('scroll', function() {
