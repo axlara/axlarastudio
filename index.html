@@ -349,9 +349,13 @@
       .language-bar img {
         width: 22px;
         height: 16px;
-      
+  
       }
+
+
+
     }
+
 
     @media (max-width: 480px) {
       .nav-menu {
@@ -791,28 +795,32 @@ font-size: 1.0rem;
     }
     
     .remember-inline-btn {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 6px 16px;
-      background: rgba(52, 39, 238, 0.479);
-      color: var(--text-tertiary);
-      font-family: var(--font-body);
-      font-size: var(--text-sm);
-      text-decoration: none;
-      border-radius: 6px;
-      border: 1px solid rgba(108, 66, 245, 0.2);
-      transition: all 0.25s ease;
-      backdrop-filter: blur(4px);
-      letter-spacing: 0.4px;
+    display: inline-block;
+    margin-top: 10px;
+    padding:04px 35px;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    box-shadow: 0 5px 20px rgba(106, 66, 245, 0.4);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
     }
     
-    .remember-inline-btn:hover {
+    /* .remember-inline-btn:hover {
       background: rgba(108, 66, 245, 0.18);
       color: var(--text-accent);
       border-color: rgba(108, 66, 245, 0.4);
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(0, 255, 247, 0.1);
-    }
+    } */
 
     /* Seção VR - Padronizada */
     .vr-section {
@@ -1265,11 +1273,15 @@ font-size: 1.0rem;
       }
       
       .about {
-        padding: 60px 15px;
+         padding: 0 30px;
       }
-      
+      .about-lead{
+         padding: 20px 5px 5px;
+     
+        }
+
       .curriculum-cta {
-        padding: 60px 15px;
+        padding: 60px 30px;
       }
       
       .curriculum-button {
@@ -1288,7 +1300,13 @@ font-size: 1.0rem;
       .vr-description {
         text-align: justify;
       }
-      
+      .vr-research-note{
+           padding: 0 30px;
+      }
+       .remember-inline-btn {
+    
+    font-size: var(--text-xs);}
+    
       .projects-section {
         margin: 40px 0;
       }
