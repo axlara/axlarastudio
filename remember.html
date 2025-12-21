@@ -30,33 +30,29 @@
         padding: 0;
     }
 
-    /* CORREÇÃO DO BACKGROUND - FUNCIONA EM TODOS OS DISPOSITIVOS */
-    body {
-        margin: 0;
-        padding: 0;
-        background: url('imagens/bg_clouds.jpg') center center / cover no-repeat fixed;
-        min-height: 100vh;
-        min-height: 100dvh;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-        color: var(--text-light);
-        line-height: 1.6;
-        position: relative;
-        overflow-x: hidden;
-        width: 100%;
-    }
+   body {
+    margin: 0;
+    padding: 0;
+    background: url('imagens/bg_clouds.jpg') center center / cover no-repeat fixed;
+    min-height: 100vh;
+    min-height: 100dvh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: var(--text-light);
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+    width: 100%;
+}
 
-    /* Overlay fixo para melhor legibilidade */
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--overlay);
-        z-index: -1;
-        pointer-events: none;
-    }
+/* Overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    z-index: -1;
+    pointer-events: none;
+}
 
     @keyframes subtlePan {
         0% { background-position: 0% center; }
@@ -73,13 +69,12 @@
         }
     }
 
-    /* === Estilos avançados: APENAS em desktop === */
-    @media (min-width: 769px) {
-        body {
-            animation: subtlePan 10s alternate infinite;
-            background-size: 200% auto;
-        }
+ @media (min-width: 769px) {
+    body {
+        animation: subtlePan 10s alternate infinite;
+        background-size: 200% auto;
     }
+}
 
     /* === CORREÇÃO MOBILE: Background fixo e sem animação === */
     @media (max-width: 768px) {
@@ -91,7 +86,32 @@
             background-size: cover !important; /* Força cover no mobile */
         }
     }
+.remember-bg {
+    display: none;
+}
 
+/* MOBILE */
+@media (max-width: 768px) {
+
+    /* Ativa a camada */
+    .remember-bg {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: url('imagens/bg_clouds.jpg') center center / cover no-repeat;
+        z-index: -2;
+    }
+
+    /* Desliga background problemático do body */
+    body {
+        background: none !important;
+        animation: none !important;
+    }
+
+    body::before {
+        z-index: -1;
+    }
+}
     .remember-section {
         padding: 100px 20px 80px;
         max-width: 1000px;
@@ -505,7 +525,8 @@
     </style>
 </head>
 <body>
-
+  <!-- Background seguro para MOBILE -->
+    <div class="remember-bg"></div>
     <section class="remember-section" id="remember">
         <div class="container">
             <h2 class="section-title">REMEMBER</h2>
