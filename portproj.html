@@ -6,6 +6,7 @@
   <meta name="description" content="All projects portfolio | AX-LARA Studio">
   <title>Portfolio | AX-LARA Studio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
   <style>
     :root {
       --primary: #00fff7;
@@ -39,7 +40,7 @@
       backdrop-filter: blur(5px);
       border-bottom: 1px solid rgba(0, 255, 247, 0.1);
     }
- 
+
     /* Barra de Idiomas */
     .language-bar {
       position: fixed;
@@ -73,79 +74,164 @@
       text-decoration: none;
       text-transform: uppercase;
     }
-    
+
     .nav-logo i {
       font-style: normal;
       color: var(--primary);
       display: inline-block;
-      text-shadow: 
+      text-shadow:
         0 0 5px var(--primary),
         0 0 10px var(--primary);
       animation: pulse 2s infinite alternate;
     }
-    
+
     .logo-subtitle {
       display: block;
       font-family: 'Montserrat', sans-serif;
       font-size: 0.5rem;
       letter-spacing: 6px;
       font-weight: 400;
-      color: var(--light-gray);
+      color: var(--light);
       margin-top: 2px;
       text-transform: uppercase;
     }
-    
+
     @keyframes pulse {
       from {
-        text-shadow: 
+        text-shadow:
           0 0 5px var(--primary),
           0 0 10px var(--primary);
       }
       to {
-        text-shadow: 
+        text-shadow:
           0 0 8px var(--primary),
           0 0 15px var(--primary);
       }
     }
-    header p {
+
+    /* Botão de acesso ao portfólio técnico */
+    .portfolio-call {
+      text-align: center;
       margin-top: 10px;
-      font-style: italic;
     }
-    header h1 {
-      font-size: 1.2rem;
-      color: var(--light);
-      font-weight: 400;
-      letter-spacing: 0.5px;
+    .portfolio-call a {
+      display: inline-block;
+      background: var(--primary);
+      color: var(--dark);
+      padding: 8px 24px;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 0.9em;
+      transition: all 0.3s ease;
     }
+    .portfolio-call a:hover {
+      background: var(--primary-dark);
+    }
+
     /* Conteúdo principal */
     .portfolio-container {
       padding: 150px 20px 60px;
       max-width: 1400px;
       margin: 0 auto;
     }
-    .section-title {
-      text-align: center;
-      color: var(--primary);
-      font-size: 2.5em;
-      margin-bottom: 20px;
-      position: relative;
-    }
-    .section-title:after {
-      content: "";
-      display: block;
-      width: 100px;
-      height: 3px;
-      background: var(--primary);
-      margin: 15px auto;
-    }
-    .section-description {
-      text-align: center;
-      color: var(--gray);
-      max-width: 800px;
-      margin: 0 auto 40px;
-      font-size: 1.1em;
-      line-height: 1.7;
-    }
+
+    /* === TÍTULOS PRINCIPAIS (.section-title) === */
+.section-title {
+  text-align: center;
+  font-size: 2.8rem; /* reduzido de 3.2rem */
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 40px 0 24px; /* reduzido espaçamento vertical */
+  letter-spacing: 6px; /* ligeiramente reduzido de 8px */
+  text-transform: uppercase;
+  line-height: 1.1;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.9rem;
+    letter-spacing: 4px;
+    margin: 32px 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.6rem;
+    letter-spacing: 3px;
+  }
+}
+.section-description {
+  text-align: center;
+  color: var(--gray);
+  max-width: 900px;
+  margin: 0 auto 50px; /* espaçamento inferior aumentado para respirar */
+  font-size: 1.1em;
+  line-height: 1.7;
+  padding: 0 20px; /* garantir margens internas em todas as telas */
+}
+
+@media (max-width: 768px) {
+  .section-description {
+    font-size: 1em;
+    margin-bottom: 40px;
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-description {
+    font-size: 0.95em;
+    margin-bottom: 35px;
+    padding: 0 12px;
+  }
+}
+
+/* === TÍTULOS DOS CARDS (.project-title) === */
+.project-title {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.3em;
+  margin-bottom: 12px;
+  font-weight: 300;
+  letter-spacing: 2px; /* tracking sutil, ecoando o título principal */
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.project-link {
+  align-self: flex-start;
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.06)
+  );
+  color: rgba(255, 255, 255, 0.88);
+  padding: 8px 22px;
+  border-radius: 22px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.35s ease;
+  font-size: 0.92em;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); /* compatibilidade Safari */
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.project-link:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.22),
+    rgba(255, 255, 255, 0.12)
+  );
+  color: white;
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
     /* Grid de projetos */
     .projects-grid {
       display: grid;
@@ -153,69 +239,70 @@
       gap: 30px;
       margin-bottom: 80px;
     }
-   
-  .project-card {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--dark-light);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  border: 1px solid #333;
-}
 
-.project-preview {
-  width: 100%;
-  height: 250px;
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
-}
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--dark-light);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      border: 1px solid #333;
+    }
 
-.project-preview iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
+    .project-preview {
+      width: 100%;
+      height: 250px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
 
-.project-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-}
+    .project-preview iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
-.project-title {
-  color: var(--primary);
-  font-size: 1.4em;
-  margin-bottom: 10px;
-}
+    .project-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+    }
 
-.project-description {
-  color: var(--gray);
-  font-size: 0.95em;
-  margin-bottom: 15px;
-  flex-grow: 1;
-}
+    .project-title {
+      color: var(--primary);
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
 
-.project-link {
-  align-self: flex-start;
-  display: inline-block;
-  background-color: var(--primary);
-  color: var(--dark);
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: all 0.3s;
-  font-size: 0.9em;
-}
+    .project-description {
+      color: var(--gray);
+      font-size: 0.95em;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
 
-.project-link:hover {
-  background-color: var(--primary-dark);
-}
+    .project-link {
+      align-self: flex-start;
+      display: inline-block;
+      background-color: rgba(88, 187, 184, 0.1);
+      color: var(--dark);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 0.9em;
+      color: var(--primary);
+    }
+
+    .project-link:hover {
+      background-color: var(--primary-dark);
+    }
 
     /* Modal para visualização expandida */
     .modal {
@@ -254,7 +341,8 @@
       border: none;
       border-radius: 8px;
     }
-    /* Botão Voltar */
+
+    /* Botão Voltar → agora aponta para index.html */
     .btn-voltar {
       background-color: #1a1a1a;
       border: 1px solid #00fff7;
@@ -274,6 +362,7 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
+      position: fixed; /* adicionado para fixar no canto */
     }
     .btn-voltar::before {
       content: "←";
@@ -284,6 +373,7 @@
       background-color: #00fff7;
       color: #000;
     }
+
     /* Botão do WhatsApp */
     .float-whatsapp {
       position: fixed;
@@ -307,16 +397,17 @@
       transform: scale(1.1);
       box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
     }
+
     footer {
       background-color: var(--dark-light);
       color: var(--light);
       text-align: center;
       padding: 20px;
       margin-top: 60px;
-      position: relative; 
+      position: relative;
     }
 
-    /* NOVO: Seções com background otimizado para mobile */
+    /* Seções com background otimizado para mobile */
     .links-section {
       background: linear-gradient(135deg, rgba(50,50,50,0.95) 0%, rgba(30,30,30,0.98) 100%);
       padding: 60px 20px;
@@ -387,15 +478,19 @@
       box-shadow: 0 10px 30px rgba(0, 255, 247, 0.3);
     }
 
-    /* Background images específicas para cada card - OTIMIZADO PARA MOBILE */
     .github-card {
-      background: linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.8)), 
+      background: linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.8)),
                   url('/imagens/imgithub.png') center/cover no-repeat;
     }
 
     .architecture-card {
-      background: linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.8)), 
+      background: linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.8)),
                   url('/imagens/imglahaus.png') center/cover no-repeat;
+    }
+
+    .ai-concept-card {
+      background: linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.8)),
+                  url('/imagens/ai-concept-bg.jpg') center/cover no-repeat;
     }
 
     .link-content {
@@ -456,6 +551,14 @@
       transform: scale(1.05);
     }
 
+    /* Responsive adjustments for section titles */
+    @media (max-width: 1024px) {
+      .section-title {
+        font-size: 2.6rem;
+        letter-spacing: 6px;
+      }
+    }
+
     @media (max-width: 768px) {
       .projects-grid {
         grid-template-columns: 1fr;
@@ -464,8 +567,9 @@
         padding: 120px 15px 40px;
       }
       .section-title {
-        font-size: 2em;
-        margin-bottom: 40px;
+        font-size: 2rem;
+        letter-spacing: 5px;
+        margin-bottom: 30px;
       }
       .section-description {
         font-size: 1em;
@@ -502,7 +606,7 @@
         padding: 15px;
       }
     }
-    
+
     @media (min-width: 769px) {
       .links-grid {
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -511,10 +615,11 @@
         min-height: 450px;
       }
     }
-    
+
     @media (max-width: 480px) {
       .section-title {
-        font-size: 1.8em;
+        font-size: 1.7rem;
+        letter-spacing: 4px;
       }
       .project-preview {
         height: 180px;
@@ -543,82 +648,147 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Header -->
   <header>
     <div class="container">
       <div class="nav-container">
-      <a href="#" class="nav-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></a>
-      <!-- <p>(Portfolio under construction)</p> -->
+        <!-- LOGO LINKADA PARA index.html -->
+        <a href="index.html" class="nav-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></a>
+      </div>
+
+      <!-- Barra de Idiomas -->
+      <div class="language-bar">
+        <button onclick="translateTo('pt')" aria-label="Português">
+          <img src="https://flagcdn.com/br.svg" alt="Português" width="24" height="16">
+        </button>
+        <button onclick="translateTo('es')" aria-label="Español">
+          <img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
+        </button>
+      </div>
+
+      <div id="google_translate_element" style="display: none;"></div>
     </div>
-     <!-- Barra de Idiomas -->
-  <div class="language-bar">
-    <button onclick="translateTo('pt')" aria-label="Português">
-      <img src="https://flagcdn.com/br.svg" alt="Português" width="24" height="16">
-    </button>
-    <button onclick="translateTo('es')" aria-label="Español">
-      <img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
-    </button>
-  </div>
-
-  <!-- Google Translate Script -->
-  <div id="google_translate_element" style="display: none;"></div>
-
   </header>
+
   <!-- Conteúdo Principal -->
   <main class="portfolio-container">
-    <!-- Seção VR -->
-    <h2 class="section-title">VR Projects</h2>
+
+    <!-- Visual Concepts – AI Creative (UPDATED) -->
+    <h2 class="section-title">Visual Concepts — AI Creative Research</h2>
     <p class="section-description">
-      Virtual reality projects that blend narrative, technology and architectural visualization with VR headsets like Oculus Meta Quest or similar. 
-      Immersive experiences that transport users to interactive virtual environments, creating unique and memorable sensations.
+      A human-centered visual research practice where AI supports ideation, narrative, and aesthetic prototyping.
+      The work is organized into three lines of inquiry: urban/spatial futures, product & brand storytelling,
+      and poetic studies of presence.
     </p>
+
     <div class="projects-grid">
-      <!-- Projeto VR 1 -->
+      <!-- Track 1: Poetic Studies -->
+      <div class="project-card">
+        <div class="project-preview" style="background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('/imagens/lumen3.png') center/cover no-repeat;"></div>
+        <div class="project-info">
+          <h3 class="project-title">Poetic Studies — Presence</h3>
+          <p class="project-description">
+            A visual inquiry into presence, memory, and inner states. I prototype atmospheres through light,
+            translucency, and material metaphors — building a symbolic language for emotion and stillness.
+          </p>
+          <a href="project-presence.html" class="project-link">View Selected Studies</a>
+        </div>
+      </div>
+
+      <!-- Track 2: Product & Brand Worlds -->
+      <div class="project-card">
+        <div class="project-preview" style="background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('/imagens/lumen4.png') center/cover no-repeat;"></div>
+        <div class="project-info">
+          <h3 class="project-title">Product & Brand Worlds</h3>
+          <p class="project-description">
+            Concept development for products and brands through mood, materiality, and storytelling.
+            AI helps prototype visual systems, campaign directions, and design language — from minimal to expressive.
+          </p>
+          <a href="project-lumen.html" class="project-link">Explore Brand Worlds</a>
+        </div>
+      </div>
+
+      <!-- Track 3: Urban & Spatial Futures -->
+      <div class="project-card">
+        <div class="project-preview" style="background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_.png') center/cover no-repeat;"></div>
+        <div class="project-info">
+          <h3 class="project-title">Urban & Spatial Futures</h3>
+          <p class="project-description">
+            Spatial and urban design exploration using AI to accelerate massing, typologies, and environmental narratives —
+            balancing imagination with context, climate, and local identity.
+          </p>
+          <a href="project-coastal.html" class="project-link">Explore Urban Concepts</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Immersive Experiences -->
+    <h2 class="section-title">Immersive Experiences</h2>
+    <p class="section-description">
+      VR and interactive environments combining narrative, spatial design, and real-time tools to create presence, memory,
+      and embodied attention.
+    </p>
+
+    <div class="projects-grid">
       <div class="project-card">
         <div class="project-preview">
-        <iframe src="https://player.vimeo.com/video/1124202316?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="memorieslives"></iframe>
+          <iframe src="https://player.vimeo.com/video/1124202316?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                  width="1280" height="720" frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" title="memorieslives"></iframe>
         </div>
         <div class="project-info">
           <h3 class="project-title">Memories Live</h3>
-          <p class="project-description">Transforming personal memories into immersive environments where people can recall meaningful moments and reconnect with their own history.</p>
+          <p class="project-description">
+            Transforming personal memories into immersive environments where people can recall meaningful moments.
+          </p>
           <a href="project-memories-live.html" class="project-link">View Complete Project</a>
         </div>
       </div>
 
-      <!-- Projeto VR 2 -->
       <div class="project-card">
         <div class="project-preview">
-          <iframe src="https://player.vimeo.com/video/1124202207?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="ImmersiveDesignProject1"></iframe>
+          <iframe src="https://player.vimeo.com/video/1124202207?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                  width="1280" height="720" frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" title="ImmersiveDesignProject1"></iframe>
         </div>
         <div class="project-info">
           <h3 class="project-title">Immersive Design</h3>
-          <p class="project-description">Immersive design applied to architecture, offering interactive visual solutions in VR for better understanding, impact and project appreciation.</p>
+          <p class="project-description">
+            Immersive design applied to architecture, offering interactive visual solutions in VR.
+          </p>
           <a href="project-immersive-design.html" class="project-link">View Complete Project</a>
         </div>
       </div>
 
-      <!-- Projeto VR 3 -->
       <div class="project-card">
         <div class="project-preview">
-      <iframe src="https://player.vimeo.com/video/1124202288?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="848" height="480" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="storyscape"></iframe>
+          <iframe src="https://player.vimeo.com/video/1124202288?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                  width="848" height="480" frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" title="storyscape"></iframe>
         </div>
         <div class="project-info">
           <h3 class="project-title">Story Scape</h3>
-          <p class="project-description">Creating virtual journeys through cities, landscapes and environments guided by narrative, combining exploration with sensory presence. (In development)</p>
+          <p class="project-description">
+            Creating virtual journeys through cities and landscapes guided by narrative. (In development)
+          </p>
           <a href="project-story-scape.html" class="project-link">View Complete Project</a>
         </div>
       </div>
     </div>
 
-    <!-- Seção Arquitetura -->
-    <h2 class="section-title">Other Projects</h2>
+    <!-- Spatial / Architecture -->
+    <h2 class="section-title">Spatial / Architecture</h2>
     <p class="section-description">
-      Projects developed from 3D modeling to 360° virtual tours, presenting complete solutions in architectural visualization. 
-      Work ranging from residential and commercial environments to corporate spaces, with focus on realism and immersion.
+      Architectural visualization and spatial storytelling — from 3D modeling to 360° virtual tours — focused on realism,
+      clarity, and immersive presentation for clients and stakeholders.
     </p>
+
     <div class="projects-grid">
-      <!-- Projeto 1 -->
       <div class="project-card">
         <div class="project-preview">
           <iframe src="tour-galeria.html" loading="lazy" title="Art Gallery"></iframe>
@@ -630,7 +800,6 @@
         </div>
       </div>
 
-      <!-- Projeto 2 -->
       <div class="project-card">
         <div class="project-preview">
           <iframe src="https://tour.panoee.net/67894c07234c0474530f4778" loading="lazy" title="Beach Room"></iframe>
@@ -641,7 +810,7 @@
           <a href="#" class="project-link expand-btn" data-src="https://tour.panoee.net/67894c07234c0474530f4778">View Complete Project</a>
         </div>
       </div>
-       <!-- Projeto 6 -->
+
       <div class="project-card">
         <div class="project-preview">
           <iframe src="tour-av12.html" loading="lazy" title="Office Tour"></iframe>
@@ -653,7 +822,6 @@
         </div>
       </div>
 
-      <!-- Projeto 3 -->
       <div class="project-card">
         <div class="project-preview">
           <iframe src="tour-sala.html" loading="lazy" title="Living Room Tour"></iframe>
@@ -665,8 +833,6 @@
         </div>
       </div>
 
-
-      <!-- Projeto 4 -->
       <div class="project-card">
         <div class="project-preview">
           <iframe src="tour-salahightec.html" loading="lazy" title="High-Tech Room"></iframe>
@@ -674,11 +840,10 @@
         <div class="project-info">
           <h3 class="project-title">High-Tech Room</h3>
           <p class="project-description"></p>
-          <a href="#" class="project-link expand-btn" data-src="tour-salahightech.html">View Complete Project</a>
+          <a href="#" class="project-link expand-btn" data-src="tour-salahightec.html">View Complete Project</a>
         </div>
       </div>
 
-      <!-- Projeto 5 -->
       <div class="project-card">
         <div class="project-preview">
           <iframe src="tour-office.html" loading="lazy" title="Office Tour"></iframe>
@@ -691,12 +856,11 @@
       </div>
     </div>
 
-    <!-- NOVA SEÇÃO: Desenvolvimento Front-end - OTIMIZADO PARA MOBILE -->
+    <!-- Front-end Development -->
     <section class="links-section">
       <h2 class="section-title">Front-end Development</h2>
       <p class="section-description">
-        Explore my first web development projects and code repositories. 
-        Including websites developed for clients and also personal projects carried out during courses and experiments.
+        Web development projects and code experiments—ranging from client websites to personal learning journeys.
       </p>
       <div class="links-grid">
         <div class="link-card github-card">
@@ -712,12 +876,11 @@
       </div>
     </section>
 
-    <!-- NOVA SEÇÃO: Projetos de Arquitetura - OTIMIZADO PARA MOBILE -->
+    <!-- Architecture Projects -->
     <section class="links-section">
       <h2 class="section-title">Architecture Projects</h2>
       <p class="section-description">
-        Architecture and interior design projects developed with LAHAUS Architecture. Explore my complete trajectory 
-        in the architecture field with completed works.
+        Architecture and interior design projects developed with LAHAUS Architecture. Explore my complete trajectory in the field.
       </p>
       <div class="links-grid">
         <div class="link-card architecture-card">
@@ -733,24 +896,80 @@
       </div>
     </section>
   </main>
-  <!-- Modal para visualização expandida -->
+
+  <!-- Modal -->
   <div class="modal" id="projectModal">
     <div class="modal-content">
       <span class="modal-close">&times;</span>
       <iframe class="modal-iframe" id="modalIframe" allowfullscreen></iframe>
     </div>
   </div>
-  <!-- Botão flutuante do WhatsApp -->
-  <a href="https://wa.me/5584996249406 " class="float-whatsapp" title="Talk on WhatsApp">
+
+  <!-- Botões flutuantes -->
+  <a href="https://wa.me/5584996249406" class="float-whatsapp" title="Talk on WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
-  <a href="portfolio.html" class="btn-voltar"></a>
+
+  <!-- Chamada para Portfólio Técnico -->
+  <section class="portfolio-call-section" style="
+    padding: 10px 20px;
+    text-align: center;
+    margin: 10px auto 40px;
+    position: relative;
+  ">
+    <h3 class="section-title" style="
+      font-size: 1.8em;
+      color: var(--primary);
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    ">Technical Profile</h3>
+
+    <p style="
+      color: var(--gray);
+      font-size: 1.1em;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    ">
+      Access my full technical profile — including tools, CV, and documentation of the creative process behind each project.
+    </p>
+
+    <a href="portfolio.html" class="main-link" style="
+      display: inline-block;
+      background: rgba(0, 255, 247, 0.12);
+      color: var(--primary);
+      padding: 14px 36px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.05em;
+      border: 1px solid rgba(0, 255, 247, 0.3);
+      transition: all 0.4s ease;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 0 0 rgba(0, 255, 247, 0.2);
+    ">
+      View Technical Portfolio
+    </a>
+  </section>
+
+  <style>
+    .portfolio-call-section a.main-link:hover {
+      background: rgba(0, 255, 247, 0.25);
+      box-shadow: 0 0 12px rgba(0, 255, 247, 0.4);
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <!-- BOTÃO VOLTAR → AGORA LINKA PARA index.html -->
+  <a href="index.html" class="btn-voltar" title="Back to Home"></a>
+
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 AX-LARA Studio | All rights reserved</p>
+    <p>&copy; 2026 AX-LARA Studio | All rights reserved</p>
   </footer>
+
+  <!-- Scripts -->
   <script>
-        function googleTranslateElementInit() {
+    function googleTranslateElementInit() {
       new google.translate.TranslateElement({
         pageLanguage: 'en',
         includedLanguages: 'en,es,pt',
@@ -764,6 +983,7 @@
       gt.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
       document.body.appendChild(gt);
     })();
+
     function translateTo(lang) {
       const select = document.querySelector('.goog-te-combo');
       if (select) {
@@ -773,7 +993,7 @@
         setTimeout(() => translateTo(lang), 500);
       }
     }
-    // Atualizei o script para que funcione apenas com os botões que ainda usam o modal
+
     document.querySelectorAll('.expand-btn').forEach(btn => {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
@@ -783,15 +1003,13 @@
         document.body.style.overflow = 'hidden';
       });
     });
-    
-    // Fechar modal
+
     document.querySelector('.modal-close').addEventListener('click', function() {
       document.getElementById('projectModal').style.display = 'none';
       document.getElementById('modalIframe').src = '';
       document.body.style.overflow = 'auto';
     });
-    
-    // Fechar modal ao clicar fora do conteúdo
+
     document.getElementById('projectModal').addEventListener('click', function(e) {
       if (e.target === this) {
         this.style.display = 'none';

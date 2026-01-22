@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XR Projects — AX-LARA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00fff7;
+      --secondary: #6c42f5;
+      --dark: #0a0a0f;
+      --dark-light: #1a1a2e;
+      --light: #f5f5f5;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.9);
+      --text-tertiary: rgba(255, 255, 255, 0.7);
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --font-accent: 'Poppins', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--dark);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+/* Animated Panoramic Background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250%;
+  height: 100%;
+  background-image: url('imagens/bgstars2.png');
+  background-size: 50% 100%;
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  z-index: -2; /* Fica atrás do overlay */
+  animation: panBackground 120s linear infinite;
+}
+
+/* Dark overlay (máscara escura) */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 15, 0.75); /* Cor escura com transparência */
+  z-index: -1; /* Fica acima da imagem, mas abaixo do conteúdo */
+  pointer-events: none; /* Não interfere em cliques */
+}
+
+@keyframes panBackground {
+  from { background-position: 0 0; }
+  to { background-position: -100% 0; }
+}
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* Logo */
+    .vr-logo {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      text-decoration: none;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+    }
+    .neon-x {
+      color: var(--primary);
+      display: inline-block;
+      animation: pulse 2s infinite alternate;
+    }
+    @keyframes pulse {
+      from { text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
+      to { text-shadow: 0 0 8px var(--primary), 0 0 15px var(--primary); }
+    }
+
+    .vr-subtitle {
+      font-family: var(--font-body);
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: var(--text-tertiary);
+      margin-bottom: 2.5rem;
+      text-transform: uppercase;
+    }
+
+    .vr-description p,
+    .vr-research-note p {
+      font-size: 1.05rem;
+      margin-bottom: 1.4rem;
+      text-align: justify;
+    }
+
+    .highlight {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .vr-research-note {
+      background: rgba(23, 22, 27, 0.6);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 2.5rem 0 3rem;
+      border-left: 2px solid var(--primary);
+    }
+
+    .remember-inline-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.3s ease;
+    }
+    .remember-inline-btn:hover {
+      opacity: 0.8;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 3rem 0 1.8rem;
+      letter-spacing: 1px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .project-card-link:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-card {
+      background: rgba(23, 22, 27, 0.8);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(123, 97, 255, 0.15);
+      transition: box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 255, 247, 0.15);
+    }
+
+    .project-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .project-content {
+      padding: 1.4rem;
+    }
+
+    .project-title {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.6rem;
+    }
+
+    .project-description {
+      font-size: 0.95rem;
+      color: var(--text-tertiary);
+      margin-bottom: 1rem;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tech-tag {
+      background: rgba(108, 66, 245, 0.15);
+      color: var(--primary);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* Footer mini */
+    footer {
+      text-align: center;
+      padding: 2rem 0 1.5rem;
+      color: var(--text-tertiary);
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .vr-logo { font-size: 1.4rem; }
+      .vr-subtitle { font-size: 1rem; }
+      .section-title { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <section class="vr-section" id="vr">
+    <div class="container">
+      <a href="index.html" class="vr-logo">XR E<span class="neon-x">X</span>PERIENCES</a>
+      <h2 class="vr-subtitle">AUTHORIAL EXPERIENCES IN VIRTUAL REALITY</h2>
+
+      <div class="vr-description">
+        <p>
+          My work explores the intersection between <span class="highlight">virtual reality</span>, 
+          <span class="highlight">immersive storytelling</span> and <span class="highlight">architecture</span>, 
+          creating authorial experiences that connect people to stories, places and spaces.
+        </p>
+        <p>
+          I develop VR projects ranging from architectural visualization to sensory narratives, 
+          using immersive technologies to provoke emotion, reflection and presence.
+        </p>
+        <p>
+          Within this practice, I especially investigate how immersive experiences can activate memory, 
+          identity and spatial perception, an axis that gives rise to the 
+          <a href="remember.html" class="highlight">REMEMBER</a> project.
+        </p>
+      </div>
+
+      <div class="vr-research-note">
+        <p>
+          Part of the experiences presented here emerges from ongoing research on memory, identity 
+          and spatial perception in immersive environments. This research guides the development of the 
+          REMEMBER project, of which <em>Memories Live</em> is the first experiment.
+        </p>
+        <a href="remember.html" class="remember-inline-btn">→ Explore the REMEMBER project</a>
+      </div>
+
+      <div class="projects-section">
+        <h2 class="section-title">VR PROJECTS & EXPERIMENTS</h2>
+        <div class="projects-grid">
+          <a href="project-memories-live.html" class="project-card-link">
+            <article class="project-card">
+              <div class="project-image">
+                <img src="/imagens/vr_memorieslive.png" alt="Memories Live" loading="lazy">
+              </div>
+              <div class="project-content">
+                <h3 class="project-title">Memories Live</h3>
+                <p class="project-description">First project developed within the Remember research line. 
+                An immersive experience that explores memory and emotion through 
+                spatial narratives in virtual reality.</p>
+                <div class="project-tech">
+                  <span class="tech-tag">A-frame</span>
+                  <span class="tech-tag">WebVR</span>
+                  <span class="tech-tag">Narrative Experience</span>
+                </div>
+              </div>
+            </article>
+          </a>
+
+          <a href="project-immersive-design.html" class="project-card-link">
+            <article class="project-card">
+              <div class="project-image">
+                <img src="/imagens/VR_img.png" alt="Immersive Interiors VR" loading="lazy">
+              </div>
+              <div class="project-content">
+                <h3 class="project-title">Immersive Design</h3>
+                <p class="project-description">
+                  Application of virtual reality for architectural visualization, 
+                  transforming 3D models into navigable immersive environments 
+                  with focus on spatial perception and user experience.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">VR Sketch</span>
+                  <span class="tech-tag">Meta Quest</span>
+                  <span class="tech-tag">Architectural Visualization</span>
+                </div>
+              </div>
+            </article>
+          </a>
+
+          <a href="project-story-scape.html" class="project-card-link">
+            <article class="project-card">
+              <div class="project-image">
+                <img src="/imagens/vr_citytime.png" alt="Story Scape VR" loading="lazy">
+              </div>
+              <div class="project-content">
+                <h3 class="project-title">Story Scape</h3>
+                <p class="project-description">
+                  Immersive experience that investigates the transformation of cities over time,
+                  allowing the user to explore urban narratives and historical layers 
+                  through virtual environments.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">VR Experience</span>
+                  <span class="tech-tag">Spatial Storytelling</span>
+                  <span class="tech-tag">Urban History</span>
+                </div>
+              </div>
+            </article>
+          </a> 
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 AX-LARA Studio | All rights reserved</p>
+    </div>
+  </footer>
+</body>
+</html>

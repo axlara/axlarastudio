@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poetic Studies — Presence | AX-LARA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00fff7;
+      --secondary: #6c42f5;
+      --dark: #0a0a0f;
+      --dark-light: #1a1a2e;
+      --light: #f5f5f5;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.9);
+      --text-tertiary: rgba(255, 255, 255, 0.7);
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --font-accent: 'Poppins', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--dark);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.8rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+    }
+    .back-link:hover { opacity: 0.8; }
+
+    h1 {
+     color: #00fff7;
+    font-size: 1.3em;
+    margin-bottom: 12px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1.2;
+    }
+
+    .intro {
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+      color: var(--text-tertiary);
+      max-width: 650px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .gallery-item {
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0, 255, 247, 0.12);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  
+    <h1>Poetic Studies — Presence</h1>
+    <p class="intro">
+      A visual inquiry into presence, memory, and inner states. These studies use light, translucency, and material metaphors 
+      to build a symbolic language for emotion, stillness, and introspection.
+    </p>
+
+    <div class="gallery-grid">
+      <!-- Replace with your actual image paths -->
+      <div class="gallery-item"><img src="/imagens/presence_01.png" alt="Presence Study 1"></div>
+      <div class="gallery-item"><img src="/imagens/presence_02.png" alt="Presence Study 2"></div>
+      <div class="gallery-item"><img src="/imagens/presence_03.png" alt="Presence Study 3"></div>
+      <div class="gallery-item"><img src="/imagens/presence_04.png" alt="Presence Study 4"></div>
+      <div class="gallery-item"><img src="/imagens/presence_05.png" alt="Presence Study 5"></div>
+      <div class="gallery-item"><img src="/imagens/presence_06.png" alt="Presence Study 6"></div>
+    </div>
+      <a href="index.html" class="back-link">← Back to Visual Concepts</a>
+  </div>
+</body>
+</html>

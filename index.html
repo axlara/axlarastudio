@@ -1,1669 +1,1764 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AX-LARA - Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #00fff7;
-      --primary-dark: #00c9c3;
-      --secondary: #6c42f5;
-      --dark: #0a0a0f;
-      --dark-light: #1a1a2e;
-      --light: #f5f5f5;
-      --light-gray: #cccccc;
-      --card-bg: rgba(23, 22, 27, 0.8);
-      --section-bg: rgba(17, 15, 15, 0.475);
-      --hero-bg: #afaeae;
-      
-      /* Variáveis de tipografia padronizadas */
-      --font-heading: 'Montserrat', sans-serif;
-      --font-body: 'Montserrat', sans-serif;
-      --font-accent: 'Poppins', sans-serif;
-      
-      /* Hierarquia de tamanhos */
-      --text-xxl: 2rem;      /* Títulos principais */
-      --text-xl: 1.6rem;     /* Subtítulos */
-      --text-lg: 1.3rem;     /* Lead/Introdução */
-      --text-md: 1.05rem;    /* Corpo do texto */
-      --text-sm: 0.95rem;    /* Texto menor */
-      --text-xs: 0.45rem;    /* Notas/rodapé */
-      
-      /* Cores de texto padronizadas */
-      --text-primary: #ffffff;
-      --text-secondary: rgba(255, 255, 255, 0.9);
-      --text-tertiary: rgba(255, 255, 255, 0.7);
-      --text-accent: var(--primary);
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      margin: 0;
-      font-family: var(--font-body);
-      background-color: var(--dark);
-      color: var(--text-secondary);
-      overflow-x: hidden;
-      line-height: 1.6;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    
-    html {
-      scroll-padding-top: 80px;
-    }
-    
-    @media (max-width: 768px) {
-      html {
-        scroll-padding-top: 70px;
-      }
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AX-LARA - Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+<style>
+:root {
+--primary: #00fff7;
+--primary-dark: #00c9c3;
+--secondary: #6c42f5;
+--dark: #0a0a0f;
+--dark-light: #1a1a2e;
+--light: #f5f5f5;
+--light-gray: #cccccc;
+--card-bg: rgba(23, 22, 27, 0.8);
+--section-bg: rgba(17, 15, 15, 0.475);
+--hero-bg: #afaeae;
+--font-heading: 'Montserrat', sans-serif;
+--font-body: 'Montserrat', sans-serif;
+--font-accent: 'Poppins', sans-serif;
+--text-xxl: 2rem;
+--text-xl: 1.6rem;
+--text-lg: 1.3rem;
+--text-md: 1.05rem;
+--text-sm: 0.95rem;
+--text-xs: 0.45rem;
+--text-primary: #ffffff;
+--text-secondary: rgba(255, 255, 255, 0.9);
+--text-tertiary: rgba(255, 255, 255, 0.7);
+--text-accent: var(--primary);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+margin: 0;
+font-family: var(--font-body);
+background-color: var(--dark);
+color: var(--text-secondary);
+overflow-x: hidden;
+line-height: 1.6;
+text-rendering: optimizeLegibility;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+html { scroll-padding-top: 80px; }
+@media (max-width: 768px) { html { scroll-padding-top: 70px; } }
 
-    /* Barra de Idiomas */
-    .language-bar {
-      position: fixed;
-      top: 18px;
-      right: 15px;
-      z-index: 1000;
-      display: flex;
-      gap: 6px;
-      background: none;
-    }
-    
-    .language-bar button {
-    background: none;
-    border: none;
-    padding: 8px;
-    cursor: pointer;
-    margin-right: -17px;
-    margin-top: 10px;
-    }
-    
-    .language-bar img {
-      border-radius: 3px;
-      display: block;
-      width: 22px;
-      height: 16px;
-    }
-    
-    .language-bar button:hover {
-      opacity: 0.7;
-    }
+/* Barra de Idiomas */
+.language-bar {
+position: fixed;
+top: 18px;
+right: 15px;
+z-index: 1000;
+display: flex;
+gap: 6px;
+background: none;
+}
+.language-bar button {
+background: none;
+border: none;
+padding: 8px;
+cursor: pointer;
+margin-right: -17px;
+margin-top: 10px;
+}
+.language-bar img { border-radius: 3px; display: block; width: 22px; height: 16px; }
+.language-bar button:hover { opacity: 0.7; }
 
-    /* Navegação */
-    .main-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(10, 10, 15, 0.9);
-      backdrop-filter: blur(10px);
-      z-index: 900;
-      padding: 15px 0;
-      border-bottom: 1px solid rgba(123, 97, 255, 0.15);
-    }
-    
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .nav-logo {
-      font-family: var(--font-heading);
-      font-size: var(--text-xl);
-      letter-spacing: 3px;
-      font-weight: 700;
-      color: var(--text-primary);
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-    
-    .nav-logo i {
-      font-style: normal;
-      color: var(--primary);
-      display: inline-block;
-      text-shadow: 
-        0 0 5px var(--primary),
-        0 0 10px var(--primary);
-      animation: pulse 2s infinite alternate;
-    }
-    
-    .logo-subtitle {
-      display: block;
-      font-family: var(--font-body);
-      font-size: var(--text-xs);
-      letter-spacing: 6px;
-      font-weight: 400;
-      color: var(--light-gray);
-      margin-top: 2px;
-      text-transform: uppercase;
-    }
-    
-    @keyframes pulse {
-      from {
-        text-shadow: 
-          0 0 5px var(--primary),
-          0 0 10px var(--primary);
-      }
-      to {
-        text-shadow: 
-          0 0 8px var(--primary),
-          0 0 15px var(--primary);
-      }
-    }
+/* Navegação */
+.main-nav {
+position: fixed;
+top: 0; left: 0;
+width: 100%;
+background: rgba(10, 10, 15, 0.9);
+backdrop-filter: blur(10px);
+z-index: 900;
+padding: 15px 0;
+border-bottom: 1px solid rgba(123, 97, 255, 0.15);
+}
+.nav-container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.nav-logo {
+font-family: var(--font-heading);
+font-size: var(--text-xl);
+letter-spacing: 3px;
+font-weight: 700;
+color: var(--text-primary);
+text-decoration: none;
+text-transform: uppercase;
+}
+.nav-logo i {
+font-style: normal;
+color: var(--primary);
+display: inline-block;
+text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+animation: pulse 2s infinite alternate;
+}
+.logo-subtitle {
+display: block;
+font-family: var(--font-body);
+font-size: var(--text-xs);
+letter-spacing: 6px;
+font-weight: 400;
+color: var(--light-gray);
+margin-top: 2px;
+text-transform: uppercase;
+}
+@keyframes pulse {
+from { text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
+to { text-shadow: 0 0 8px var(--primary), 0 0 15px var(--primary); }
+}
+.menu-toggle {
+display: none;
+flex-direction: column;
+justify-content: space-between;
+width: 25px; height: 20px;
+background: transparent;
+border: none;
+cursor: pointer;
+z-index: 1001;
+position: relative;
+}
+.menu-toggle span {
+display: block;
+height: 3px;
+width: 100%;
+background: #fff;
+border-radius: 2px;
+transition: all 0.3s ease;
+transform-origin: center;
+}
+.menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+.nav-menu { display: flex; list-style: none; gap: 30px; }
+.nav-menu a {
+color: var(--text-tertiary);
+text-decoration: none;
+font-family: var(--font-body);
+font-weight: 500;
+font-size: var(--text-sm);
+transition: color 0.3s ease;
+position: relative;
+}
+.nav-menu a:hover,
+.nav-menu a.active { color: var(--text-accent); }
+.nav-menu a::after {
+content: "";
+position: absolute;
+bottom: -5px; left: 0;
+width: 0; height: 2px;
+background: var(--primary);
+transition: width 0.3s ease;
+}
+.nav-menu a:hover::after,
+.nav-menu a.active::after { width: 100%; }
+@media (max-width: 768px) {
+.nav-container { padding: 0 15px; }
+.nav-logo { font-size: 1.2rem; }
+.logo-subtitle { font-size: 0.2rem; }
+.menu-toggle { display: flex; margin-left: 10px; }
+.language-bar {
+display: flex;
+gap: 6px;
+margin-left: 300px;
+margin-right: 50px;
+margin-top: -8px;
+z-index: 1001;
+}
+.language-bar button { padding: 10px; }
+.nav-menu {
+position: fixed;
+top: 0;
+right: -300px;
+width: 280px;
+height: 100vh;
+background: rgba(10, 10, 15, 0.98);
+backdrop-filter: blur(15px);
+flex-direction: column;
+padding: 80px 30px 30px;
+transition: right 0.3s ease;
+z-index: 999;
+box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+border-left: 1px solid rgba(123, 97, 255, 0.2);
+overflow-y: auto;
+}
+.nav-menu.show { right: 0; }
+.nav-menu li {
+margin: 15px 0;
+text-align: left;
+opacity: 0;
+transform: translateX(20px);
+transition: all 0.3s ease;
+}
+.nav-menu.show li { opacity: 1; transform: translateX(0); }
+.nav-menu.show li:nth-child(1) { transition-delay: 0.1s; }
+.nav-menu.show li:nth-child(2) { transition-delay: 0.15s; }
+.nav-menu.show li:nth-child(3) { transition-delay: 0.2s; }
+.nav-menu.show li:nth-child(4) { transition-delay: 0.25s; }
+.nav-menu.show li:nth-child(5) { transition-delay: 0.3s; }
+.nav-menu.show li:nth-child(6) { transition-delay: 0.35s; }
+.nav-menu a {
+font-size: var(--text-md);
+padding: 12px 0;
+display: block;
+color: var(--text-primary);
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+transition: all 0.3s ease;
+}
+.nav-menu a:hover,
+.nav-menu a.active {
+color: var(--text-accent);
+border-bottom-color: var(--text-accent);
+padding-left: 10px;
+}
+.nav-menu a::after { display: none; }
+}
+@media (max-width: 480px) {
+.nav-menu { width: 250px; padding: 70px 20px 20px; }
+.nav-logo { font-size: 1.0rem; }
+.logo-subtitle { font-size: 0.35rem; }
+.language-bar img { width: 22px; height: 16px; margin-left: 5px; margin-right: -10px; }
+}
 
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 25px;
-      height: 20px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 1001;
-      position: relative;
-    }
-    
-    .menu-toggle span {
-      display: block;
-      height: 3px;
-      width: 100%;
-      background: #fff;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-      transform-origin: center;
-    }
-    
-    .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
-    }
-    
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-    
-    .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
+/* Hero REDUZIDO */
+.hero {
+display: flex;
+align-items: center;
+justify-content: space-evenly;
+padding: 8rem 2rem 2rem;
+flex-wrap: wrap;
+min-height: 70vh;
+background: linear-gradient(360deg, #8f8e8e 0%, #858484 20%, #2b2b2b 100%);
+position: relative;
+overflow: hidden;
+}
+/* Linha neon azul separando HERO da AI-SECTION */
+/* .hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    box-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary);
+    z-index: 10;
+} */
 
-    .nav-menu {
-      display: flex;
-      list-style: none;
-      gap: 30px;
-    }
-    
-    .nav-menu a {
-      color: var(--text-tertiary);
-      text-decoration: none;
-      font-family: var(--font-body);
-      font-weight: 500;
-      font-size: var(--text-sm);
-      transition: color 0.3s ease;
-      position: relative;
-    }
-    
-    .nav-menu a:hover,
-    .nav-menu a.active {
-      color: var(--text-accent);
-    }
-    
-    .nav-menu a::after {
-      content: "";
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s ease;
-    }
-    
-    .nav-menu a:hover::after,
-    .nav-menu a.active::after {
-      width: 100%;
-    }
-
-    @media (max-width: 768px) {
-       .nav-container {
-    padding: 0 15px;
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; /* Alinha verticalmente */
-  }
-      
-      .nav-logo {
-        font-size: 1.2rem;
-      }
-      
-      .logo-subtitle {
-        font-size: 0.2rem;
-      }
-      
-      .menu-toggle {
-        display: flex;
-        margin-left: 10px;
-      }
-       .language-bar {
-  /* Remove o position: fixed */
-    display: flex;
-    gap: 6px;
-    margin-left: 300px; /* Espaçamento da logo */
-    margin-right: 50px;
-    margin-top: -8px;
-   z-index: 1001;
-  }
-
-  .language-bar button {
-    background: none;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-  }
-
-  .language-bar img {
-    width: 22px;
-    height: 16px;
-    border-radius: 3px;
-  }
-
-  .language-bar button:hover {
-    opacity: 0.7;
-  }
-      .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -300px;
-        width: 280px;
-        height: 100vh;
-        background: rgba(10, 10, 15, 0.98);
-        backdrop-filter: blur(15px);
-        flex-direction: column;
-        padding: 80px 30px 30px;
-        transition: right 0.3s ease;
-        z-index: 999;
-        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
-        border-left: 1px solid rgba(123, 97, 255, 0.2);
-        overflow-y: auto;
-      }
-      
-      .nav-menu.show {
-        right: 0;
-      }
-      
-      .nav-menu li {
-        margin: 15px 0;
-        text-align: left;
-        opacity: 0;
-        transform: translateX(20px);
-        transition: all 0.3s ease;
-      }
-      
-      .nav-menu.show li {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      
-      .nav-menu.show li:nth-child(1) { transition-delay: 0.1s; }
-      .nav-menu.show li:nth-child(2) { transition-delay: 0.15s; }
-      .nav-menu.show li:nth-child(3) { transition-delay: 0.2s; }
-      .nav-menu.show li:nth-child(4) { transition-delay: 0.25s; }
-      .nav-menu.show li:nth-child(5) { transition-delay: 0.3s; }
-      
-      .nav-menu a {
-        font-size: var(--text-md);
-        padding: 12px 0;
-        display: block;
-        color: var(--text-primary);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-      }
-      
-      .nav-menu a:hover,
-      .nav-menu a.active {
-        color: var(--text-accent);
-        border-bottom-color: var(--text-accent);
-        padding-left: 10px;
-      }
-      
-      .nav-menu a::after {
-        display: none; 
-      }
-
-      /* POSICIONAMENTO DAS BANDEIRAS AO LADO DO HAMBURGUER */
- 
-      
-      .language-bar img {
-        width: 22px;
-        height: 16px;
-  
-      }
-
-
-
-    }
-
-
-    @media (max-width: 480px) {
-      .nav-menu {
-        width: 250px;
-        padding: 70px 20px 20px;
-      }
-      
-      .nav-logo {
-        font-size: 1.0rem;
-      }
-      
-      .logo-subtitle {
-        font-size: 0.35rem;
-      }
-            .language-bar img {
-        width: 22px;
-        height: 16px;
-        margin-left: 5px;
-        margin-right:-10px;
-      
-      }
-          
+.hero-container { max-width: 720px; position: relative; z-index: 2; }
+.hero-logo {
+font-family: var(--font-heading);
+font-size: var(--text-xl);
+letter-spacing: 3px;
+font-weight: 700;
+color: #333;
+display: inline-block;
+padding-bottom: 5px;
+text-transform: uppercase;
+margin-bottom: 1.5rem;
+text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+.hero-logo i {
+font-style: normal;
+color: var(--primary);
+text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+animation: pulse 2s infinite alternate;
+}
+.hero-logo .logo-subtitle { color: #666; }
 .hero h1 {
-font-size: 1.0rem;
+font-family: var(--font-heading);
+font-size: var(--text-xxl);
+font-weight: 600;
+line-height: 1.2;
+color: #d1d0d0;
+margin-bottom: 0.5rem;
+text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+letter-spacing: 1px;
 }
-
 .hero h2 {
-font-size: 1.0rem;
+font-family: var(--font-body);
+font-size: var(--text-lg);
+color: #dfdfdf;
+margin-bottom: 0.25rem;
+font-weight: 500;
+text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
-
-
-    .image-container::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 30px;
-      background: linear-gradient(to top, var(--primary), rgba(0, 0, 0, 0));
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    }
-
-    /* Hero - Padronizado */
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      padding: 8rem 4rem 4rem;
-      flex-wrap: wrap;
-      min-height: 100vh;
-      background: linear-gradient(180deg, #afaeae 0%, #7a7a7a 50%, #2b2b2b 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: -30%;
-      right: -15%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(0, 255, 247, 0.08) 0%, transparent 70%);
-      z-index: 1;
-    }
-    
-    .hero::after {
-      content: "";
-      position: absolute;
-      bottom: -20%;
-      left: -8%;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(106, 66, 245, 0.08) 0%, transparent 70%);
-      z-index: 1;
-    }
-    
-    .hero-container {
-      max-width: 700px;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .hero-logo {
-      font-family: var(--font-heading);
-      font-size: var(--text-xl);
-      letter-spacing: 3px;
-      font-weight: 700;
-      color: #333;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 5px;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-    }
-    
-    .hero-logo i {
-      font-style: normal;
-      color: var(--primary);
-      display: inline-block;
-      text-shadow: 
-        0 0 5px var(--primary),
-        0 0 10px var(--primary);
-      animation: pulse 2s infinite alternate;
-    }
-    
-    .hero-logo .logo-subtitle {
-      color: #666;
-    }
-    
-.hero h1 {
-  font-family: var(--font-heading);
-  font-size: var(--text-xxl);
-  font-weight: 600;
-  line-height: 1.2;
-  color: #d1d0d0; /* Cor branca para melhor contraste */
-  margin-bottom: 0.5rem;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Sombra preta para maior legibilidade */
-  letter-spacing: 1px;
-}
-
-.hero h2 {
-  font-family: var(--font-body);
-  font-size: var(--text-lg);
-  color: #dfdfdf; /* Cor branca para melhor contraste */
-  margin-bottom: 0.25rem;
-  font-weight: 500; /* Aumentado para 500 */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Sombra preta para maior legibilidade */
-}
-
 .hero .byline {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  color: #ccc; /* Cinza claro para contraste moderado */
-  margin-top: 0.5rem;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Sombra preta para maior legibilidade */
-  font-weight: 300;
+font-family: var(--font-body);
+font-size: var(--text-sm);
+color: #ccc;
+margin-top: 0.5rem;
+text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+font-weight: 300;
 }
-    
-    .image-container {
-      position: relative;
-      width: 350px;
-      height: auto;
-      overflow: hidden;
-      border-radius: 30px; 
-    }
-    
-    .image-container img {
-      width: 100%;
-      height: auto;
-      display: block;
-      opacity: 0.9;
-      animation: float-image 4s ease-in-out infinite;
-    }
-    
-    .image-container::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 30px;
-      background: linear-gradient(to top, var(--primary), rgba(0, 0, 0, 0));
-      pointer-events: none;
-      z-index: 1;
-    }
+.hero-image { position: relative; z-index: 2; }
+.image-container {
+position: relative;
+width: 300px;
+height: auto;
+overflow: hidden;
+border-radius: 30px;
+cursor: pointer;
+}
+.image-container img {
+width: 100%;
+height: auto;
+display: block;
+opacity: 0.92;
+}
+.image-container::after {
+content: '';
+position: absolute;
+bottom: 0; left: 0; right: 0;
+height: 30px;
+background: linear-gradient(to top, var(--hero-bg), rgba(0, 0, 0, 0));
+pointer-events: none;
+z-index: 1;
+}
+.hero-about-hint {
+margin-top: 10px;
+font-size: var(--text-xs);
+letter-spacing: 0.25em;
+text-transform: uppercase;
+color: rgba(255,255,255,0.6);
+}
+@keyframes float-image {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-15px); }
+}
 
-    /* SEÇÃO ABOUT - Padronizada */
-    .about {
-      background: linear-gradient(180deg, #2b2b2b 0%, #1a1a1a 50%, #0f0f0f 100%);
-      color: var(--text-primary);
-      padding: 100px 20px;
-      font-family: var(--font-body);
-      position: relative;
-    }
-    
-    .about::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-    }
-    
-    .about-container {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    .about-lead {
-      font-family: var(--font-heading);
-      font-size: var(--text-lg);
-      line-height: 1.6;
-      color: var(--text-secondary);
-      margin: 0 auto 2.5rem;
-      text-align: center;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-    }
-
-    /* ESPAÇAMENTO ENTRE PARÁGRAFOS */
-    .about p {
-      font-family: var(--font-body);
-      font-size: var(--text-md);
-      line-height: 1.75;
-      color: var(--text-secondary);
-      margin-bottom: 1.7rem;
-      text-align: justify;
-    }
-
-    .about strong {
-      color: var(--text-accent);
-      font-weight: 600;
-    }
+/* About */
+.about {
+background: linear-gradient(180deg, #2b2b2b 0%, #1a1a1a 50%, #0f0f0f 100%);
+color: var(--text-primary);
+padding: 80px 20px;
+position: relative;
+}
+.about::before {
+content: "";
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+.about-container { max-width: 720px; margin: 0 auto; }
+.about-lead {
+font-family: var(--font-heading);
+font-size: var(--text-lg);
+line-height: 1.6;
+color: var(--text-secondary);
+margin: 0 auto 2.5rem;
+text-align: center;
+font-weight: 500;
+letter-spacing: 0.5px;
+}
+.about p {
+font-family: var(--font-body);
+font-size: var(--text-md);
+line-height: 1.75;
+color: var(--text-secondary);
+margin-bottom: 1.7rem;
+text-align: justify;
+}
+.about strong { color: var(--text-accent); font-weight: 600; }
 .about-signature {
-  font-family: var(--font-heading);
-  font-size: var(--text-md);
-  font-weight: 300;
-  letter-spacing: 0.3em;
-  color: var(--text-accent);
-  text-align: center;
+font-family: var(--font-heading);
+font-size: var(--text-md);
+font-weight: 300;
+letter-spacing: 0.3em;
+color: var(--text-accent);
+text-align: center;
+margin-top: 2.8rem;
+padding-top: 1.2rem;
+text-transform: uppercase;
+position: relative;
+}
+.about-signature::before {
+content: "";
+display: block;
+width: 60px;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(--primary), transparent);
+margin: 0 auto 1rem;
+}
+.gradient-mask {
+position: relative;
+max-height: 300px;
+overflow: hidden;
+transition: max-height 0.5s ease;
+margin-bottom: 0.5rem;
+}
+.gradient-mask::after {
+content: '';
+position: absolute;
+bottom: 0; left: 0;
+width: 100%;
+height: 60px;
+background: linear-gradient(to top, #0f0f0f, transparent);
+pointer-events: none;
+z-index: 2;
+}
+.gradient-mask.expanded { max-height: 2000px; }
+.gradient-mask.expanded::after { display: none; }
+.expand-button {
+display: block;
+margin: 0 auto;
+padding: 8px 20px;
+background: transparent;
+color: var(--text-accent);
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-family: var(--font-heading);
+font-weight: 600;
+font-size: var(--text-sm);
+letter-spacing: 0.8px;
+transition: all 0.3s ease;
+z-index: 3;
+position: relative;
+text-transform: uppercase;
+box-shadow: 0 0 5px rgba(0, 255, 247, 0.2);
+}
+.expand-button::after {
+content: "";
+position: absolute;
+bottom: -8px;
+left: 50%;
+transform: translateX(-50%);
+width: 0;
+height: 0;
+border-left: 6px solid transparent;
+border-right: 6px solid transparent;
+border-top: 6px solid var(--text-accent);
+opacity: 0.7;
+transition: opacity 0.3s ease;
+}
+.expand-button.rotated::after {
+transform: translateX(-50%) rotate(180deg);
+border-top: none;
+border-bottom: 6px solid var(--text-accent);
+}
+.expand-button:hover {
+background: rgba(0, 255, 247, 0.05);
+box-shadow: 0 0 8px rgba(0, 255, 247, 0.4);
+transform: translateY(-1px);
+}
+.expand-button:hover::after { opacity: 1; }
+
+/* Shared sections */
+section { padding: 80px 0; }
+section + section { padding-top: 0; }
+/* === AI CREATIVE SECTION === */
+.ai-section {
+  background: linear-gradient(180deg, #0f0f0f 0%, #0b0b0b 55%, #050505 100%);
   position: relative;
-  margin-top: 2.8rem;
-  padding-top: 1.2rem;
-  text-transform: uppercase;
+  padding: 0;
+  height: 90vh; /* altura compacta e responsiva */
+  min-height: 500px;
 }
 
-.about-signature::before {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--primary), transparent);
-  margin: 0 auto 1rem;
+.ai-section::before,
+.ai-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    /* box-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary); */
+    z-index: 10;
 }
-  .gradient-mask {
+
+.ai-section::before { top: 0; }
+.ai-section::after { bottom: 0; }
+
+/* Grid estilo Midjourney - cards grandes colados */
+.ai-grid-midjourney {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  width: 100%;
+  height: 100%; 
+}
+
+.ai-grid-item {
   position: relative;
-  max-height: 300px;
   overflow: hidden;
-  transition: max-height 0.5s ease;
-  margin-bottom: 0.5rem; /* Reduzido de 1.5rem para 0.5rem */
-}
-    .gradient-mask::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 60px;
-      background: linear-gradient(to top, #0f0f0f, transparent);
-      pointer-events: none;
-      z-index: 2;
-    }
-    
-    .gradient-mask.expanded {
-      max-height: 2000px;
-    }
-    
-    .gradient-mask.expanded::after {
-      display: none;
-    }/* === BOTÃO "SEE MORE" CORRIGIDO === */
-.expand-button {
-  display: block;
-  margin: 0 auto; /* Centraliza horizontalmente */
-  padding: 8px 20px; /* Reduz o padding para ficar mais compacto */
-  background: transparent; /* Mantém o fundo transparente */
-  color: var(--text-accent);
-  border: none; /* Remove a borda para ficar mais integrado */
-  border-radius: 4px; /* Arredonda levemente os cantos */
   cursor: pointer;
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: var(--text-sm);
-  letter-spacing: 0.8px;
+  height: 100%;
+  width: 100%;
+  border: 1px solid rgba(10, 10, 15, 0.3);
+}
+
+.ai-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+  filter: brightness(0.95);
+}
+
+.ai-grid-item:hover img {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+  
+}
+
+/* CORREÇÃO: Removido o efeito branco que estava causando o borrão */
+/* .ai-grid-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0);
+  transition: background 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+
+} */
+
+
+/* Overlay com informações (aparece no hover) */
+.ai-grid-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(10, 10, 15, 0.95), transparent);
+  color: white;
+  opacity: 0;
+  transform: translateY(10px);
   transition: all 0.3s ease;
   z-index: 3;
-  position: relative;
+}
+.ai-grid-item:hover .ai-grid-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ai-grid-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  font-weight: 600;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+.ai-grid-category {
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  /* Adiciona uma sombra sutil para destacar */
-  box-shadow: 0 0 5px rgba(0, 255, 247, 0.2);
+  color: var(--primary);
+  opacity: 0.9;
+}
+@media (max-width: 768px) {
+  .ai-section {
+    height: auto;
+    min-height: unset;
+    padding: 20px 0;
+  }
 }
 
-/* A seta deve ser um pseudo-elemento do próprio botão */
-.expand-button::after {
-  content: "";
+/* Modal para expansão */
+.ai-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 5, 5, 0.97);
+  backdrop-filter: blur(15px);
+  z-index: 10000;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.ai-modal-content {
+  max-width: 1400px; /* Aumentei a largura máxima */
+  margin: 30px auto;
+  background: rgba(23, 22, 27, 0.98);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(123, 97, 255, 0.25);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+}
+
+.ai-modal-header {
+  padding: 25px 40px 15px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ai-modal-close {
   position: absolute;
-  bottom: -8px; /* Posiciona abaixo do botão */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid var(--text-accent); /* Cor do texto accent */
-  opacity: 0.7; /* Transparência leve */
-  transition: opacity 0.3s ease;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
 }
 
-/* Classe para quando o botão é clicado (seta para cima) */
-.expand-button.rotated::after {
-  transform: translateX(-50%) rotate(180deg); /* Gira a seta para cima */
-  border-top: none; /* Remove a borda superior */
-  border-bottom: 6px solid var(--text-accent); /* Adiciona borda inferior */
+.ai-modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
 }
 
-.expand-button:hover {
-  background: rgba(0, 255, 247, 0.05); /* Fundo mais claro ao hover */
-  box-shadow: 0 0 8px rgba(0, 255, 247, 0.4); /* Sombra mais intensa */
-  transform: translateY(-1px); /* Leve elevação */
+.ai-modal-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--text-primary);
+  margin-bottom: 8px;
 }
 
-/* A seta também deve reagir ao hover */
-.expand-button:hover::after {
-  opacity: 1; /* Torna a seta mais visível no hover */
+.ai-modal-category {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: var(--text-tertiary);
+  margin-bottom: 12px;
 }
-    /* Seção Portfolio/Curriculum - Padronizada */
-    .curriculum-cta {
-      background: linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 50%, #050505 100%);
-      padding: 80px 20px;
-      text-align: center;
-      position: relative;
-    }
-    
-    .curriculum-cta::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-    }
-    
-    .curriculum-content {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .curriculum-content h3 {
-      font-family: var(--font-heading);
-      font-size: var(--text-xl);
-      color: var(--text-primary);
-      margin-bottom: 1.5rem;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .curriculum-content p {
-      font-family: var(--font-body);
-      font-size: var(--text-md);
-      color: var(--text-tertiary);
-      padding-top: 1.5rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-    
-    .curriculum-button {
-      display: inline-block;
-      padding: 14px 35px;
-      border: none;
-      border-radius: 30px;
-      text-decoration: none;
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: var(--text-md);
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      box-shadow: 0 5px 20px rgba(106, 66, 245, 0.4);
-      position: relative;
-      overflow: hidden;
-      text-transform: uppercase;
-    }
-    
-    .curriculum-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(106, 66, 245, 0.6);
-    }
-    
-    .curriculum-button::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: 0.5s;
-    }
-    
-    .curriculum-button:hover::before {
-      left: 100%;
-    }
 
-    .vr-research-note {
-      max-width: 760px;
-      margin: 1.4rem auto 2.4rem;
-      font-family: var(--font-body);
-      font-size: var(--text-sm);
-      opacity: 0.7;
-      font-style: italic;
-      color: var(--text-tertiary);
-    }
-    
-    .research-link {
-      color: var(--text-accent);
-      text-decoration: none;
-      font-weight: 600;
-      position: relative;
-    }
-    
-    .research-link::after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: var(--text-accent);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.3s ease;
-    }
-    
-    .research-link:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-    
-    .remember-inline-btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding:04px 35px;
-    border: none;
-    border-radius: 30px;
-    text-decoration: none;
-    font-family: var(--font-heading);
-    font-weight: 600;
+.ai-modal-description {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 800px;
+}
+
+/* GALERIA SIMPLIFICADA - 3 IMAGENS LADO A LADO */
+.ai-modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Sempre 3 colunas */
+  gap: 30px; /* Espaço maior entre as imagens */
+  padding: 30px 40px 40px;
+  width: 100%;
+}
+
+.ai-modal-gallery img {
+  width: 100%;
+  height: 350px; /* Altura fixa maior */
+  object-fit: contain; /* Mostra imagem completa */
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  background-color: rgba(10, 10, 15, 0.9); /* Fundo escuro */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.ai-modal-gallery img:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 255, 247, 0.25);
+  border-color: rgba(0, 255, 247, 0.3);
+}
+
+/* REMOVER IMAGEM PRINCIPAL - não é mais necessária */
+.ai-modal-main-image {
+  display: none;
+}
+
+/* Responsivo */
+@media (max-width: 1200px) {
+  .ai-modal-content {
+    max-width: 95%;
+  }
+  
+  .ai-modal-gallery {
+    gap: 20px;
+    padding: 25px 30px 35px;
+  }
+  
+  .ai-modal-gallery img {
+    height: 300px; /* Reduz um pouco em telas menores */
+  }
+}
+
+@media (max-width: 1024px) {
+  .ai-modal-gallery {
+    gap: 15px;
+    padding: 20px 25px 30px;
+  }
+  
+  .ai-modal-gallery img {
+    height: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-modal-content {
+    margin: 15px auto;
+    border-radius: 15px;
+  }
+  
+  .ai-modal-header {
+    padding: 20px 25px 15px;
+  }
+  
+  .ai-modal-gallery {
+    grid-template-columns: repeat(3, 1fr); /* Mantém 3 colunas */
+    gap: 12px;
+    padding: 20px;
+  }
+  
+  .ai-modal-gallery img {
+    height: 220px; /* Reduz para mobile mas mantém 3 colunas */
+  }
+  
+  .ai-modal-close {
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ai-modal-gallery {
+    grid-template-columns: repeat(3, 1fr); /* Ainda 3 colunas */
+    gap: 10px;
+    padding: 15px;
+  }
+  
+  .ai-modal-gallery img {
+    height: 180px; /* Um pouco menor para mobile muito pequeno */
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-modal {
+    padding: 10px;
+  }
+  
+  .ai-modal-gallery {
+    grid-template-columns: repeat(3, 1fr); /* Mantém 3 colunas */
+    gap: 8px;
+    padding: 12px;
+  }
+  
+  .ai-modal-gallery img {
+    height: 150px; /* Menor ainda para mobile muito pequeno */
+  }
+  
+  .ai-modal-header {
+    padding: 15px 20px 10px;
+  }
+  
+  .ai-modal-title {
+    font-size: var(--text-lg);
+  }
+  
+  .ai-modal-category {
     font-size: var(--text-sm);
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    box-shadow: 0 5px 20px rgba(106, 66, 245, 0.4);
-    position: relative;
-    overflow: hidden;
-    text-transform: uppercase;
-    }
-    
-    /* .remember-inline-btn:hover {
-      background: rgba(108, 66, 245, 0.18);
-      color: var(--text-accent);
-      border-color: rgba(108, 66, 245, 0.4);
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(0, 255, 247, 0.1);
-    } */
-
-    /* Seção VR - Padronizada */
-    .vr-section {
-      padding: 100px 20px;
-      position: relative;
-      background: 
-        linear-gradient(180deg, 
-          #050505 0%, 
-          rgba(5, 5, 5, 0.95) 0%,
-          rgba(5, 5, 5, 0.85) 10%,
-          rgba(5, 5, 5, 0.7) 100%),
-        url('/imagens/bgstars2.png') no-repeat center center fixed;
-      background-size: cover;
-      text-align: center;
-    }
-    
-    .vr-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--secondary), transparent);
-    }
-    
-    .vr-logo {
-      font-family: var(--font-heading);
-      font-size: var(--text-xl);
-      font-weight: 600;
-      color: var(--text-primary);
-      text-decoration: none;
-      display: inline-block;
-      margin-bottom: 1.5rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-    
-    .vr-logo .neon-x {
-      color: var(--text-accent);
-      display: inline-block;
-      text-shadow: 
-        0 0 5px var(--primary),
-        0 0 10px var(--primary);
-      animation: pulse 3s infinite alternate;
-    }
-    
-    .vr-subtitle {
-      font-family: var(--font-heading);
-      font-size: var(--text-lg);
-      color: var(--text-primary);
-      margin-bottom: 2rem;
-      font-weight: 500;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      padding: 0 20px;
-      letter-spacing: 1px;
-    }
-    
-    .vr-description {
-      font-family: var(--font-body);
-      font-size: var(--text-md);
-      max-width: 800px;
-      margin: 0 auto 3rem;
-      text-align: center;
-      line-height: 1.8;
-      padding: 0 30px;
-      color: var(--text-secondary);
-    }
-    
-    .vr-description p {
-      margin-bottom: 1.5rem;
-    }
-    
-    .highlight {
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 600;
-    }
-
-    /* Seção Projects - Padronizada */
-    .projects-section {
-      margin: 60px 0;
-      position: relative;
-    }
-    
-    .section-title {
-      font-family: var(--font-heading);
-      font-size: var(--text-xl);
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 2.5rem;
-      text-align: center;
-      position: relative;
-      text-transform: uppercase;
-    }
-    
-    .section-title::after {
-      content: "";
-      display: block;
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--secondary), transparent);
-      margin: 15px auto 0;
-    }
-    
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 25px;
-      margin-bottom: 50px;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 20px;
-    }
-    
-    .project-card {
-      background: var(--card-bg);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(123, 97, 255, 0.15);
-    }
-    
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 15px rgba(123, 97, 255, 0.2);
-      border: 1px solid rgba(123, 97, 255, 0.3);
-    }
-    
-    .project-image {
-      width: 100%;
-      height: 200px;
-      background: linear-gradient(45deg, #1a1a2e, #16213e);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .project-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    
-    .project-card:hover .project-image img {
-      transform: scale(1.05);
-    }
-    
-    .project-image::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
-    }
-    
-    .project-card:hover .project-image::after {
-      transform: scaleX(1);
-    }
-    
-    .project-content {
-      padding: 20px;
-    }
-    
-    .project-title {
-      font-family: var(--font-heading);
-      font-size: var(--text-md);
-      color: var(--text-primary);
-      margin-bottom: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-    }
-    
-    .project-description {
-      font-family: var(--font-body);
-      font-size: var(--text-sm);
-      color: var(--text-tertiary);
-      margin-bottom: 1rem;
-      line-height: 1.6;
-      text-align: justify;
-    }
-    
-    .project-tech {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 15px;
-      justify-content: center;
-    }
-    
-    .tech-tag {
-      font-family: var(--font-body);
-      font-size: var(--text-sm);
-      background: rgba(123, 97, 255, 0.12);
-      color: var(--text-accent);
-      padding: 4px 10px;
-      border-radius: 3px;
-      border: 1px solid rgba(123, 97, 255, 0.2);
-      font-weight: 500;
-    }
-    
-    .project-status {
-      display: inline-block;
-      padding: 5px 12px;
-      border-radius: 3px;
-      font-size: var(--text-xs);
-      font-weight: 500;
-    }
-    
-    .status-released {
-      background: rgba(59, 130, 246, 0.12);
-      color: var(--text-accent);
-      border: 1px solid rgba(59, 130, 246, 0.2);
-    }
-    
-    .status-development {
-      background: rgba(255, 165, 0, 0.12);
-      color: #ffa500;
-      border: 1px solid rgba(255, 165, 0, 0.2);
-    }
-    
-    .project-card-link {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    
-    .project-card-link:hover {
-      text-decoration: none;
-    }
-
-    .project-detail {
-      margin: 80px auto;
-      max-width: 850px;
-      background: var(--card-bg);
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(123, 97, 255, 0.2);
-    }
-    
-    .video-container {
-      width: 100%;
-      margin: 30px auto;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-      border-radius: 10px;
-      overflow: hidden;
-      background: #000;
-      position: relative;
-      padding-top: 56.25%;
-      border: 1px solid rgba(123, 97, 255, 0.2);
-    }
-    
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    
-    .manifesto-text {
-      font-family: var(--font-body);
-      font-size: var(--text-md);
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
-      text-align: left;
-      color: var(--text-secondary);
-    }
-    
-    .manifesto-text p {
-      margin-bottom: 1.2rem;
-    }
-    
-    .language-toggle {
-      margin: 2.5rem 0 1.5rem;
-      text-align: center;
-    }
-    
-    .language-toggle button {
-      background: none;
-      border: none;
-      color: var(--text-tertiary);
-      cursor: pointer;
-      font-family: var(--font-body);
-      font-size: var(--text-sm);
-      margin: 0 1rem;
-      padding: 0.4rem 0;
-      position: relative;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-    
-    .language-toggle button:hover,
-    .language-toggle button.active {
-      color: var(--text-primary);
-    }
-    
-    .language-toggle button.active::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-    }
-    
-    .pt { display: block; }
-    .en { display: none; }
-
-    /* Footer - Padronizado */
-    footer {
-      background: rgba(10, 10, 15, 0.9);
-      color: var(--text-primary);
-      padding: 50px 0;
-      text-align: center;
-      border-top: 1px solid rgba(123, 97, 255, 0.15);
-      position: relative;
-      width: 100%;
-    }
-    
-    footer::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--secondary), transparent);
-    }
-    
-    .footer-content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    
-    .footer-content p {
-      font-family: var(--font-body);
-      font-size: var(--text-sm);
-      color: var(--text-tertiary);
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-    
-    .contact-link {
-      font-family: var(--font-body);
-      font-weight: 500;
-      color: var(--text-accent);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    
-    .contact-link::after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--text-accent);
-      transition: width 0.3s ease;
-    }
-    
-    .contact-link:hover {
-      color: var(--text-primary);
-    }
-    
-    .contact-link:hover::after {
-      width: 100%;
-    }
-    
-    .social-links {
-      margin-top: 1.5rem;
-    }
-    
-    .social-links a {
-      color: var(--text-tertiary);
-      font-size: 1.5rem;
-      margin: 0 10px;
-      transition: all 0.3s ease;
-    }
-    
-    .social-links a:hover {
-      color: var(--text-accent);
-    }
-
-    /* Animações */
-    @keyframes float-image {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
-    /* Responsividade Padronizada */
-    @media (max-width: 1024px) {
-      :root {
-        --text-xxl: 1.8rem;
-        --text-xl: 1.5rem;
-        --text-lg: 1.2rem;
-        --text-md: 1rem;
-      }
-      
-      .hero {
-        padding: 6rem 2rem 3rem;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      :root {
-        --text-xxl: 1.6rem;
-        --text-xl: 1.4rem;
-        --text-lg: 1.1rem;
-        --text-md: 0.95rem;
-        --text-sm: 0.9rem;
-        --text-xs: 0.8rem;
-      }
-      
-      .hero {
-        flex-direction: column;
-        padding: 6rem 1rem 2rem;
-        text-align: center;
-        min-height: auto;
-      }
-      
-      .image-container {
-        margin-top: -20px;
-        width: 250px;
-      }
-      
-      .image-container::after {
-        height: 30px;
-      }
-      
-      .about {
-         padding: 0 30px;
-      }
-      .about-lead{
-         padding: 20px 5px 5px;
-     
-        }
-
-      .curriculum-cta {
-        padding: 60px 30px;
-      }
-      
-      .curriculum-button {
-        padding: 12px 25px;
-        width: 100%;
-        max-width: 400px;
-      }
-      
-      .vr-section {
-        padding: 40px 15px;
-        background-size: auto;
-        background-position: center top;
-        background-repeat: repeat-y;
-      }
-      
-      .vr-description {
-        text-align: justify;
-      }
-      .vr-research-note{
-           padding: 0 30px;
-      }
-       .remember-inline-btn {
-    
+  }
+  
+  .ai-modal-description {
     font-size: var(--text-xs);
   }
+}
 
-      .projects-section {
-        margin: 40px 0;
-      }
-      
-      .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 10px;
-        margin-bottom: 30px;
-      }
-      
-      .project-card {
-        max-width: 350px;
-        margin: 0 auto;
-      }
-      
-      .project-detail {
-        padding: 20px 15px;
-        margin: 30px auto;
-      }
-      
-      .manifesto-text {
-        text-align: justify;
-      }
-      
-      .language-toggle {
-        margin: 1.5rem 0;
-      }
-      
-      .video-container {
-        margin: 20px auto;
-      }
-      
-      /* Garanta alinhamento consistente */
-      .hero h1,
-      .about-lead,
-      .vr-subtitle,
-      .section-title {
-        text-align: center;
-      }
-      
-      /* Ajuste espaçamentos */
-      .about p,
-      .vr-description p,
-      .project-description {
-        text-align: justify;
-        hyphens: auto;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      :root {
-        --text-xxl: 1.4rem;
-        --text-xl: 1.2rem;
-        --text-lg: 1rem;
-        --text-md: 0.9rem;
-      }
-      
-      .curriculum-content h3 {
-        font-size: 1.2rem;
-      }
-    }
+/* Para telas muito pequenas, pode ajustar para 2 colunas */
+@media (max-width: 360px) {
+  .ai-modal-gallery {
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas muito pequenas */
+  }
+  
+  .ai-modal-gallery img {
+    height: 160px;
+  }
+}
+/* === XR VIDEO SECTION === */
+.xr-video-section {
+position: relative;
+width: 100%;
+min-height: 100vh;
+margin: 0;
+padding: 0;
+overflow: hidden;
+cursor: pointer;
+}
+.xr-video-container {
+position: relative;
+width: 100%;
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: #000;
+}
+.xr-background-video {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+z-index: 1;
+opacity: 0.92;
+}
+.xr-overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  padding: 0 2rem;
+  pointer-events: none;
+}
 
-    /* Melhore o espaçamento entre seções */
-    section {
-      padding: 80px 0;
-    }
-    
-    section + section {
-      padding-top: 0;
-    }
-  </style>
+.xr-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+  pointer-events: auto; /* Permite que seja clicável */
+}
+
+/* CORREÇÃO: Título clicável para redirecionar */
+.xr-title a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.xr-title a:hover {
+  color: var(--primary);
+  text-shadow: 0 0 15px rgba(0, 255, 247, 0.7);
+  opacity: 1;
+}
+
+.xr-video-section:hover .xr-title {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .xr-title { font-size: 1.8rem; letter-spacing: 4px; }
+}
+@media (max-width: 480px) {
+  .xr-title { font-size: 1.4rem; letter-spacing: 3px; }
+}
+
+/* === AI TEXT OVERLAY WITH FILM === */
+.section-overlay-film {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* ISSO CENTRALIZA DE VERDADE */
+
+  text-align: center;
+  pointer-events: none;
+  padding: 2rem;
+}
+
+.film-backdrop {
+position: absolute;
+top: 0px;
+left: -20px;
+right: -20px;
+bottom: -0px;
+background: rgba(0, 0, 0, 0.60);
+backdrop-filter: blur(0px);
+z-index: -1;
+}
+.main-category {
+  font-size: 3.2rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 1rem;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.sub-category {
+font-size: 1.6rem;
+font-weight: 400;
+color: rgba(255, 255, 255, 0.85);
+margin-bottom: 0.8rem;
+letter-spacing: 3px;
+}
+.description {
+font-size: 1rem;
+color: rgba(255, 255, 255, 0.75);
+line-height: 1.6;
+max-width: 600px;
+margin: 0 auto;
+font-weight: 300;
+}
+.fullscreen-grid:hover .section-overlay-film {
+opacity: 0.2;
+}
+.grid-item:hover ~ .section-overlay-film {
+opacity: 0.1;
+}
+/* Película escura sutil sobre o tour 360° */
+.xr-film-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(0px);
+  z-index: 1;
+  pointer-events: none;
+}
+/* Projects grid original (para XR) – REMOVIDO, substituído por vídeo */
+
+/* CTA Work */
+.curriculum-cta {
+background: linear-gradient(180deg, #050505 0%, #0a0a0a 50%, #050505 100%);
+padding: 80px 20px;
+text-align: center;
+position: relative;
+}
+.curriculum-cta::before {
+content: "";
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+.curriculum-content { max-width: 900px; margin: 0 auto; }
+.curriculum-button {
+display: inline-block;
+padding: 14px 35px;
+border: none;
+border-radius: 30px;
+text-decoration: none;
+font-family: var(--font-heading);
+font-weight: 600;
+font-size: var(--text-md);
+letter-spacing: 1px;
+transition: all 0.3s ease;
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+color: white;
+box-shadow: 0 5px 20px rgba(106, 66, 245, 0.4);
+position: relative;
+overflow: hidden;
+text-transform: uppercase;
+}
+.curriculum-button:hover {
+transform: translateY(-3px);
+box-shadow: 0 8px 25px rgba(106, 66, 245, 0.6);
+}
+.curriculum-button::before {
+content: "";
+position: absolute;
+top: 0; left: -100%;
+width: 100%; height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+transition: 0.5s;
+}
+.curriculum-button:hover::before { left: 100%; }
+.curriculum-content p {
+font-family: var(--font-body);
+font-size: var(--text-md);
+color: var(--text-tertiary);
+padding-top: 1.5rem;
+margin: 0 auto;
+max-width: 900px;
+line-height: 1.7;
+}
+
+/* Footer */
+footer {
+background: rgba(10, 10, 15, 0.9);
+color: var(--text-primary);
+padding: 50px 0;
+text-align: center;
+border-top: 1px solid rgba(123, 97, 255, 0.15);
+position: relative;
+width: 100%;
+}
+footer::before {
+content: "";
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+}
+.footer-content { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+.footer-content p {
+font-family: var(--font-body);
+font-size: var(--text-sm);
+color: var(--text-tertiary);
+margin-bottom: 1rem;
+line-height: 1.6;
+}
+.contact-link {
+font-family: var(--font-body);
+font-weight: 500;
+color: var(--text-accent);
+text-decoration: none;
+position: relative;
+}
+.contact-link::after {
+content: "";
+position: absolute;
+bottom: -2px; left: 0;
+width: 0; height: 1px;
+background: var(--text-accent);
+transition: width 0.3s ease;
+}
+.contact-link:hover { color: var(--text-primary); }
+.contact-link:hover::after { width: 100%; }
+.social-links { margin-top: 1.5rem; }
+.social-links a {
+color: var(--text-tertiary);
+font-size: 1.5rem;
+margin: 0 10px;
+transition: all 0.3s ease;
+}
+.social-links a:hover { color: var(--text-accent); }
+.xr-video-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Película escura de fundo */
+.xr-film-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* Container do Pannellum (já existe) */
+#xr-pannellum-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Título */
+.xr-overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  text-align: center;
+  color: white;
+}
+
+/* Máscara Oculus VR */
+.oculus-mask {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+  width: clamp(360px, 55vw, 620px);
+  aspect-ratio: 500 / 300;
+  height: auto;
+
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300"><defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="0" stdDeviation="15" flood-color="rgba(0,0,0,0.8)"/></filter><mask id="oculusMask"><rect width="100%" height="100%" fill="white"/><ellipse cx="150" cy="150" rx="120" ry="120" fill="black"/><ellipse cx="350" cy="150" rx="120" ry="120" fill="black"/><rect x="240" y="75" width="20" height="150" fill="black"/></mask></defs><rect width="100%" height="100%" mask="url(%23oculusMask)" fill="black" opacity="0.7" filter="url(%23shadow)"/></svg>');
+  border-radius: 30%;
+  box-shadow: 
+    0 0 60px rgba(0, 0, 0, 0.9),
+    inset 0 0 100px rgba(0, 0, 0, 0.5);
+
+  animation: vr-pulse 4s ease-in-out infinite;
+}
+
+
+/* Versão alternativa com CSS puro (sem SVG) */
+.oculus-mask-alt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.oculus-mask-alt::before,
+.oculus-mask-alt::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50% 50% 45% 45%;
+  box-shadow: 
+    0 0 40px rgba(0, 0, 0, 0.9),
+    inset 0 0 50px rgba(0, 0, 0, 0.6);
+}
+
+.oculus-mask-alt::before {
+  left: 0;
+}
+
+.oculus-mask-alt::after {
+  right: 0;
+}
+
+/* Ponte central entre as lentes */
+.oculus-mask-alt .bridge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 180px;
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Efeito de brilho nas bordas (opcional) */
+.oculus-mask-alt::before,
+.oculus-mask-alt::after {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .oculus-mask,
+  .oculus-mask-alt {
+    width: 300px;
+    height: 180px;
+  }
+  
+  .oculus-mask-alt::before,
+  .oculus-mask-alt::after {
+    width: 120px;
+  }
+}
+
+/* Animação sutil (opcional) */
+@keyframes vr-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.8; }
+}
+
+.oculus-mask {
+  animation: vr-pulse 4s ease-in-out infinite;
+}
+/* === AJUSTES RESPONSIVOS ADICIONAIS PARA MOBILE === */
+
+@media (max-width: 768px) {
+  /* HERO */
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 6rem 1.5rem 2rem;
+    gap: 2rem;
+    min-height: auto;
+  }
+  .hero-container {
+    max-width: 100%;
+  }
+  .hero-image {
+    margin-top: 1rem;
+  }
+  .image-container {
+    width: 240px;
+    margin: 0 auto;
+  }
+
+  /* NAV & LANGUAGE BAR */
+  .language-bar {
+    right: 15px;
+    top: 18px;
+    margin: 0;
+    position: fixed;
+    z-index: 1001;
+  }
+  .language-bar button {
+    margin-right: 0;
+    margin-top: 0;
+  }
+
+  /* AI GRID */
+  .ai-grid-midjourney {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  /* ABOUT TEXT */
+  .about p {
+    text-align: left;
+    font-size: var(--text-sm);
+    padding: 0 10px;
+  }
+
+  /* XR SECTION */
+  .xr-video-section {
+    height: 100dvh;
+  }
+  .xr-title {
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+  }
+
+  /* MODAL GALLERY */
+  .ai-modal-gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 20px;
+  }
+  .ai-modal-gallery img,
+  .ai-modal-gallery video {
+    height: 220px;
+  }
+
+  /* CTA BUTTON */
+  .curriculum-button {
+    padding: 16px 28px;
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  /* HERO */
+  .hero {
+    padding: 5rem 1rem 1.5rem;
+  }
+  .image-container {
+    width: 200px;
+  }
+
+  /* AI GRID */
+  .ai-grid-midjourney {
+    grid-template-columns: 1fr;
+  }
+
+  /* MODAL GALLERY */
+  .ai-modal-gallery {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 15px;
+  }
+  .ai-modal-gallery img,
+  .ai-modal-gallery video {
+    height: 180px;
+  }
+
+  /* XR TITLE */
+  .xr-title {
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+  }
+
+  /* ABOUT */
+  .about-lead {
+    font-size: var(--text-md);
+    padding: 0 8px;
+  }
+  .about p {
+    font-size: var(--text-sm);
+    padding: 0 8px;
+  }
+
+  /* FOOTER */
+  .footer-content p {
+    padding: 0 10px;
+    font-size: var(--text-sm);
+  }
+}
+</style>
 </head>
 <body>
-  <!-- Barra de Idiomas -->
-  <div class="language-bar">
-    <button onclick="translateTo('pt')" aria-label="Português">
-      <img src="https://flagcdn.com/br.svg" alt="Português" width="24" height="16">
-    </button>
-    <button onclick="translateTo('es')" aria-label="Español">
-      <img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
-    </button>
+
+<!-- Barra de Idiomas -->
+<div class="language-bar">
+<button onclick="translateTo('pt')" aria-label="Português">
+<img src="https://flagcdn.com/br.svg" alt="Português" width="24" height="16">
+</button>
+<button onclick="translateTo('es')" aria-label="Español">
+<img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
+</button>
+</div>
+<div id="google_translate_element" style="display: none;"></div>
+
+<!-- NAV -->
+<nav class="main-nav">
+<div class="nav-container">
+<a href="#home" class="nav-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></a>
+<button class="menu-toggle" aria-label="Abrir menu" id="menuToggle">
+<span></span><span></span><span></span>
+</button>
+<ul class="nav-menu" id="navMenu">
+<li><a href="#home" class="active">Home</a></li>
+<li><a href="#ai">AI Creative</a></li>
+<li><a href="#xr">XR Experiences</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#work">Work</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</div>
+</nav>
+
+<!-- HERO REDUZIDO -->
+<section class="hero" id="home">
+<div class="hero-container">
+<div class="hero-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></div>
+<h1>Architect of Xperience</h1>
+<h2>AI Creative · Immersive Systems · XR</h2>
+<p class="byline">by Lara E. Negreiros</p>
+</div>
+<div class="hero-image">
+<div class="image-container" id="portraitToAbout" role="button" aria-label="Go to About">
+<img src="/imagens/axlaraxr_.png" alt="Lara E. Negreiros">
+</div>
+</div>
+</section>
+
+<!-- AI CREATIVE -->
+<section class="ai-section" id="ai">
+<div class="section-overlay-film">
+<div class="film-backdrop"></div>
+<div class="main-category">AI CREATIVE</div>
+ <div class="description">AI-assisted concept design</div> 
+</div>
+<div class="ai-grid-midjourney">
+<!-- Linha 1 -->
+<div class="ai-grid-item" data-modal="urban">
+<img src="/imagens/axlara_urban_mixed-use_residential_complex_.png" alt="Urban Complex Mixed-Use" loading="lazy">
+<div class="ai-grid-overlay">
+<div class="ai-grid-title">Urban Complex Mixed-Use</div>
+<div class="ai-grid-category">Architecture / Urban AI</div>
+</div>
+</div>
+<div class="ai-grid-item" data-modal="coastal">
+<img src="/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_.png" alt="Coastal Residential Masterplan" loading="lazy">
+<div class="ai-grid-overlay">
+<div class="ai-grid-title">Coastal Residential Masterplan</div>
+<div class="ai-grid-category">Architecture / Real Estate</div>
+</div>
+</div>
+<div class="ai-grid-item" data-modal="aerial">
+<img src="/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti.png" alt="Aerial Coastal View" loading="lazy">
+<div class="ai-grid-overlay">
+<div class="ai-grid-title">Aerial Masterplan View</div>
+<div class="ai-grid-category">Architecture / Urban AI</div>
+</div>
+</div>
+<!-- Linha 2 - Product/Brand -->
+<div class="ai-grid-item" data-modal="lumen">
+<img src="/imagens/lumen_.png" alt="Lumen" loading="lazy">
+<div class="ai-grid-overlay">
+<div class="ai-grid-title">Lumen</div>
+<div class="ai-grid-category">Product / Brand AI</div>
+</div>
+</div>
+<div class="ai-grid-item" data-modal="lumen2">
+<img src="/imagens/lumen2.png" alt="Lumen Variation 2" loading="lazy">
+<div class="ai-grid-overlay">
+<div class="ai-grid-title">Lumen Series</div>
+<div class="ai-grid-category">Product / Brand AI</div>
+</div>
+</div>
+<div class="ai-grid-item" data-modal="lumen3">
+<img src="/imagens/lumen3.png" alt="Lumen Variation 3" loading="lazy">
+<div class="ai-grid-overlay">
+<div class="ai-grid-title">Lumen Exploration</div>
+<div class="ai-grid-category">Product / Brand AI</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- XR IMMERSIVE (PANNELLUM 360) -->
+<section class="xr-video-section" id="xr">
+  <div id="xr-pannellum-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+  
+  <!-- Película escura -->
+  <div class="xr-film-backdrop"></div>
+  
+  <!-- Máscara Oculus VR -->
+  <div class="oculus-mask"></div>
+  <!-- Ou use esta versão alternativa -->
+  <!-- <div class="oculus-mask-alt"><div class="bridge"></div></div> -->
+  
+  <!-- Título centralizado e clicável -->
+  <div class="xr-overlay-text">
+    <h2 class="xr-title">
+      <a href="xr-projects.html" title="Explore XR Projects">XR IMMERSIVE</a>
+    </h2>
   </div>
+</section>
 
-  <div id="google_translate_element" style="display: none;"></div>
+<!-- ABOUT -->
+<section class="about" id="about">
+<div class="about-container">
+<h3 class="about-lead">
+<h3 class="about-lead">
+I design immersive experiences at the intersection of space, technology, and human perception.
+</h3>
 
-  <nav class="main-nav">
-    <div class="nav-container">
-      <a href="#" class="nav-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></a>
-      <button class="menu-toggle" aria-label="Abrir menu" id="menuToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="#home" class="active">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#curriculum">Portfolio</a></li>
-        <li><a href="#vr">VR Experiences</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+<div class="gradient-mask" id="about-content">
 
-  <section class="hero" id="home">
-    <div class="hero-container">
-      <div class="hero-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></div>
-      <h1>Architect of Xperience</h1>
-      <h2>XR Immersive Designer</h2>
-      <p class="byline">by Lara E. Negreiros</p>
-    </div>
-    <div class="hero-image">
-      <div class="image-container">
-        <img src="/imagens/axlaraxr_.png" alt="Lara E. Negreiros">
-      </div>
-    </div>
-  </section>
+<p>
+Creator of customized immersive experiences, I explore how spaces influence emotions and behaviors. I transform this relationship into digital projects that unite design, storytelling and technology, connecting the physical and virtual worlds in meaningful ways.
+</p>
 
-  <!-- SEÇÃO ABOUT PADRONIZADA -->
-  <section class="about" id="about">
-    <div class="about-container">
-      <h3 class="about-lead">
-        I design immersive experiences at the intersection of space, technology, and human perception.
-      </h3>
-      <div class="gradient-mask" id="about-content">
-        <p>
-          Creator of customized immersive experiences, I explore how spaces influence emotions and behaviors. I transform this relationship into digital projects that unite design, storytelling and technology, connecting the physical and virtual worlds in meaningful ways.
-        </p>
-        <p>
-          My journey began in architecture and urbanism, with specialization in architectural projects and neuroarchitecture, areas that provided me with a solid foundation in spatial perception and functional environmental design. Over time, I felt the need to expand beyond the traditional boundaries of architecture, exploring technology as a new territory for creation.
-        </p>
-        <p>
-          In this process, I deepened my studies in programming and discovered immersive technologies (XR), which became the natural link between my architecture background and the infinite digital possibilities. From there, I began to direct my work towards the development of interactive virtual environments.
-        </p>
-        <p><strong>
-          Today, I dedicate myself to creating immersive experiences using software and technologies that transform physical spaces into interactive digital environments.
-        </strong></p>
-         <p class="about-signature">— Lara E. Negreiros</p>
-      </div>
-      <button class="expand-button" id="expand-about">See more</button>
-     
-    </div>
-  </section>
+<p>
+My journey began in architecture and urbanism, with specialization in architectural projects and neuroarchitecture, areas that provided me with a solid foundation in spatial perception and functional environmental design. Over time, I felt the need to expand beyond the traditional boundaries of architecture, exploring technology as a new territory for creation.
+</p>
 
-  <section class="curriculum-cta" id="curriculum">
-    <div class="curriculum-content">
-      <a href="portfolio.html" class="curriculum-button">Access My Portfolio</a>
-      <p>Explore my technical curriculum to see the tools, technologies and methodologies I use to create immersive experiences and other projects from my professional journey.</p>
-    </div>
-  </section>
+<p>
+In this process, I deepened my studies in programming and discovered immersive technologies (XR), which became the natural link between my architecture background and the infinite digital possibilities. From there, I began to direct my work towards the development of interactive virtual environments.
+</p>
 
-  <section class="vr-section" id="vr">
-    <div class="container">
-      <a href="#vr" class="vr-logo">VR E<span class="neon-x">X</span>PERIENCES</a>
-      <h2 class="vr-subtitle">AUTHORIAL EXPERIENCES IN VIRTUAL REALITY</h2>
-      <div class="vr-description">
-        <p>
-          My work explores the intersection between <span class="highlight">virtual reality</span>, 
-          <span class="highlight">immersive storytelling</span> and <span class="highlight">architecture</span>, 
-          creating authorial experiences that connect people to stories, places and spaces.
-        </p>
-        <p>
-          I develop VR projects ranging from architectural visualization to sensory narratives, 
-          using immersive technologies to provoke emotion, reflection and presence.
-        </p>
-        <p>
-          Within this practice, I especially investigate how immersive experiences can activate memory, 
-          identity and spatial perception, an axis that gives rise to the 
-          <a href="remember.html" class="highlight">REMEMBER</a> project.
-        </p>
-      </div>
-      <div class="vr-research-note">
-        <p>
-          Part of the experiences presented here emerges from ongoing research on memory, identity 
-          and spatial perception in immersive environments. This research guides the development of the 
-          REMEMBER project, of which <em>Memories Live</em> is the first experiment.
-        </p>
-        <a href="remember.html" class="remember-inline-btn">→ Explore the REMEMBER project</a>
-      </div>
-      <div class="projects-section">
-        <h2 class="section-title">XR PROJECTS & EXPERIMENTS</h2>
-        <div class="projects-grid">
-          <a href="project-memories-live.html" class="project-card-link">
-            <article class="project-card">
-              <div class="project-image">
-                <img src="/imagens/vr_memorieslive.png" alt="Memories Live" loading="lazy">
-              </div>
-              <div class="project-content">
-                <h3 class="project-title">Memories Live</h3>
-                <p class="project-description">First project developed within the Remember research line. 
-                An immersive experience that explores memory and emotion through 
-                spatial narratives in virtual reality.</p>
-                <div class="project-tech">
-                  <span class="tech-tag">A-frame</span>
-                  <span class="tech-tag">WebVR</span>
-                  <span class="tech-tag">Narrative Experience</span>
-                </div>
-              </div>
-            </article>
-          </a>
-          <a href="project-immersive-design.html" class="project-card-link">
-            <article class="project-card">
-              <div class="project-image">
-                <img src="/imagens/VR_img.png" alt="Immersive Interiors VR" loading="lazy">
-              </div>
-              <div class="project-content">
-                <h3 class="project-title">Immersive Design</h3>
-                <p class="project-description">
-                  Application of virtual reality for architectural visualization, 
-                  transforming 3D models into navigable immersive environments 
-                  with focus on spatial perception and user experience.
-                </p>
-                <div class="project-tech">
-                  <span class="tech-tag">VR Sketch</span>
-                  <span class="tech-tag">Meta Quest</span>
-                  <span class="tech-tag">Architectural Visualization</span>
-                </div>
-              </div>
-            </article>
-          </a>
-          <a href="project-story-scape.html" class="project-card-link">
-            <article class="project-card">
-              <div class="project-image">
-                <img src="/imagens/vr_citytime.png" alt="Story Scape VR" loading="lazy">
-              </div>
-              <div class="project-content">
-                <h3 class="project-title">Story Scape</h3>
-                <p class="project-description">
-                  Immersive experience that investigates the transformation of cities over time,
-                  allowing the user to explore urban narratives and historical layers 
-                  through virtual environments.
-                </p>
-                <div class="project-tech">
-                  <span class="tech-tag">VR Experience</span>
-                  <span class="tech-tag">Spatial Storytelling</span>
-                  <span class="tech-tag">Urban History</span>
-                </div>
-              </div>
-            </article>
-          </a> 
-        </div>
-      </div>
-    </div>
-  </section>
+<p>
+Alongside immersive technologies, generative AI became part of my creative process, helping me prototype visual concepts, atmospheres and spatial narratives with agility and clarity. I use AI as a support tool for visual direction and concept development across architecture, brand and immersive projects.
+</p>
 
-  <footer id="contact">
-    <div class="footer-content">
-      <p>Available for collaborative projects and on-demand experiences</p>
-      <p>Contact me: <a href="mailto:studio.axlara@gmail.com" class="contact-link">studio.axlara@gmail.com</a></p>
-      <div class="social-links">
-        <a href="https://www.linkedin.com/in/laranegreiros" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.instagram.com/aivrse/"><i class="fab fa-instagram"></i></a>
-        <a href="https://github.com/axlara" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://wa.me/+5584996249406" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </div>
-  </footer>
+<p><strong>
+Today, I dedicate myself to creating immersive and visually driven experiences that connect physical spaces and digital environments through design, XR and AI.
+</strong></p>
 
-  <script type="text/javascript">
-    // Navegação mobile
-    const menuToggle = document.getElementById("menuToggle");
-    const navMenu = document.getElementById("navMenu");
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    
-    function toggleMenu() {
-      const isOpen = navMenu.classList.contains("show");
-      navMenu.classList.toggle("show");
-      menuToggle.classList.toggle("active");
-      document.body.style.overflow = isOpen ? "auto" : "hidden";
-    }
-    
-    menuToggle.addEventListener("click", toggleMenu);
 
-    function handleNavClick(e) {
-      if (!this.getAttribute('href').startsWith('#')) return;
-      e.preventDefault();
-      const targetId = this.getAttribute('href').substring(1);
-      const targetSection = document.getElementById(targetId);
-      if (targetSection) {
-        const wasMenuOpen = window.innerWidth <= 768 && navMenu.classList.contains("show");
-        if (wasMenuOpen) toggleMenu();
-        setTimeout(() => {
-          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, wasMenuOpen ? 300 : 0);
-        navLinks.forEach(link => link.classList.remove('active'));
-        this.classList.add('active');
-      }
-    }
-    
-    navLinks.forEach(link => link.addEventListener('click', handleNavClick));
 
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768 && navMenu.classList.contains("show")) {
-        toggleMenu();
-      }
-    });
+<p class="about-signature">— Lara E. Negreiros</p>
+</div>
+<button class="expand-button" id="expand-about">See more</button>
+</div>
+</section>
 
-    // Google Translate
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'en,es,pt',
-        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
-        autoDisplay: false
-      }, 'google_translate_element');
-    }
-    
-    (function () {
-      var gt = document.createElement('script');
-      gt.type = 'text/javascript';
-      gt.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      document.body.appendChild(gt);
-    })();
-    
-    function translateTo(lang) {
-      const select = document.querySelector('.goog-te-combo');
-      if (select) {
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-      } else {
-        setTimeout(() => translateTo(lang), 500);
-      }
-    }
+<section class="curriculum-cta" id="work">
+<div class="curriculum-content">
+<a href="portproj.html" class="curriculum-button">View Full Portfolio</a>
+<p>
+Explore a curated selection of visual concepts, immersive experiences and spatial projects,
+combining AI, XR and design as tools for perception, presence and storytelling.
+</p>
+</div>
+</section>
 
-// Botão "See more" funcional - CORRIGIDO
+<!-- FOOTER -->
+<footer id="contact">
+<div class="footer-content">
+<p>Available for collaborative projects and on-demand experiences</p>
+<p>Contact me: <a href="mailto:studio.axlara@gmail.com" class="contact-link">studio.axlara@gmail.com</a></p>
+<div class="social-links">
+<a href="https://www.linkedin.com/in/laranegreiros" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+<a href="https://www.instagram.com/aivrse/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+<a href="https://github.com/axlara" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+<a href="https://wa.me/+5584996249406" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+</footer>
+
+<!-- MODAL AI -->
+<div class="ai-modal" id="aiModal">
+<div class="ai-modal-content">
+<div class="ai-modal-header">
+<h2 class="ai-modal-title" id="modalTitle">Title</h2>
+<p class="ai-modal-category" id="modalCategory">Category</p>
+<p class="ai-modal-description" id="modalDescription">Description</p>
+<button class="ai-modal-close" id="modalClose">×</button>
+</div>
+<div class="ai-modal-main-image" id="modalMainImage">
+<img src="" alt="">
+</div>
+<div class="ai-modal-gallery" id="modalGallery"></div>
+</div>
+</div>
+
+<script>
+// Mobile menu
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
+const navLinks = document.querySelectorAll('.nav-menu a');
+function toggleMenu() {
+const isOpen = navMenu.classList.contains("show");
+navMenu.classList.toggle("show");
+menuToggle.classList.toggle("active");
+document.body.style.overflow = isOpen ? "auto" : "hidden";
+}
+menuToggle?.addEventListener("click", toggleMenu);
+function handleNavClick(e) {
+if (!this.getAttribute('href').startsWith('#')) return;
+e.preventDefault();
+const targetId = this.getAttribute('href').substring(1);
+const targetSection = document.getElementById(targetId);
+if (targetSection) {
+const wasMenuOpen = window.innerWidth <= 768 && navMenu.classList.contains("show");
+if (wasMenuOpen) toggleMenu();
+setTimeout(() => {
+targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}, wasMenuOpen ? 300 : 0);
+navLinks.forEach(link => link.classList.remove('active'));
+this.classList.add('active');
+}
+}
+navLinks.forEach(link => link.addEventListener('click', handleNavClick));
+window.addEventListener('resize', () => {
+if (window.innerWidth > 768 && navMenu.classList.contains("show")) {
+toggleMenu();
+}
+});
+// Scroll spy
+window.addEventListener('scroll', function() {
+const sections = document.querySelectorAll('section');
+let current = '';
+sections.forEach(section => {
+const sectionTop = section.offsetTop;
+if (pageYOffset >= sectionTop - 120) {
+current = section.getAttribute('id');
+}
+});
+navLinks.forEach(link => {
+link.classList.remove('active');
+const href = link.getAttribute('href');
+if (href && href.startsWith('#') && href.substring(1) === current) {
+link.classList.add('active');
+}
+});
+});
+// Botão "See more" About
 const expandButton = document.getElementById('expand-about');
 const aboutContent = document.getElementById('about-content');
 if (expandButton && aboutContent) {
-  expandButton.addEventListener('click', () => {
-    aboutContent.classList.toggle('expanded');
-    // Adiciona/Remove a classe 'rotated' para girar a seta
-    expandButton.classList.toggle('rotated');
-    expandButton.textContent = aboutContent.classList.contains('expanded') ? 'See less' : 'See more';
-  });
+expandButton.addEventListener('click', () => {
+aboutContent.classList.toggle('expanded');
+expandButton.classList.toggle('rotated');
+expandButton.textContent = aboutContent.classList.contains('expanded') ? 'See less' : 'See more';
+});
 }
 
-    // Atualiza link ativo ao rolar
-    window.addEventListener('scroll', function() {
-      let sections = document.querySelectorAll('section');
-      let current = '';
+// === AUTOPLAY VIDEO ON VIEW ===
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+const video = entry.target;
+if (entry.isIntersecting) {
+video.play().catch(e => console.log("Autoplay prevented:", e));
+} else {
+video.pause();
+}
+});
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-autoplay-on-view]').forEach(video => {
+observer.observe(video);
+});
+
+// === AI MODAL DATA ===
+// === AI MODAL DATA ===
+const modalData = {
+  'urban': {
+    title: 'Urban Complex Mixed-Use',
+    category: 'Architecture / Urban AI',
+    description: 'AI-assisted architectural exploration focused on realistic, buildable urban and residential concepts. Urban Scandinavian mixed-use development with integrated commercial and residential spaces.',
+    gallery: [
+      '/imagens/axlara_urban_mixed-use_residential_complex_.png',
+      '/imagens/axlara_near-orthographic_top-down_aerial_view_of_the_SAME_urban.png',
+      '/imagens/axlara_aerial_oblique_drone_view_of_the_SAME_urban_mixed.png'
+    ]
+  },
+  'coastal': {
+    title: 'Coastal Residential Masterplan',
+    category: 'Architecture / Real Estate',
+    description: 'Masterplan visualization for coastal residential community integrating sustainable design principles with local architectural language.',
+    gallery: [
+      '/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_.png',
+      '/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti.png',
+      '/imagens/axlara_coastal_residential_masterplan_concept_low-rise_housing.png'
+    ]
+  },
+  'aerial': {
+    title: 'Aerial Masterplan View',
+    category: 'Architecture / Urban AI',
+    description: 'Top-down drone perspective of the coastal masterplan, emphasizing scale and integration with landscape.',
+    gallery: [
+      '/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti.png',
+      '/imagens/axlara_aerial_oblique_drone_view_of_the_SAME_urban_mixed.png',
+      '/imagens/axlara_near-orthographic_top-down_aerial_view_of_the_SAME_urban.png'
+    ]
+  },
+  'lumen': {
+    title: 'Lumen - Brand & Product Exploration',
+    category: 'Product / Brand AI',
+    description: 'AI-driven product and brand exploration combining visual identity, materiality and motion.',
+    hasVideo: true, // MARCA QUE TEM VÍDEO
+    gallery: [
+      '/imagens/lumen_video.mp4', // VÍDEO COMO PRIMEIRA IMAGEM
+      '/imagens/lumen_.png',
+      '/imagens/lumen2.png',
+      '/imagens/lumen3.png'
+    ]
+  },
+  'lumen2': {
+    title: 'Lumen Series - Visual Exploration',
+    category: 'Product / Brand AI',
+    description: 'Second iteration of the Lumen brand exploration, focusing on material textures and lighting.',
+    gallery: [
+      '/imagens/lumen2.png',
+      '/imagens/lumen_.png',
+      '/imagens/lumen3.png'
+    ]
+  },
+  'lumen3': {
+    title: 'Lumen - Final Concept',
+    category: 'Product / Brand AI',
+    description: 'Final concept for Lumen product line, showcasing refined brand identity.',
+    gallery: [
+      '/imagens/lumen3.png',
+      '/imagens/lumen2.png',
+      '/imagens/lumen_.png'
+    ]
+  }
+};
+
+// === AI MODAL OPEN ===
+const aiGridItems = document.querySelectorAll('[data-modal]');
+const aiModal = document.getElementById('aiModal');
+const modalClose = document.getElementById('modalClose');
+const modalTitle = document.getElementById('modalTitle');
+const modalCategory = document.getElementById('modalCategory');
+const modalDescription = document.getElementById('modalDescription');
+const modalGallery = document.getElementById('modalGallery');
+
+aiGridItems.forEach(item => {
+  item.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const modalId = item.dataset.modal;
+    const data = modalData[modalId] || modalData['urban'];
+    if (!aiModal) return;
+
+    modalTitle.textContent = data.title;
+    modalCategory.textContent = data.category;
+    modalDescription.textContent = data.description;
+
+    // Mostrar galeria com 3 itens (pode ser vídeo ou imagem)
+    if (modalGallery) {
+      modalGallery.innerHTML = '';
       
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - 100) {
-          current = section.getAttribute('id');
+      // Limita a 3 itens
+      const itemsToShow = data.gallery.slice(0, 3);
+      
+      itemsToShow.forEach(itemSrc => {
+        // Verifica se é vídeo (termina com .mp4)
+        if (itemSrc.endsWith('.mp4')) {
+          const video = document.createElement('video');
+          video.src = itemSrc;
+          video.controls = true;
+          video.autoplay = true;
+          video.muted = true;
+          video.loop = true;
+          video.style.width = '100%';
+          video.style.height = '100%';
+          video.style.objectFit = 'contain';
+          video.style.borderRadius = '12px';
+          video.style.backgroundColor = 'rgba(10, 10, 15, 0.9)';
+          modalGallery.appendChild(video);
+        } else {
+          // É imagem
+          const img = document.createElement('img');
+          img.src = itemSrc;
+          img.alt = data.title + ' gallery';
+          modalGallery.appendChild(img);
         }
       });
-      
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').substring(1) === current) {
-          link.classList.add('active');
+    }
+
+    aiModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+// Fechar modal
+modalClose?.addEventListener('click', () => {
+  aiModal.style.display = 'none';
+  document.body.style.overflow = 'auto';
+});
+aiModal?.addEventListener('click', (e) => {
+  if (e.target === aiModal) {
+    aiModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && aiModal && aiModal.style.display === 'block') {
+    aiModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+});
+</script>
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    pannellum.viewer('xr-pannellum-container', {
+      "type": "equirectangular",
+      "panorama": "/imagens/sala360tour.png",
+      "autoLoad": true,
+      "autoRotate": -1.5,
+      "compass": true,
+      "showZoomCtrl": true,
+      "showFullscreenCtrl": true,
+      "hotSpots": [
+        {
+          "pitch": -5,
+          "yaw": 90,
+          "type": "info",
+          "text": "Sofá modular com almofadas geométricas"
+        },
+        {
+          "pitch": -8,
+          "yaw": -120,
+          "type": "info",
+          "text": "Área de jantar com vista para o exterior"
         }
-      });
+      ],
+      "errorMessage": "Erro ao carregar o tour virtual. Por favor, tente novamente."
     });
-  </script>
+  });
+</script>
 </body>
 </html>
