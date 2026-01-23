@@ -568,7 +568,7 @@ section + section { padding-top: 0; }
   .ai-section {
     height: auto;
     min-height: unset;
-    padding: 20px 0;
+   
   }
 }
 
@@ -1187,8 +1187,101 @@ transition: all 0.3s ease;
 .oculus-mask {
   animation: vr-pulse 4s ease-in-out infinite;
 }
-/* === AJUSTES RESPONSIVOS ADICIONAIS PARA MOBILE === */
 
+
+@media (max-width: 480px) {
+  /* 1. REPOSICIONAR BANDEIRINHAS PARA NÃO SOBREPOR HAMBURGER */
+  .language-bar {
+    right: 15px;
+    top: 18px;
+    margin: 0 !important; /* remove margens fixas problemáticas */
+    gap: 4px;
+    z-index: 1001;
+  }
+  .language-bar button {
+    margin: 0 !important;
+    padding: 8px;
+  }
+  .menu-toggle span{
+    margin-left: -70px;
+  }
+
+/* === REPOSICIONAR LOGO DA HERO EM MOBILE === */
+.hero {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5rem 1rem 1.5rem;
+}
+
+/* Esconde a logo da hero na posição original */
+.hero .hero-logo {
+  display: none;
+}
+
+/* Cria um novo local para a logo após o byline */
+/* .hero-container::after {
+  content: "A\00a0X\00a0LARA";
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
+  margin: 1.2rem 0 0.8rem;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+  text-align: center;
+} */
+
+.hero-container::after i {
+  color: var(--primary);
+  text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+}
+  /* 2. SUBIR A IMAGEM DO HERO PARA FICAR MAIS PRÓXIMA DO TEXTO */
+  /* .hero {
+    padding: 5rem 1rem 1rem; /* reduz padding inferior */
+    /* flex-direction: column;
+    align-items: center;
+    gap: 1.2rem; /* aproxima imagem do texto */
+  /* }
+  .hero-image {
+    margin-top: 0;
+  }  */
+
+  /* 3. TÍTULO "ARCHITECT OF XPERIENCE" EM UMA LINHA SÓ */
+  .hero h1 {
+    font-size: 1.75rem; /* ligeiramente menor, mas legível */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    margin-top: 20px;
+  }
+
+  /* 4. REMOVER LINHA PRETA ENTRE HERO E AI SECTION */
+  /* Essa linha vem do ::before da .ai-section — vamos escondê-la em mobile */
+  .ai-section::before {
+    display: none ;
+  }
+
+  /* Ajuste fino no subtitle e byline */
+  .hero h2 {
+    font-size: 1.15rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hero .byline {
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+  }
+
+  /* Garantir que o container do hero não empurre conteúdo */
+  .hero-container {
+    text-align: center;
+  }
+}
 @media (max-width: 768px) {
   /* HERO */
   .hero {
@@ -1376,7 +1469,7 @@ transition: all 0.3s ease;
 <div class="ai-grid-item" data-modal="coastal">
 <img src="/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_.png" alt="Coastal Residential Masterplan" loading="lazy">
 <div class="ai-grid-overlay">
-<div class="ai-grid-title">Coastal Residential Masterplan</div>
+<div class="ai-grid-title">Coastal Residential</div>
 <div class="ai-grid-category">Architecture / Real Estate</div>
 </div>
 </div>
@@ -1593,66 +1686,74 @@ const modalData = {
   'urban': {
     title: 'Urban Complex Mixed-Use',
     category: 'Architecture / Urban AI',
-    description: 'AI-assisted architectural exploration focused on realistic, buildable urban and residential concepts. Urban Scandinavian mixed-use development with integrated commercial and residential spaces.',
+    description: 'AI-assisted spatial exploration of dense, buildable urban scenarios. Study of scale, circulation, mixed-use logic and realistic architectural language applied to Scandinavian-inspired developments.',
     gallery: [
       '/imagens/axlara_urban_mixed-use_residential_complex_.png',
       '/imagens/axlara_near-orthographic_top-down_aerial_view_of_the_SAME_urban.png',
       '/imagens/axlara_aerial_oblique_drone_view_of_the_SAME_urban_mixed.png'
     ]
   },
+
   'coastal': {
-    title: 'Coastal Residential Masterplan',
+    title: 'Coastal Residential',
     category: 'Architecture / Real Estate',
-    description: 'Masterplan visualization for coastal residential community integrating sustainable design principles with local architectural language.',
+    description: 'AI-driven feasibility study for a coastal residential development, exploring architectural language, material logic, human-scale experience and real estate potential through spatial reasoning and visualization.',
     gallery: [
       '/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_.png',
-      '/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti.png',
-      '/imagens/axlara_coastal_residential_masterplan_concept_low-rise_housing.png'
+      '/imagens/axlara_aerial_oblique_drone_view_.png',
+      '/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_details.png'
     ]
   },
+
   'aerial': {
     title: 'Aerial Masterplan View',
     category: 'Architecture / Urban AI',
-    description: 'Top-down drone perspective of the coastal masterplan, emphasizing scale and integration with landscape.',
+    description: 'Aerial territorial analysis of the same coastal development, focusing on land occupation, density distribution and environmental integration at masterplan scale.',
     gallery: [
       '/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti.png',
-      '/imagens/axlara_aerial_oblique_drone_view_of_the_SAME_urban_mixed.png',
-      '/imagens/axlara_near-orthographic_top-down_aerial_view_of_the_SAME_urban.png'
+      '/imagens/axlara_aerial_oblique_drone_view.png',
+      '/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti_.png'
     ]
   },
-  'lumen': {
-    title: 'Lumen - Brand & Product Exploration',
-    category: 'Product / Brand AI',
-    description: 'AI-driven product and brand exploration combining visual identity, materiality and motion.',
-    hasVideo: true, // MARCA QUE TEM VÍDEO
-    gallery: [
-      '/imagens/lumen_video.mp4', // VÍDEO COMO PRIMEIRA IMAGEM
-      '/imagens/lumen_.png',
-      '/imagens/lumen2.png',
-      '/imagens/lumen3.png'
-    ]
-  },
-  'lumen2': {
-    title: 'Lumen Series - Visual Exploration',
-    category: 'Product / Brand AI',
-    description: 'Second iteration of the Lumen brand exploration, focusing on material textures and lighting.',
-    gallery: [
-      '/imagens/lumen2.png',
-      '/imagens/lumen_.png',
-      '/imagens/lumen3.png'
-    ]
-  },
-  'lumen3': {
-    title: 'Lumen - Final Concept',
-    category: 'Product / Brand AI',
-    description: 'Final concept for Lumen product line, showcasing refined brand identity.',
-    gallery: [
-      '/imagens/lumen3.png',
-      '/imagens/lumen2.png',
-      '/imagens/lumen_.png'
-    ]
-  }
+
+ 'lumen': {
+  title: 'Lumen — Brand Presence',
+  category: 'Product / Brand AI',
+  description: 'Concept brand developed from a fictional briefing for a lighting company centered on atmosphere, perception and spatial presence. These visuals define the sensory universe and emotional tone that shape the brand identity.',
+  hasVideo: true,
+  gallery: [
+    '/imagens/lumen_.png',
+    '/imagens/lumen5.png',
+    '/imagens/lumen_video.mp4',
+    '/imagens/lumen3.png'
+  ]
+},
+
+'lumen2': {
+  title: 'Lumen — Sensory Language',
+  category: 'Product / Brand AI',
+  description: 'Visual explorations that express how texture, light, space and materiality contribute to the brand’s sensory language, reinforcing its atmosphere and perception.',
+  gallery: [
+    '/imagens/lumen2.png',
+    '/imagens/lumen4.png',
+    '/imagens/lumen3.png'
+  ]
+},
+
+'lumen3': {
+  title: 'Lumen — Visual Universe',
+  category: 'Product / Brand AI',
+  description: 'Additional studies that expand the visual universe of the brand, where image, space and atmosphere work together to communicate a coherent and immersive identity.',
+  gallery: [
+    
+    '/imagens/axlara_coastal_masterplan_with_minimal_architecture_integrated__.png',
+    '/imagens/axlara_monumental_circular_concrete_chamber_perfect_symmetry_.png',
+    '/imagens/axlara_vast_immersive_minimal_architecture_subtle_sense_of_huma_.png'
+  ]
+}
+
 };
+
 
 // === AI MODAL OPEN ===
 const aiGridItems = document.querySelectorAll('[data-modal]');
