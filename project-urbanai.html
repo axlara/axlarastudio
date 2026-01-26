@@ -35,14 +35,14 @@
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
+      padding: 2rem 1.2rem;
     }
 
     .back-link {
       display: inline-block;
-      margin-bottom: 1.8rem;
+      margin-top: 2.5rem;
       color: var(--primary);
       text-decoration: none;
       font-weight: 600;
@@ -52,39 +52,38 @@
     .back-link:hover { opacity: 0.8; }
 
     h1 {
-  color: #00fff7;
-    font-size: 1.3em;
-    margin-bottom: 12px;
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    line-height: 1.2;
+      color: #00fff7;
+      font-size: 1.3em;
+      margin-bottom: 12px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      line-height: 1.2;
     }
 
     .intro {
       font-size: 1.05rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       color: var(--text-tertiary);
       max-width: 650px;
     }
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 4px;
       margin-top: 1.5rem;
     }
 
     .gallery-item {
       aspect-ratio: 1 / 1;
-      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.25s ease;
     }
     .gallery-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 18px rgba(0, 255, 247, 0.12);
+      transform: scale(1.02);
+      z-index: 1;
+      position: relative;
     }
 
     .gallery-item img {
@@ -94,20 +93,30 @@
       display: block;
     }
 
-    @media (max-width: 600px) {
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      h1 { font-size: 1.5rem; }
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 3px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+      }
+      h1 { font-size: 1.25rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-   
-    <h1>Urban & Spatial Futures</h1>
-    <p class="intro">
-      AI-assisted exploration of coastal urban futures—merging climate resilience, local identity, and poetic spatial narratives. 
-      These concepts imagine humane, adaptive environments shaped by light, texture, and ecological awareness.
-    </p>
+  <h1>Urban & Spatial Futures</h1>
+<p class="intro">
+AI-assisted exploration of architectural and urban possibilities—merging local identity, environmental awareness, and poetic spatial narratives. 
+These concepts investigate how light, materiality, scale and ecology can shape more humane, adaptive and meaningful environments.
+</p>
+
 
     <div class="gallery-grid">
       <div class="gallery-item"><img src="/imagens/axlara_aerial_oblique_drone_view.png" alt="Coastal Urban 1"></div>
@@ -118,8 +127,7 @@
       <div class="gallery-item"><img src="/imagens/axlara_aerial_oblique_drone_view_of_the_SAME_urban_mixed.png" alt="Coastal Urban 6"></div>
     </div>
 
-     <a href="index.html" class="back-link">← Back to Visual Concepts</a>
+    <a href="portproj.html" class="back-link">← Back to Visual Concepts</a>
   </div>
-  
 </body>
 </html>

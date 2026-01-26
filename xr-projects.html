@@ -34,39 +34,40 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-/* Animated Panoramic Background */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250%;
-  height: 100%;
-  background-image: url('imagens/bgstars2.png');
-  background-size: 50% 100%;
-  background-repeat: repeat-x;
-  background-position: 0 0;
-  z-index: -2; /* Fica atrás do overlay */
-  animation: panBackground 120s linear infinite;
-}
 
-/* Dark overlay (máscara escura) */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 10, 15, 0.75); /* Cor escura com transparência */
-  z-index: -1; /* Fica acima da imagem, mas abaixo do conteúdo */
-  pointer-events: none; /* Não interfere em cliques */
-}
+    /* Animated Panoramic Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250%;
+      height: 100%;
+      background-image: url('imagens/bgstars2.png');
+      background-size: 50% 100%;
+      background-repeat: repeat-x;
+      background-position: 0 0;
+      z-index: -2;
+      animation: panBackground 120s linear infinite;
+    }
 
-@keyframes panBackground {
-  from { background-position: 0 0; }
-  to { background-position: -100% 0; }
-}
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 15, 0.75);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes panBackground {
+      from { background-position: 0 0; }
+      to { background-position: -100% 0; }
+    }
+
     .container {
       max-width: 1000px;
       margin: 0 auto;
@@ -216,10 +217,29 @@ body::after {
       letter-spacing: 0.5px;
     }
 
-    /* Footer mini */
+    /* Botão de voltar para home – posicionado perto do footer */
+    .back-to-home-footer {
+      display: block;
+      text-align: center;
+      margin: 2.5rem auto 1.8rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      max-width: 300px;
+      transition: opacity 0.3s ease;
+    }
+    .back-to-home-footer:hover {
+      opacity: 0.8;
+    }
+    .back-to-home-footer i {
+      margin-right: 6px;
+    }
+
     footer {
       text-align: center;
-      padding: 2rem 0 1.5rem;
+      padding: 1.5rem 0 1.5rem;
       color: var(--text-tertiary);
       font-size: 0.9rem;
     }
@@ -233,6 +253,7 @@ body::after {
       .vr-logo { font-size: 1.4rem; }
       .vr-subtitle { font-size: 1rem; }
       .section-title { font-size: 1.4rem; }
+      .back-to-home-footer { font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -335,6 +356,11 @@ body::after {
       </div>
     </div>
   </section>
+
+  <!-- Botão de voltar para home, posicionado logo antes do footer -->
+  <a href="index.html" class="back-to-home-footer">
+    <i class="fas fa-arrow-left"></i> Back to Home
+  </a>
 
   <footer>
     <div class="container">
