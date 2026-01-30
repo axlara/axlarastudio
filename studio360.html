@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>AIVRSE | Studio 360</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 10;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(0, 10, 20, 0.7);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 12px 16px;
+      color: #E8FFFF;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn {
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      background: rgba(0, 30, 60, 0.5);
+      color: #E8FFFF;
+      padding: 10px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+    }
+
+    .btn:hover {
+      background: rgba(0, 150, 255, 0.2);
+      border-color: rgba(0, 255, 255, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 255, 255, 0.18);
+    }
+
+    .label {
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0.95;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <div class="topbar">
+    <button class="btn" onclick="window.location.href='hub.html'">← Back to Hub</button>
+    <span class="label">STUDIO 360</span>
+  </div>
+
+  <a-scene
+    renderer="colorManagement: true; toneMapping: filmic; exposure: 0.9"
+    cursor="rayOrigin: mouse"
+    loading-screen="enabled: true">
+
+    <a-assets>
+      <!-- Seu panorama -->
+      <img id="panoStudio" src="imagens/studioax360.png" />
+    </a-assets>
+
+    <!-- Panorama principal -->
+    <a-sky src="#panoStudio" rotation="0 -90 0"></a-sky>
+
+    <!-- Atmosfera opcional (bem leve) -->
+    <a-entity fog="type: exponential; color: #000814; density: 0.0015"></a-entity>
+
+    <!-- Câmera -->
+    <a-entity id="rig" position="0 0 0">
+      <a-entity camera look-controls="pointerLockEnabled: false" position="0 1.6 0">
+        <a-cursor
+          fuse="false"
+          material="color: #00fff7; shader: flat"
+          geometry="primitive: ring; radiusInner: 0.008; radiusOuter: 0.012">
+        </a-cursor>
+      </a-entity>
+    </a-entity>
+
+    <!-- Luz ambiente (suave) -->
+    <a-light type="ambient" color="#0a1a2a" intensity="0.6"></a-light>
+  </a-scene>
+</body>
+</html>
