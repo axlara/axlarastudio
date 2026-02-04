@@ -2,51 +2,151 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>AIVRSE Hub</title>
+  <title>AIVRSE Hub | AI WebXR Experience</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- FIXED: Removed extra spaces in script URLs -->
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-text-component@0.5.0/dist/aframe-text-component.min.js"></script>
 
   <style>
-    html, body { 
-      margin:0; 
-      height:100%; 
-      background:#000; 
-      overflow:hidden;
-      font-family: Arial, sans-serif;
-    }
+    html, body { margin:0; height:100%; background:#000; overflow:hidden; font-family: 'Segoe UI', sans-serif; }
+    .topbar { position: fixed; top: 15px; left: 15px; z-index: 10; display:flex; gap:12px; align-items:center; background: rgba(10, 20, 25, 0.75); border: 1px solid rgba(0, 255, 247, 0.3); border-radius: 12px; padding: 10px 16px; color: #E8FFFF; font-size: 13px; backdrop-filter: blur(12px); }
+    .btn { border: 1px solid rgba(0, 255, 247, 0.2); background: rgba(255, 255, 255, 0.05); color: #00fff7; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+    .btn:hover { background: rgba(0, 255, 247, 0.15); border-color: #00fff7; }
     
-    .topbar {
-      position: fixed; 
-      top: 10px; 
-      left: 10px; 
+    .footer-hint {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(159, 236, 236, 0.6);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      pointer-events: none;
+      animation: pulse 3s infinite ease-in-out;
       z-index: 10;
-      display:flex; 
-      gap:8px; 
-      align-items:center;
-      background: rgba(0, 10, 20, 0.8);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      border-radius: 10px;
-      padding: 8px 12px;
+      text-align: center;
+      width: 100%;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+    /* =========================
+       SPLASH / CAPA DE ENTRADA
+       ========================= */
+    .splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      background: #05070a;
+    }
+    .splash::before{
+      content:"";
+      position:absolute; inset:0;
+      background: url("imagens/panorama_estudio_360.jpg") center/cover no-repeat;
+      filter: saturate(0.92) contrast(1.06);
+      opacity: 1;
+    }
+    .splash::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.25), rgba(0,0,0,0.86));
+    }
+    .splash-card{
+      position: relative;
+      width: min(920px, 88vw);
+      padding: 34px 34px 30px;
+      border-radius: 18px;
+      background: rgba(5, 10, 14, 0.58);
+      border: 1px solid rgba(0,255,247,0.18);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+      backdrop-filter: blur(14px);
       color: #E8FFFF;
+      text-align: left;
+    }
+    .splash-kicker{
+      color: rgba(0,255,247,0.85);
       font-size: 12px;
-      backdrop-filter: blur(5px);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
-    
-    .btn {
-      border: 1px solid rgba(0, 255, 255, 0.3);
-      background: rgba(0, 30, 60, 0.5);
-      color: #E8FFFF;
-      padding: 6px 12px;
-      border-radius: 8px;
+    .splash-title{
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.05;
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+    .splash-sub{
+      margin: 0 0 18px;
+      font-size: 15px;
+      line-height: 1.45;
+      color: rgba(232,255,255,0.86);
+      max-width: 58ch;
+    }
+    .splash-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+    .splash-btn{
+      border: 1px solid rgba(0, 255, 247, 0.25);
+      background: rgba(0, 255, 247, 0.10);
+      color: #00fff7;
+      padding: 10px 16px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 11px;
-      transition: all 0.2s;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: .25s ease;
     }
-    
-    .btn:hover { 
-      background: rgba(0, 150, 255, 0.3); 
-      border-color: rgba(0, 255, 255, 0.5);
+    .splash-btn:hover{
+      background: rgba(0, 255, 247, 0.18);
+      border-color: rgba(0,255,247,0.5);
+    }
+    .splash-hint{
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: rgba(232,255,255,0.6);
+    }
+    .splash-hide { display:none; }
+    .splash-card--compact{
+      padding: 26px 26px 22px;
+      max-width: 720px;
+    }
+
+    .splash-sub{
+      margin: 0 0 14px;
+      font-size: 13px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: rgba(232,255,255,0.72);
+    }
+
+    .splash-btn--pulse{
+      position: relative;
+      box-shadow: 0 0 0 rgba(0,255,247,0);
+      animation: ctaPulse 1.8s infinite ease-in-out;
+    }
+    @keyframes ctaPulse{
+      0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(0,255,247,0); }
+      50%      { transform: translateY(-1px); box-shadow: 0 0 24px rgba(0,255,247,0.18); }
+    }
+
+    .splash-clickhint{
+      margin-top: 14px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: rgba(232,255,255,0.52);
+      opacity: 0.9;
     }
   </style>
 
@@ -54,250 +154,421 @@
     function $(id){ return document.getElementById(id); }
     function show(id){ const el = $(id); if(el) el.setAttribute('visible', true); }
     function hide(id){ const el = $(id); if(el) el.setAttribute('visible', false); }
+    function hideAll(){ hide('tools-card'); hide('focus-card'); }
+
+    // Wait for scene to be ready before manipulating components
+    let sceneReady = false;
+    document.addEventListener('DOMContentLoaded', () => {
+      if (AFRAME) {
+        document.querySelector('a-scene').addEventListener('loaded', () => {
+          sceneReady = true;
+          console.log('Scene ready');
+        });
+      }
+    });
+
+    AFRAME.registerComponent('camera-movement', {
+      init: function () {
+        this.moveSpeed = 0.2;
+        this.activeKeys = new Set();
+        this.keyMap = {
+          'ArrowUp': 'forward',
+          'ArrowDown': 'backward', 
+          'ArrowLeft': 'left',
+          'ArrowRight': 'right',
+          'w': 'forward',
+          's': 'backward',
+          'a': 'left',
+          'd': 'right'
+        };
+        document.addEventListener('keydown', (e) => {
+          const direction = this.keyMap[e.key];
+          if (direction) {
+            this.activeKeys.add(direction);
+            e.preventDefault();
+          }
+        });
+        document.addEventListener('keyup', (e) => {
+          const direction = this.keyMap[e.key];
+          if (direction) this.activeKeys.delete(direction);
+        });
+      },
+      tick: function () {
+        if (this.activeKeys.size === 0) return;
+
+        const rig = this.el;
+        const position = rig.getAttribute('position');
+
+        let moveX = 0;
+        let moveZ = 0;
+        if (this.activeKeys.has('forward')) moveZ -= 1;
+        if (this.activeKeys.has('backward')) moveZ += 1;
+        if (this.activeKeys.has('left')) moveX -= 1;
+        if (this.activeKeys.has('right')) moveX += 1;
+
+        const length = Math.sqrt(moveX * moveX + moveZ * moveZ);
+        if (length > 0) { moveX /= length; moveZ /= length; }
+
+        rig.setAttribute('position', {
+          x: position.x + moveX * this.moveSpeed,
+          y: position.y,
+          z: position.z + moveZ * this.moveSpeed
+        });
+      }
+    });
+
+    AFRAME.registerComponent('billboard', {
+      schema: { onlyY: {type: 'boolean', default: false} },
+      tick: function () {
+        const camera = document.querySelector('[camera]').object3D;
+        const obj = this.el.object3D;
+        if (!camera || !obj) return;
+
+        if (this.data.onlyY) {
+          const cameraPos = camera.getWorldPosition(new THREE.Vector3());
+          const objPos = obj.getWorldPosition(new THREE.Vector3());
+          const direction = new THREE.Vector3().subVectors(cameraPos, objPos);
+          direction.y = 0;
+          obj.lookAt(objPos.clone().add(direction));
+        } else {
+          obj.lookAt(camera.position);
+        }
+      }
+    });
+
+    // FIXED: Added proper cleanup in remove() and made activation conditional
+    AFRAME.registerComponent('intro-autorotate', {
+      init: function () {
+        this.yaw = 0;
+        this.active = true;
+        this.timeoutId = null;
+
+        // Stop on first user interaction
+        const stop = () => { 
+          this.active = false;
+          if (this.timeoutId) clearTimeout(this.timeoutId);
+        };
+        
+        window.addEventListener('mousemove', stop, { once: true });
+        window.addEventListener('mousedown', stop, { once: true });
+        window.addEventListener('keydown', stop, { once: true });
+
+        // Auto-stop after 6 seconds
+        this.timeoutId = setTimeout(stop, 22000);
+      },
+
+      tick: function (time, delta) {
+        if (!this.active) return;
+
+        const cam = document.getElementById('cam');
+        const lc = cam && cam.components && cam.components['look-controls'];
+        if (!lc || !lc.yawObject) return;
+
+        // Constant rotation speed
+        lc.yawObject.rotation.y += delta * 0.00030;
+      },
+
+      
+      remove: function() {
+        if (this.timeoutId) {
+          clearTimeout(this.timeoutId);
+          this.timeoutId = null;
+        }
+        this.active = false;
+      }
+    });
+
+    AFRAME.registerComponent('teleport-to', {
+      schema: { pos: {type: 'vec3'}, rotY: {type: 'number', default: 0} },
+      init: function () {
+        this.el.classList.add('clickable');
+        this.el.addEventListener('click', () => {
+          const rig = document.getElementById('rig');
+          const cam = document.getElementById('cam');
+          rig.setAttribute('position', this.data.pos);
+          if (cam && cam.components['look-controls']) {
+            const lc = cam.components['look-controls'];
+            if (lc.yawObject) lc.yawObject.rotation.y = THREE.MathUtils.degToRad(this.data.rotY);
+          }
+          hideAll();
+        });
+      }
+    });
+
+    function focusImage(assetId){
+      const imgPlane = document.getElementById('focus-image');
+      const focus = document.getElementById('focus-card');
+      if(imgPlane && focus){
+        imgPlane.setAttribute('material', `shader: flat; src: #${assetId}; transparent: true;`);
+        focus.setAttribute('visible', true);
+      }
+    }
+    
+    function goToCenter() {
+      const rig = document.getElementById('rig');
+      const cam = document.getElementById('cam');
+
+      rig.setAttribute('position', {x: 0, y: 0, z: 0});
+
+      if (cam && cam.components['look-controls']) {
+        const lc = cam.components['look-controls'];
+        if (lc.yawObject) lc.yawObject.rotation.y = 0;
+      }
+      hideAll();
+    }
+
+    /* FIXED: Splash logic with autorotate activation */
+    function hideSplash(){
+      const s = document.getElementById('splash');
+      if(s) s.classList.add('splash-hide');
+
+      // ONLY activate autorotate AFTER splash is hidden AND scene is ready
+      if (sceneReady) {
+        const rig = document.getElementById('rig');
+        if (rig && !rig.hasAttribute('intro-autorotate')) {
+          rig.setAttribute('intro-autorotate', '');
+          console.log('Autorotate activated');
+        }
+      } else {
+        // Fallback: wait for scene ready event
+        document.querySelector('a-scene').addEventListener('loaded', () => {
+          const rig = document.getElementById('rig');
+          if (rig && !rig.hasAttribute('intro-autorotate')) {
+            rig.setAttribute('intro-autorotate', '');
+            console.log('Autorotate activated (delayed)');
+          }
+        });
+      }
+    }
+
+    function showSplash(){
+      const s = document.getElementById('splash');
+      if(s) s.classList.remove('splash-hide');
+
+      // Deactivate autorotate when showing splash
+      const rig = document.getElementById('rig');
+      if (rig && rig.hasAttribute('intro-autorotate')) {
+        rig.removeAttribute('intro-autorotate');
+        console.log('Autorotate deactivated');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('enterBtn');
+      const splash = document.getElementById('splash');
+
+      // Unified splash hiding handler
+      const handleEnter = (e) => {
+        if (e) e.preventDefault();
+        hideSplash();
+      };
+
+      btn?.addEventListener('pointerdown', handleEnter);
+      btn?.addEventListener('click', handleEnter);
+
+      // Hide splash when clicking background (not card)
+      splash?.addEventListener('click', (e) => {
+        if (e.target === splash) handleEnter();
+      });
+
+      // Hide on Enter key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && splash && !splash.classList.contains('splash-hide')) {
+          handleEnter();
+        }
+      });
+    });
   </script>
 </head>
 
 <body>
-  <div class="topbar">
-    <button class="btn" onclick="window.location.href='hub.html'">← Back</button>
-    <span style="font-weight: 600; letter-spacing: .6px;">AIVRSE</span>
+  <!-- SPLASH SCREEN -->
+  <div id="splash" class="splash">
+    <div class="splash-card splash-card--compact">
+      <div class="splash-kicker">LIVE PROJECT</div>
+      <h1 class="splash-title">Interactive Spatial Experience</h1>
+      <p class="splash-sub">Explore this project in a live 3D environment</p>
+      <div class="splash-actions">
+        <button class="splash-btn splash-btn--pulse" id="enterBtn">Enter Experience</button>
+        <div class="splash-hint">WebXR • In-browser • No install</div>
+      </div>
+      <div class="splash-clickhint">Click "Enter" or press Enter</div>
+    </div>
   </div>
 
-  <a-scene renderer="colorManagement: true" cursor="rayOrigin: mouse">
+  <div class="topbar">
+    <div style="font-weight: bold; color: #00fff7; border-right: 1px solid rgba(255,255,255,0.2); padding-right: 12px; margin-right: 4px;">AIVRSE</div>
+    <button class="btn" onclick="showSplash()">Exit</button>
+  </div>
 
+  <div class="footer-hint">Use Mouse to look around • Click beacons to teleport • arrows/WASD to move • Space to center</div>
+
+  <!-- SCENE: Note intro-autorotate REMOVED from rig -->
+  <a-scene renderer="colorManagement: true; antialias: true;" cursor="rayOrigin: mouse">
     <a-assets>
-      <img id="panoLobby" src="imagens/panorama_estudio_360.jpg" />
-      <img id="coverStudio" src="imagens/capa_studioax.jpg" />
-      <img id="coverWorks" src="imagens/capa_gallery360.png" />
-      <img id="axlaraPhoto" src="imagens/axlarasf.png" />
+      <img id="panoLobby" src="imagens/panorama_gallery.jpg" />
+      <img id="logoAivrse" src="imagens/logoaiv.png" />
+      <img id="aboutaxlara" src="imagens/aboutaxlara_.png" crossorigin="anonymous" />
+      <img id="g1" src="imagens/gallery2.png" />
+      <img id="g2" src="imagens/gallery3.png" />
+      <img id="g3" src="imagens/gallery1.png" />
+      <img id="capsule" src="imagens/capsule.png" />
     </a-assets>
 
-    <a-sky src="#panoLobby" rotation="0 50 0"></a-sky>
+    <a-sky src="#panoLobby" rotation="0 -40 0" material="color: #fff; shader: flat; opacity: 0.8"></a-sky>
+    <a-entity light="type: ambient; intensity: 1.3;"></a-entity>
+    <a-entity light="type: directional; intensity: 0.8; position: 5 10 5"></a-entity>
+
+    <!-- FIXED: intro-autorotate REMOVED from rig -->
+    <a-entity id="rig" position="0 0 0" camera-movement>
+      <a-entity id="cam" camera look-controls position="0 1.6 0" fov="80">
+        <a-cursor material="color: #00fff7; shader: flat" geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.011"></a-cursor>
+      </a-entity>
+    </a-entity>
+
+    <!-- Logo principal -->
+    <a-entity id="logo-container" position="0 3.85 -4.25" rotation="0 0 0"
+              animation="property: position; to: 0 3.95 -4.25; dur: 3000; dir: alternate; loop: true; easing: easeInOutQuad">
+      <a-plane width="3.3" height="1.5"
+               material="shader: flat; src: #logoAivrse; transparent: true; opacity: 0.9"
+               billboard="onlyY: true"></a-plane>
+
+      <!-- WELCOME (com sombra/outline sutil) -->
+      <a-entity position="0 -0.70 0.05" billboard="onlyY: true">
+        <!-- sombra (atrás) -->
+        <a-text value="Welcome to the AIVRSE Spatial Gallery"
+                align="center"
+                width="5.6"
+                color="#000000"
+                font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
+                shader="msdf"
+                opacity="0.28"
+                position="0.018 -0.018 -0.001"></a-text>
+
+        <!-- texto principal -->
+        <a-text value="Welcome to the AIVRSE Spatial Gallery" 
+                align="center"
+                width="5.6"
+                color="#086171"
+                font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
+                shader="msdf"
+                opacity="0.92"></a-text>
+      </a-entity>
+
+      <!-- SUBTITLE (limpo + legível) -->
+      <a-entity position="0 -1.15 0.05" billboard="onlyY: true">
+        <a-text value="Where immersive dreams take shape, light, and presence"
+                align="center"
+                width="4.6"
+                color="#E8FFFF"
+                font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
+                shader="msdf"
+                opacity="0.92"
+                lineHeight="58"
+                wrapCount="42"></a-text>
+      </a-entity>
+    </a-entity>
+
+    <!-- About section -->
+    <a-entity id="about-image-fixed" position="-5.5 1.5 -0.5" rotation="0 90 0"
+              animation="property: position; to: -5.5 1.6 -0.5; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
+      <a-plane width="4" height="2.6"
+               material="color: #0b0f12; opacity: 0.62; transparent: true"
+               position="0 0 0.01"></a-plane>
+      <a-plane width="3.74" height="2.14"
+               material="shader: flat; color: #00fff7; opacity: 0.08; transparent: true"
+               position="0 0.1 0.015"></a-plane>
+      <a-plane width="3.6" height="2"
+               material="shader: flat; color: #000000; opacity: 0.18; transparent: true"
+               position="0.03 0.07 0.016"></a-plane>
+      <a-plane id="focus-image" width="3.6" height="2" position="0 0.1 0.02" 
+               material="shader: flat; src: #aboutaxlara; opacity: 0.82;"></a-plane>
+      
+      <!-- Beacon circular abaixo do about -->
+      <a-entity position="0 -2.5 0" rotation="-90 0 0" teleport-to="pos: -2.5 0 -0.5; rotY: 90"> 
+        <a-circle radius="0.8" material="shader: flat; color: #00fff7; opacity: 0.1; transparent: true; side: double"></a-circle>
+        <a-ring radius-inner="0.6" radius-outer="0.65" 
+                material="shader: flat; color: #00fff7; opacity: 0.3; transparent: true; side: double"
+                animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
+        </a-ring>
+        <a-ring radius-inner="0.4" radius-outer="0.45"
+                material="shader: flat; color: #00fff7; opacity: 0.2; transparent: true; side: double"
+                animation="property: scale; from: 1 1 1; to: 0.9 0.9 1; dur: 2500; dir: alternate; loop: true; easing: easeInOutSine; delay: 500">
+        </a-ring>
+      </a-entity>
+
+      <!-- ABOUT label (com sombra discreta) -->
+      <a-entity position="0 -2 0" billboard="onlyY: true">
+        <a-text value="ABOUT" align="center" width="2.2" color="#000000" opacity="0.25"
+                font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"
+                position="0.012 -0.012 -0.001"></a-text>
+        <a-text value="ABOUT" align="center" width="2.2" color="#00fff7" opacity="0.95"
+                font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
+      </a-entity>
+    </a-entity>
+
+    <!-- CAPSULE EM PÉ (totem/objeto) -->
+    <a-entity id="capsule-stand" position="-1.8 0.10 3.2" rotation="0 35 0">
+      <a-entity position="0 0.72 0" billboard="onlyY: true">
+        <a-plane width="1.75" height="2.15"
+                 material="shader: flat; src: #capsule; transparent: true; opacity: 0.98">
+        </a-plane>
+      </a-entity>
+    </a-entity>
+
+    <!-- Beacon para galeria -->
+    <a-entity id="beacon-gallery" position="5 0 2" rotation="0 -100 0" teleport-to="pos: 5 0 2; rotY: -90">
+      <a-entity rotation="-90 0 0">
+        <a-circle radius="0.60" material="shader: flat; color: #00fff7; opacity: 0.15; transparent: true"></a-circle>
+        <a-ring radius-inner="0.35" radius-outer="0.40" material="shader: flat; color: #00fff7; opacity: 0.5; transparent: true"
+                animation="property: scale; from: 1 1 1; to: 1.15 1.15 1.15; dur: 2000; dir: alternate; loop: true"></a-ring>
+      </a-entity>
+      <a-text value="EXPLORE WORKS" position="0 0.5 0" align="center" width="2.5" color="#00fff7" billboard="onlyY: true"></a-text>
+    </a-entity>
+
+    <!-- Cards -->
+    <a-entity class="clickable" position="6.5 1.65 -0.5" look-at="#cam" onclick="focusImage('g1')"
+              animation="property: position; to: 6.5 1.72 -0.5; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
+      <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
+      <a-plane width="3.6" height="2" position="0 0.1 0.02"
+               material="shader: flat; src: #g1; transparent: true; opacity: 0.95"></a-plane>
+      <a-text value="IMMERSIVE EXPERIENCES VR" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
+    </a-entity>
+
+    <a-entity class="clickable" position="8.7 1.65 2.4" look-at="#cam" onclick="focusImage('g2')"
+              animation="property: position; to: 8.7 1.58 2.4; dur: 3500; dir: alternate; loop: true; easing: easeInOutSine">
+      <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
+      <a-plane width="3.6" height="2" position="0 0.1 0.02"
+               material="shader: flat; src: #g2; transparent: true; opacity: 0.95"></a-plane>
+      <a-text value="AI CREATIVE RESEARCH" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
+    </a-entity>
     
-    <!-- leve “film” para unificar o contraste -->
-    <a-plane 
-      geometry="primitive: sphere; radius: 500" 
-      material="color: #000; opacity: 0.25; transparent: true"
-      position="0 0 0">
-    </a-plane>
-
-    <a-entity id="rig" position="0 0 0">
-      <a-entity camera look-controls position="0 1.6 0">
-        <a-cursor 
-          fuse="false" 
-          raycaster="objects: .clickable"
-          material="color: #00fff7"
-          geometry="primitive: ring; radiusInner: 0.008; radiusOuter: 0.012">
-        </a-cursor>
-      </a-entity>
+    <a-entity class="clickable" position="8.7 1.65 7" look-at="#cam" onclick="focusImage('g3')"
+              animation="property: position; to: 8.7 1.70 7; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
+      <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
+      <a-plane width="3.6" height="2" position="0 0.1 0.02"
+               material="shader: flat; src: #g3; transparent: true; opacity: 0.95"></a-plane>
+      <a-text value="SPATIAL / ARCHITECTURE 360°" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
     </a-entity>
 
- <a-entity id="logo-container" position="0 3.15 -4.25" look-at="#rig">
- 
-
-  <a-text value="AIVRSE" align="center" width="9" color="#000" 
-    font="exo2bold" letter-spacing="8" position="0.02 0.07 -0.01" opacity="0.9">
-  </a-text>
-
-  <a-text value="AIVRSE" align="center" width="8.8" color="#00fff7" 
-    font="exo2bold" letter-spacing="8" position="0 0.08 0.01" opacity="0.5">
-  </a-text>
-
-  <a-text value="AIVRSE" align="center" width="8.8" color="#C0C0C0" 
-    font="exo2bold" letter-spacing="8" position="0 0.08 0.03">
-  </a-text>
-
-  <a-text value="Welcome to the AIVRSE Digital Hub" align="center" width="6.5" 
-    color="#000" font="dejavu" position="0.005 -0.335 0.01" opacity="0.7">
-  </a-text>
-  <a-text value="Welcome to the AIVRSE Digital Hub" align="center" width="6.5" 
-    color="#E8FFFF" font="dejavu" position="0 -0.33 0.02">
-  </a-text>
-
-  <a-text value="Click the markers to navigate" align="center" width="6" 
-    color="#000" font="dejavu" position="0.003 -0.553 0.01" opacity="0.6">
-  </a-text>
-  <a-text value="Click the markers to navigate" align="center" width="6" 
-    color="#A0F0F0" font="dejavu" position="0 -0.55 0.02">
-  </a-text>
-</a-entity>
-
-    <!-- PORTAL 1 (mais “perto da porta” / mais convidativo) -->
-    <a-entity id="portal-studio"
-      position="-3.05 1.55 -2.55"
-      rotation="0 28 0"
-      class="clickable"
-      onclick="window.location.href='studio360.html'">
-
-      <a-image 
-        src="#coverStudio" 
-        width="2.1" 
-        height="1.2" 
-        position="0 0 0">
-      </a-image>
-      
-      <a-plane width="2.2" height="1.3" position="0 0 0.01"
-        material="color: #00fff7; opacity: 0.16; transparent: true">
-      </a-plane>
-
-      <!-- label + feixe -->
-      <a-entity id="text-studio" position="0 -0.92 0.02">
-        <a-cone radius-bottom="0.75" radius-top="0.10" height="0.55" 
-          position="0 0.12 0" rotation="180 0 0"
-          material="color: #00fff7; opacity: 0.18; transparent: true; side: back">
-        </a-cone>
-
-<a-text value="ENTER THE STUDIO" align="center" width="2.2" color="#000" position="0.005 0.495 0.009" opacity="0.8"></a-text>
-<a-text value="ENTER THE STUDIO" align="center" width="2.2" color="#fff" position="0 0.50 0.01"></a-text>
-
-<a-text value="AIVRSE SPACE" align="center" width="2.0" color="#000" position="0.005 0.295 0.009" opacity="0.8"></a-text>
-<a-text value="AIVRSE SPACE" align="center" width="2.0" color="#808080" position="0 0.30 0.01"></a-text>
-        </a-text>
-      </a-entity>
-    </a-entity>
-
-    <!-- PORTAL 2 -->
-    <a-entity id="portal-works"
-      position="2.85 1.55 -2.75"
-      rotation="0 -24 0"
-      class="clickable"
-      onclick="window.location.href='works.html'">
-
-      <a-image src="#coverWorks" 
-        width="2.1" 
-        height="1.2" 
-        position="0 0 0">
-      </a-image>
-      
-      <a-plane width="2.2" height="1.3" position="0 0 0.01"
-        material="color: #00aaff; opacity: 0.16; transparent: true">
-      </a-plane>
-
-      <a-entity id="text-works" position="0 -0.92 0.02">
-        <a-cone radius-bottom="0.65" radius-top="0.10" height="0.55" 
-          position="0 0.18 0" rotation="180 0 0"
-          material="color: #00aaff; opacity: 0.18; transparent: true; side: back">
-        </a-cone>
-
-<a-text value="VISIT THE XR GALLERY" align="center" width="2.2" color="#000" position="0.005 0.495 0.009" opacity="0.8"></a-text>
-<a-text value="VISIT THE XR GALLERY" align="center" width="2.2" color="#fff" position="0 0.50 0.01"></a-text>
-
-<a-text value="PROJECTS / EXPERIMENTS" align="center" width="2.0" color="#000" position="0.005 0.295 0.009" opacity="0.8"></a-text>
-<a-text value="PROJECTS / EXPERIMENTS" align="center" width="2.0" color="#808080" position="0 0.30 0.01"></a-text>
-        </a-text>
-      </a-entity>
-    </a-entity>
-
-    <!-- ABOUT (ponto no chão = wayfinding) -->
-    <a-entity id="about-area" position="0 0 -2.0">
-
-      <a-cone radius-bottom="0.6" radius-top="0.1" height="0.8" 
-        position="0 0.75 0" rotation="180 0 0"
-        material="color: #00fff7; opacity: 0.14; transparent: true; side: back"
-        animation="property: material.opacity; from: 0.10; to: 0.20; dur: 2000; loop: true; dir: alternate">
-      </a-cone>
-      
-      <a-circle radius="0.7" position="0 0.01 0" rotation="-90 0 0"
-        material="color: #00fff7; opacity: 0.28; transparent: true; emissive: #00fff7; emissiveIntensity: 0.5"
-        animation="property: material.opacity; from: 0.18; to: 0.38; dur: 2000; loop: true; dir: alternate; delay: 250">
+    <!-- Center -->
+    <a-entity id="teleport-back" position="1.5 0 1.5" class="clickable" onclick="goToCenter()">
+      <a-ring radius-inner="0.3" radius-outer="0.35" rotation="-90 0 0" 
+              material="color: #00fff7; emissive: #00fff7; emissiveIntensity: 2; opacity: 0.4; transparent: true"
+              animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 2000; dir: alternate; loop: true">
+      </a-ring>
+      <a-circle radius="0.5" rotation="-90 0 0" 
+                material="color: #00fff7; opacity: 0.05; transparent: true; side: double">
       </a-circle>
-
-      <a-entity id="text-about" position="0 0.92 0" look-at="#rig">
-<a-text value="ABOUT AIVRSE" align="center" width="1.8" color="#000" position="0.005 0.055 0.009" opacity="0.8"></a-text>
-<a-text value="ABOUT AIVRSE" align="center" width="1.8" color="#E8FFFF" position="0 0.06 0.01"></a-text>
-
-<a-text value="(press to open)" align="center" width="1.6" color="#000" position="0.003 -0.103 0.009" opacity="0.6"></a-text>
-<a-text value="(press to open)" align="center" width="1.6" color="#808080" position="0 -0.10 0.01"></a-text>
-
-      </a-entity>
-
-      <a-entity id="about-spot"
-        position="0 0.05 0"
-        rotation="-90 0 0"
-        class="clickable"
-        onclick="show('about-card')">
-
-        <a-circle radius="0.2"
-          material="color: #00fff7; opacity: 0.38; transparent: true; emissive: #00fff7; emissiveIntensity: 0.55"
-          animation="property: scale; from: 0.9 0.9 0.9; to: 1.12 1.12 1.12; dur: 2000; loop: true; dir: alternate">
-        </a-circle>
-      </a-entity>
+      <a-text value="CENTER" position="0 0.5 0" align="center" width="2" color="#E8FFFF" billboard="onlyY: true"></a-text>
     </a-entity>
-
-    <!-- ABOUT CARD -->
-    <a-entity id="about-card" visible="false" position="0 1.7 -2.0" look-at="#rig">
-
-      <a-plane width="3.0" height="1.8"
-        material="color: #001a33; opacity: 0.9; transparent: true">
-      </a-plane>
-
-      <a-plane width="3.1" height="1.9" position="0 0 0.01"
-        material="color: #00fff7; opacity: 0.16; transparent: true">
-      </a-plane>
-
-      <a-image src="#axlaraPhoto" 
-        position="-1.0 0.2 0.02" 
-        width="0.9" 
-        height="0.9">
-      </a-image>
-      
-      <a-entity position="0.2 0.6 0.02"
-        text="value: AXLARA; align: left; width: 3; color: #FFFFFF; font: dejavu;">
-      </a-entity>
-
-      <a-entity position="0.2 0.3 0.02"
-        text="value: XR Developer & AI Artist; align: left; width: 3; color: #A0F0F0; font: dejavu;">
-      </a-entity>
-
-      <a-entity position="0.2 0.0 0.02"
-        text="value: Building spatial interfaces for presence.; align: left; width: 3; color: #80E0E0; font: dejavu;">
-      </a-entity>
-
-      <a-entity position="1.3 0.7 0.02" class="clickable"
-        geometry="primitive: plane; width: 0.5; height: 0.3"
-        material="color:#00fff7; opacity:0.18; transparent:true"
-        onclick="hide('about-card')">
-        <a-entity position="0 0 0.01"
-          text="value: X; align: center; color: #FFFFFF; font: dejavu;">
-        </a-entity>
-      </a-entity>
-
-      <a-entity position="0 -0.6 0.02" class="clickable"
-        geometry="primitive: plane; width: 1.2; height: 0.4"
-        material="color: #00fff7; opacity: 0.18; transparent: true"
-        onclick="window.location.href='about.html'">
-        <a-entity position="0 0 0.01"
-          text="value: OPEN ABOUT; align: center; color: #FFFFFF; font: dejavu;">
-        </a-entity>
-      </a-entity>
-    </a-entity>
-
-    <!-- ILUMINAÇÃO -->
-    <a-light type="ambient" color="#001a33" intensity="0.42"></a-light>
-    <a-light type="directional" color="#00aaff" intensity="0.5" position="-2 3 -4"></a-light>
-    <a-light type="directional" color="#00aaff" intensity="0.5" position="2 3 -4"></a-light>
-    
-    <!-- Luzes extras -->
-    <a-light type="point" color="#00fff7" intensity="0.30" position="-3.0 0.6 -2.6" distance="4.5"></a-light>
-    <a-light type="point" color="#00aaff" intensity="0.30" position="2.9 0.6 -2.8" distance="4.5"></a-light>
-    <a-light type="point" color="#00fff7" intensity="0.40" position="0 1.0 -2.0" distance="5"></a-light>
-    <a-light type="point" color="#00aaff" intensity="0.45" position="0 2.5 -4.0" distance="6"></a-light>
-
   </a-scene>
 
- <script>
-document.addEventListener('DOMContentLoaded', function () {
-
-  // Fechar about com ESC
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      const card = document.getElementById('about-card');
-      if (card) card.setAttribute('visible', false);
-    }
-  });
-
-});
-</script>
-
+  <script>
+    document.addEventListener('keydown', (e) => { 
+      if (e.key === 'Escape') hideAll();
+      if (e.key === ' ') goToCenter();
+    });
+  </script>
 </body>
 </html>

@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
 <style>
 :root {
 --primary: #00fff7;
@@ -29,6 +28,7 @@
 --text-md: 1.05rem;
 --text-sm: 0.95rem;
 --text-xs: 0.45rem;
+--text-ss: 0.85rem; /* CORRIGIDO: variável faltando */
 --text-primary: #ffffff;
 --text-secondary: rgba(255, 255, 255, 0.9);
 --text-tertiary: rgba(255, 255, 255, 0.7);
@@ -48,7 +48,6 @@ text-rendering: optimizeLegibility;
 }
 html { scroll-padding-top: 80px; }
 @media (max-width: 768px) { html { scroll-padding-top: 70px; } }
-
 /* Barra de Idiomas */
 .language-bar {
 position: fixed;
@@ -69,7 +68,6 @@ margin-top: 10px;
 }
 .language-bar img { border-radius: 3px; display: block; width: 22px; height: 16px; }
 .language-bar button:hover { opacity: 0.7; }
-
 /* Navegação */
 .main-nav {
 position: fixed;
@@ -231,7 +229,6 @@ padding-left: 10px;
 .logo-subtitle { font-size: 0.35rem; }
 .language-bar img { width: 22px; height: 16px; margin-left: 5px; margin-right: -10px; }
 }
-
 /* Hero REDUZIDO */
 .hero {
 display: flex;
@@ -240,11 +237,10 @@ justify-content: space-evenly;
 padding: 8rem 2rem 2rem;
 flex-wrap: wrap;
 min-height: 70vh;
-background: linear-gradient(360deg, #8f8e8e 0%, #858484 20%, #2b2b2b 100%);
+background: linear-gradient(180deg, #8f8e8e 0%, #858484 20%, #434343 100%);
 position: relative;
 overflow: hidden;
 }
-
 .hero-container { max-width: 720px; position: relative; z-index: 2; }
 .hero-logo {
 font-family: var(--font-heading);
@@ -274,25 +270,23 @@ color: #d1d0d0;
 margin-bottom: 0.5rem;
 text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 letter-spacing: 1px;
-
 }
 .hero h2 {
 font-family: var(--font-body);
- font-size: var(--text-md);
-    word-break: break-word;
-    line-height: 1.4;  
-  max-width: 400px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-  color: #e9e9e9;
-  font-weight: 300;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+font-size: var(--text-md);
+word-break: break-word;
+line-height: 1.4;
+max-width: 400px;
+word-wrap: break-word;
+overflow-wrap: break-word;
+hyphens: auto;
+color: #e9e9e9;
+font-weight: 300;
+text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
-
 .hero .byline {
 font-family: var(--font-body);
-font-size: var(--text-ss);
+font-size: var(--text-ss); /* CORRIGIDO: agora a variável existe */
 color: #ccc;
 margin-top: 0.5rem;
 text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
@@ -333,7 +327,122 @@ color: rgba(255,255,255,0.6);
 0%, 100% { transform: translateY(0); }
 50% { transform: translateY(-15px); }
 }
-
+/* === AIVRSE HUB 3D SECTION === */
+.hub-section {
+position: relative;
+padding: 0;
+margin: 0;
+background: #000;
+min-height: 80vh;
+height: 80vh;
+overflow: hidden;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.hub-container {
+position: relative;
+width: 100%;
+height: 100%;
+}
+.hub-iframe {
+width: 100%;
+height: 100%;
+border: none;
+background: #000;
+display: block;
+}
+/* Título flutuante sobre o hub */
+.hub-overlay-text {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 10;
+text-align: center;
+pointer-events: none;
+width: 100%;
+padding: 0 2rem;
+opacity: 0.9;
+transition: opacity 0.4s ease;
+}
+.hub-section:hover .hub-overlay-text {
+opacity: 0.3;
+}
+.hub-title {
+margin: 0;
+padding: 0;
+}
+.hub-main {
+font-family: var(--font-heading);
+font-size: 2.5rem;
+font-weight: 300;
+color: rgba(255, 255, 255, 0.95);
+letter-spacing: 8px;
+text-transform: uppercase;
+display: block;
+margin-bottom: 0.5rem;
+text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+}
+.hub-sub {
+font-family: var(--font-body);
+font-size: 1.3rem;
+font-weight: 400;
+color: rgba(255, 255, 255, 0.8);
+letter-spacing: 4px;
+text-transform: uppercase;
+display: block;
+text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+/* Separadores */
+.hub-section::before,
+.hub-section::after {
+content: "";
+position: absolute;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(--primary), transparent);
+z-index: 20;
+}
+.hub-section::before {
+top: 0;
+}
+.hub-section::after {
+bottom: 0;
+}
+/* Responsivo */
+@media (max-width: 768px) {
+.hub-section {
+height: 90vh;
+min-height: 600px;
+}
+.hub-main {
+font-size: 1.8rem;
+letter-spacing: 6px;
+}
+.hub-sub {
+font-size: 1rem;
+letter-spacing: 3px;
+}
+}
+@media (max-width: 480px) {
+.hub-section {
+height: 85vh;
+min-height: 500px;
+}
+.hub-main {
+font-size: 1.5rem;
+letter-spacing: 5px;
+}
+.hub-sub {
+font-size: 0.9rem;
+letter-spacing: 2px;
+}
+.hub-overlay-text {
+padding: 0 1rem;
+}
+}
 /* About */
 .about {
 background: linear-gradient(180deg, #2b2b2b 0%, #1a1a1a 50%, #0f0f0f 100%);
@@ -451,436 +560,292 @@ box-shadow: 0 0 8px rgba(0, 255, 247, 0.4);
 transform: translateY(-1px);
 }
 .expand-button:hover::after { opacity: 1; }
-
-/* Shared sections */
 section { padding: 80px 0; }
 section + section { padding-top: 0; }
-/* === AI CREATIVE SECTION === */
 .ai-section {
-  background: linear-gradient(180deg, #0f0f0f 0%, #0b0b0b 55%, #050505 100%);
-  position: relative;
-  padding: 0;
-  height: 90vh; /* altura compacta e responsiva */
-  min-height: 500px;
+background: linear-gradient(180deg, #0f0f0f 0%, #0b0b0b 55%, #050505 100%);
+position: relative;
+padding: 0;
+height: 90vh;
+min-height: 500px;
 }
-
 .ai-section::before,
 .ai-section::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--primary), transparent);
-    /* box-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary); */
-    z-index: 10;
+content: "";
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(--primary), transparent);
+z-index: 10;
 }
-
 .ai-section::before { top: 0; }
 .ai-section::after { bottom: 0; }
-
 /* Grid estilo Midjourney - cards grandes colados */
 .ai-grid-midjourney {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  width: 100%;
-  height: 100%; 
-}
-
-.ai-grid-item {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  height: 100%;
-  width: 100%;
-  border: 1px solid rgba(10, 10, 15, 0.3);
-}
-
-.ai-grid-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease;
-  filter: brightness(0.95);
-}
-
-.ai-grid-item:hover img {
-  transform: scale(1.03);
-  filter: brightness(1.1);
-  
-}
-
-/* CORREÇÃO: Removido o efeito branco que estava causando o borrão */
-/* .ai-grid-item::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255, 255, 255, 0);
-  transition: background 0.3s ease;
-  pointer-events: none;
-  z-index: 2;
-
-} */
-
-
-/* Overlay com informações (aparece no hover) */
-.ai-grid-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  background: linear-gradient(to top, rgba(10, 10, 15, 0.95), transparent);
-  color: white;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  z-index: 3;
-}
-.ai-grid-item:hover .ai-grid-overlay {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.ai-grid-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-md);
-  font-weight: 600;
-  margin-bottom: 5px;
-  letter-spacing: 0.5px;
-}
-.ai-grid-category {
-  font-size: var(--text-xs);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--primary);
-  opacity: 0.9;
-}
-@media (max-width: 768px) {
-  .ai-section {
-    height: auto;
-    min-height: unset;
-   
-  }
-}
-
-/* Modal para expansão */
-.ai-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(5, 5, 5, 0.97);
-  backdrop-filter: blur(15px);
-  z-index: 10000;
-  overflow-y: auto;
-  padding: 20px;
-}
-
-.ai-modal-content {
-  max-width: 1400px; /* Aumentei a largura máxima */
-  margin: 30px auto;
-  background: rgba(23, 22, 27, 0.98);
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid rgba(123, 97, 255, 0.25);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-}
-
-.ai-modal-header {
-  padding: 25px 40px 15px;
-  position: relative;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.ai-modal-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 10;
-}
-
-.ai-modal-close:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: rotate(90deg);
-}
-
-.ai-modal-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-
-.ai-modal-category {
-  font-family: var(--font-body);
-  font-size: var(--text-md);
-  color: var(--text-tertiary);
-  margin-bottom: 12px;
-}
-
-.ai-modal-description {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 800px;
-}
-
-/* GALERIA SIMPLIFICADA - 3 IMAGENS LADO A LADO */
-.ai-modal-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Sempre 3 colunas */
-  gap: 30px; /* Espaço maior entre as imagens */
-  padding: 30px 40px 40px;
-  width: 100%;
-}
-
-.ai-modal-gallery img {
-  width: 100%;
-  height: 350px; /* Altura fixa maior */
-  object-fit: contain; /* Mostra imagem completa */
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  background-color: rgba(10, 10, 15, 0.9); /* Fundo escuro */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-}
-
-.ai-modal-gallery img:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 15px 35px rgba(0, 255, 247, 0.25);
-  border-color: rgba(0, 255, 247, 0.3);
-}
-
-/* REMOVER IMAGEM PRINCIPAL - não é mais necessária */
-.ai-modal-main-image {
-  display: none;
-}
-
-/* Responsivo */
-@media (max-width: 1200px) {
-  .ai-modal-content {
-    max-width: 95%;
-  }
-  
-  .ai-modal-gallery {
-    gap: 20px;
-    padding: 25px 30px 35px;
-  }
-  
-  .ai-modal-gallery img {
-    height: 300px; /* Reduz um pouco em telas menores */
-  }
-}
-
-@media (max-width: 1024px) {
-  .ai-modal-gallery {
-    gap: 15px;
-    padding: 20px 25px 30px;
-  }
-  
-  .ai-modal-gallery img {
-    height: 280px;
-  }
-}
-
-@media (max-width: 768px) {
-  .ai-modal-content {
-    margin: 15px auto;
-    border-radius: 15px;
-  }
-  
-  .ai-modal-header {
-    padding: 20px 25px 15px;
-  }
-  
-  .ai-modal-gallery {
-    grid-template-columns: repeat(3, 1fr); /* Mantém 3 colunas */
-    gap: 12px;
-    padding: 20px;
-  }
-  
-  .ai-modal-gallery img {
-    height: 220px; /* Reduz para mobile mas mantém 3 colunas */
-  }
-  
-  .ai-modal-close {
-    top: 15px;
-    right: 15px;
-    width: 35px;
-    height: 35px;
-  }
-}
-
-@media (max-width: 640px) {
-  .ai-modal-gallery {
-    grid-template-columns: repeat(3, 1fr); /* Ainda 3 colunas */
-    gap: 10px;
-    padding: 15px;
-  }
-  
-  .ai-modal-gallery img {
-    height: 180px; /* Um pouco menor para mobile muito pequeno */
-  }
-}
-
-@media (max-width: 480px) {
-  .ai-modal {
-    padding: 10px;
-  }
-  
-  .ai-modal-gallery {
-    grid-template-columns: repeat(3, 1fr); /* Mantém 3 colunas */
-    gap: 8px;
-    padding: 12px;
-  }
-  
-  .ai-modal-gallery img {
-    height: 150px; /* Menor ainda para mobile muito pequeno */
-  }
-  
-  .ai-modal-header {
-    padding: 15px 20px 10px;
-  }
-  
-  .ai-modal-title {
-    font-size: var(--text-lg);
-  }
-  
-  .ai-modal-category {
-    font-size: var(--text-sm);
-  }
-  
-  .ai-modal-description {
-    font-size: var(--text-xs);
-  }
-}
-
-/* Para telas muito pequenas, pode ajustar para 2 colunas */
-@media (max-width: 360px) {
-  .ai-modal-gallery {
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas muito pequenas */
-  }
-  
-  .ai-modal-gallery img {
-    height: 160px;
-  }
-}
-/* === XR VIDEO SECTION === */
-.xr-video-section {
-position: relative;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 0;
 width: 100%;
-min-height: 100vh;
-margin: 0;
-padding: 0;
+height: 100%;
+}
+.ai-grid-item {
+position: relative;
 overflow: hidden;
 cursor: pointer;
-}
-.xr-video-container {
-position: relative;
+height: 100%;
 width: 100%;
-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-background: #000;
+border: 1px solid rgba(10, 10, 15, 0.3);
 }
-.xr-background-video {
+.ai-grid-item img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+transition: transform 0.5s ease;
+filter: brightness(0.95);
+}
+.ai-grid-item:hover img {
+transform: scale(1.03);
+filter: brightness(1.1);
+}
+.ai-grid-overlay {
 position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+padding: 20px;
+background: linear-gradient(to top, rgba(10, 10, 15, 0.95), transparent);
+color: white;
+opacity: 0;
+transform: translateY(10px);
+transition: all 0.3s ease;
+z-index: 3;
+}
+.ai-grid-item:hover .ai-grid-overlay {
+opacity: 1;
+transform: translateY(0);
+}
+.ai-grid-title {
+font-family: var(--font-heading);
+font-size: var(--text-md);
+font-weight: 600;
+margin-bottom: 5px;
+letter-spacing: 0.5px;
+}
+.ai-grid-category {
+font-size: var(--text-xs);
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(--primary);
+opacity: 0.9;
+}
+@media (max-width: 768px) {
+.ai-section {
+height: auto;
+min-height: unset;
+}
+}
+/* Modal para expansão */
+.ai-modal {
+display: none;
+position: fixed;
 top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-object-fit: cover;
-z-index: 1;
-opacity: 0.92;
+background: rgba(5, 5, 5, 0.97);
+backdrop-filter: blur(15px);
+z-index: 10000;
+overflow-y: auto;
+padding: 20px;
 }
-.xr-overlay-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  text-align: center;
-  width: 100%;
-  padding: 0 2rem;
-  pointer-events: none;
+.ai-modal-content {
+max-width: 1400px;
+margin: 30px auto;
+background: rgba(23, 22, 27, 0.98);
+border-radius: 20px;
+overflow: hidden;
+border: 1px solid rgba(123, 97, 255, 0.25);
+box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
 }
-
-.xr-title {
-  font-family: var(--font-heading);
-  font-size: 2.2rem;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.92);
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  margin: 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  opacity: 0.85;
-  transition: opacity 0.4s ease;
-  pointer-events: auto; /* Permite que seja clicável */
+.ai-modal-header {
+padding: 25px 40px 15px;
+position: relative;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-
-/* CORREÇÃO: Título clicável para redirecionar */
-.xr-title a {
-  color: inherit;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.3s ease;
+.ai-modal-close {
+position: absolute;
+top: 20px;
+right: 20px;
+background: rgba(255, 255, 255, 0.1);
+border: none;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+color: white;
+font-size: 1.5rem;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.3s ease;
+z-index: 10;
 }
-
-.xr-title a:hover {
-  color: var(--primary);
-  text-shadow: 0 0 15px rgba(0, 255, 247, 0.7);
-  opacity: 1;
+.ai-modal-close:hover {
+background: rgba(255, 255, 255, 0.2);
+transform: rotate(90deg);
 }
-
-.xr-video-section:hover .xr-title {
-  opacity: 1;
+.ai-modal-title {
+font-family: var(--font-heading);
+font-size: var(--text-xl);
+color: var(--text-primary);
+margin-bottom: 8px;
 }
-
+.ai-modal-category {
+font-family: var(--font-body);
+font-size: var(--text-md);
+color: var(--text-tertiary);
+margin-bottom: 12px;
+}
+.ai-modal-description {
+font-family: var(--font-body);
+font-size: var(--text-sm);
+color: var(--text-secondary);
+line-height: 1.7;
+max-width: 800px;
+}
+/* GALERIA SIMPLIFICADA - 3 IMAGENS LADO A LADO */
+.ai-modal-gallery {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 30px;
+padding: 30px 40px 40px;
+width: 100%;
+}
+.ai-modal-gallery img {
+width: 100%;
+height: 350px;
+object-fit: contain;
+border-radius: 12px;
+cursor: pointer;
+transition: all 0.4s ease;
+background-color: rgba(10, 10, 15, 0.9);
+border: 1px solid rgba(255, 255, 255, 0.1);
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+.ai-modal-gallery img:hover {
+transform: translateY(-5px) scale(1.02);
+box-shadow: 0 15px 35px rgba(0, 255, 247, 0.25);
+border-color: rgba(0, 255, 247, 0.3);
+}
+/* REMOVER IMAGEM PRINCIPAL - não é mais necessária */
+.ai-modal-main-image {
+display: none;
+}
+/* Responsivo */
+@media (max-width: 1200px) {
+.ai-modal-content {
+max-width: 95%;
+}
+.ai-modal-gallery {
+gap: 20px;
+padding: 25px 30px 35px;
+}
+.ai-modal-gallery img {
+height: 300px;
+}
+}
+@media (max-width: 1024px) {
+.ai-modal-gallery {
+gap: 15px;
+padding: 20px 25px 30px;
+}
+.ai-modal-gallery img {
+height: 280px;
+}
+}
 @media (max-width: 768px) {
-  .xr-title { font-size: 1.8rem; letter-spacing: 4px; }
+.ai-modal-content {
+margin: 15px auto;
+border-radius: 15px;
+}
+.ai-modal-header {
+padding: 20px 25px 15px;
+}
+.ai-modal-gallery {
+grid-template-columns: repeat(3, 1fr);
+gap: 12px;
+padding: 20px;
+}
+.ai-modal-gallery img {
+height: 220px;
+}
+.ai-modal-close {
+top: 15px;
+right: 15px;
+width: 35px;
+height: 35px;
+}
+}
+@media (max-width: 640px) {
+.ai-modal-gallery {
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
+padding: 15px;
+}
+.ai-modal-gallery img {
+height: 180px;
+}
 }
 @media (max-width: 480px) {
-  .xr-title { font-size: 1.4rem; letter-spacing: 3px; }
+.ai-modal {
+padding: 10px;
 }
-
+.ai-modal-gallery {
+grid-template-columns: repeat(3, 1fr);
+gap: 8px;
+padding: 12px;
+}
+.ai-modal-gallery img {
+height: 150px;
+}
+.ai-modal-header {
+padding: 15px 20px 10px;
+}
+.ai-modal-title {
+font-size: var(--text-lg);
+}
+.ai-modal-category {
+font-size: var(--text-sm);
+}
+.ai-modal-description {
+font-size: var(--text-xs);
+}
+}
+/* Para telas muito pequenas, pode ajustar para 2 colunas */
+@media (max-width: 360px) {
+.ai-modal-gallery {
+grid-template-columns: repeat(2, 1fr);
+}
+.ai-modal-gallery img {
+height: 160px;
+}
+}
 /* === AI TEXT OVERLAY WITH FILM === */
 .section-overlay-film {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* ISSO CENTRALIZA DE VERDADE */
-
-  text-align: center;
-  pointer-events: none;
-  padding: 2rem;
+position: absolute;
+inset: 0;
+z-index: 3;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+pointer-events: none;
+padding: 2rem;
 }
-
 .film-backdrop {
 position: absolute;
 top: 0px;
@@ -892,15 +857,14 @@ backdrop-filter: blur(0px);
 z-index: -1;
 }
 .main-category {
-  font-size: 3.2rem;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.95);
-  margin-bottom: 1rem;
-  letter-spacing: 8px;
-  text-transform: uppercase;
-  line-height: 1.1;
+font-size: 3.2rem;
+font-weight: 300;
+color: rgba(255, 255, 255, 0.95);
+margin-bottom: 1rem;
+letter-spacing: 8px;
+text-transform: uppercase;
+line-height: 1.1;
 }
-
 .sub-category {
 font-size: 1.6rem;
 font-weight: 400;
@@ -924,18 +888,17 @@ opacity: 0.1;
 }
 /* Película escura sutil sobre o tour 360° */
 .xr-film-backdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(0px);
-  z-index: 1;
-  pointer-events: none;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(0, 0, 0, 0.45);
+backdrop-filter: blur(0px);
+z-index: 1;
+pointer-events: none;
 }
 /* Projects grid original (para XR) – REMOVIDO, substituído por vídeo */
-
 /* CTA Work */
 .curriculum-cta {
 background: linear-gradient(180deg, #050505 0%, #0a0a0a 50%, #050505 100%);
@@ -991,7 +954,6 @@ margin: 0 auto;
 max-width: 900px;
 line-height: 1.7;
 }
-
 /* Footer */
 footer {
 background: rgba(10, 10, 15, 0.9);
@@ -1043,384 +1005,314 @@ transition: all 0.3s ease;
 }
 .social-links a:hover { color: var(--text-accent); }
 .xr-video-section {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+position: relative;
+width: 100%;
+height: 100vh;
+overflow: hidden;
 }
-
 /* Película escura de fundo */
 .xr-film-backdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+z-index: 1;
 }
-
 /* Container do Pannellum (já existe) */
 #xr-pannellum-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 0;
 }
-
 /* Título */
 .xr-overlay-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 3;
-  text-align: center;
-  color: white;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 3;
+text-align: center;
+color: white;
 }
-
 /* Máscara Oculus VR */
 .oculus-mask {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% 100%;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  pointer-events: none;
-  width: clamp(360px, 55vw, 620px);
-  aspect-ratio: 500 / 300;
-  height: auto;
-
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300"><defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="0" stdDeviation="15" flood-color="rgba(0,0,0,0.8)"/></filter><mask id="oculusMask"><rect width="100%" height="100%" fill="white"/><ellipse cx="150" cy="150" rx="120" ry="120" fill="black"/><ellipse cx="350" cy="150" rx="120" ry="120" fill="black"/><rect x="240" y="75" width="20" height="150" fill="black"/></mask></defs><rect width="100%" height="100%" mask="url(%23oculusMask)" fill="black" opacity="0.7" filter="url(%23shadow)"/></svg>');
-  border-radius: 30%;
-  box-shadow: 
-    0 0 60px rgba(0, 0, 0, 0.9),
-    inset 0 0 100px rgba(0, 0, 0, 0.5);
-
-  animation: vr-pulse 4s ease-in-out infinite;
+background-repeat: no-repeat;
+background-position: center;
+background-size: 100% 100%;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 2;
+pointer-events: none;
+width: clamp(360px, 55vw, 620px);
+aspect-ratio: 500 / 300;
+height: auto;
+background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300"><defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="0" stdDeviation="15" flood-color="rgba(0,0,0,0.8)"/></filter><mask id="oculusMask"><rect width="100%" height="100%" fill="white"/><ellipse cx="150" cy="150" rx="120" ry="120" fill="black"/><ellipse cx="350" cy="150" rx="120" ry="120" fill="black"/><rect x="240" y="75" width="20" height="150" fill="black"/></mask></defs><rect width="100%" height="100%" mask="url(%23oculusMask)" fill="black" opacity="0.7" filter="url(%23shadow)"/></svg>');
+border-radius: 30%;
+box-shadow:
+0 0 60px rgba(0, 0, 0, 0.9),
+inset 0 0 100px rgba(0, 0, 0, 0.5);
+animation: vr-pulse 4s ease-in-out infinite;
 }
-
-
 /* Versão alternativa com CSS puro (sem SVG) */
 .oculus-mask-alt {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  z-index: 2;
-  pointer-events: none;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 100px;
+height: 100px;
+z-index: 2;
+pointer-events: none;
 }
-
 .oculus-mask-alt::before,
 .oculus-mask-alt::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 50% 50% 45% 45%;
-  box-shadow: 
-    0 0 40px rgba(0, 0, 0, 0.9),
-    inset 0 0 50px rgba(0, 0, 0, 0.6);
+content: '';
+position: absolute;
+top: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.7);
+border-radius: 50% 50% 45% 45%;
+box-shadow:
+0 0 40px rgba(0, 0, 0, 0.9),
+inset 0 0 50px rgba(0, 0, 0, 0.6);
 }
-
 .oculus-mask-alt::before {
-  left: 0;
+left: 0;
 }
-
 .oculus-mask-alt::after {
-  right: 0;
+right: 0;
 }
-
 /* Ponte central entre as lentes */
 .oculus-mask-alt .bridge {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  height: 180px;
-  background: rgba(0, 0, 0, 0.7);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+width: 300px;
+height: 180px;
+background: rgba(0, 0, 0, 0.7);
+box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
-
 /* Efeito de brilho nas bordas (opcional) */
 .oculus-mask-alt::before,
 .oculus-mask-alt::after {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 /* Responsividade */
 @media (max-width: 768px) {
-  .oculus-mask,
-  .oculus-mask-alt {
-    width: 300px;
-    height: 180px;
-  }
-  
-  .oculus-mask-alt::before,
-  .oculus-mask-alt::after {
-    width: 120px;
-  }
+.oculus-mask,
+.oculus-mask-alt {
+width: 300px;
+height: 180px;
 }
-
+.oculus-mask-alt::before,
+.oculus-mask-alt::after {
+width: 120px;
+}
+}
 /* Animação sutil (opcional) */
 @keyframes vr-pulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 0.8; }
+0%, 100% { opacity: 0.7; }
+50% { opacity: 0.8; }
 }
-
 .oculus-mask {
-  animation: vr-pulse 4s ease-in-out infinite;
+animation: vr-pulse 4s ease-in-out infinite;
 }
-
-
 @media (max-width: 480px) {
-  /* 1. REPOSICIONAR BANDEIRINHAS PARA NÃO SOBREPOR HAMBURGER */
-  .language-bar {
-    right: 15px;
-    top: 18px;
-    margin: 0 !important; /* remove margens fixas problemáticas */
-    gap: 4px;
-    z-index: 1001;
-  }
-  .language-bar button {
-    margin: 0 !important;
-    padding: 8px;
-  }
-  .menu-toggle span{
-    margin-left: -70px;
-  }
-
+/* 1. REPOSICIONAR BANDEIRINHAS PARA NÃO SOBREPOR HAMBURGER */
+.language-bar {
+right: 15px;
+top: 18px;
+margin: 0 !important;
+gap: 4px;
+z-index: 1001;
+}
+.language-bar button {
+margin: 0 !important;
+padding: 8px;
+}
+.menu-toggle span{
+margin-left: -70px;
+}
 /* === REPOSICIONAR LOGO DA HERO EM MOBILE === */
 .hero {
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 5rem 1rem 1.5rem;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+padding: 5rem 1rem 1.5rem;
 }
-
 /* Esconde a logo da hero na posição original */
 .hero .hero-logo {
-  display: none;
+display: none;
 }
- .section-overlay-film .film-backdrop {
-    display: none;
-  }
-/* Cria um novo local para a logo após o byline */
-/* .hero-container::after {
-  content: "A\00a0X\00a0LARA";
-  display: block;
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  letter-spacing: 2px;
-  font-weight: 700;
-  color: #333;
-  text-transform: uppercase;
-  margin: 1.2rem 0 0.8rem;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-  text-align: center;
-} */
-
-.hero-container::after i {
-  color: var(--primary);
-  text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+.section-overlay-film .film-backdrop {
+display: none;
 }
-  /* 2. SUBIR A IMAGEM DO HERO PARA FICAR MAIS PRÓXIMA DO TEXTO */
-  /* .hero {
-    padding: 5rem 1rem 1rem; /* reduz padding inferior */
-    /* flex-direction: column;
-    align-items: center;
-    gap: 1.2rem; /* aproxima imagem do texto */
-  /* }
-  .hero-image {
-    margin-top: 0;
-  }  */
-
-  /* 3. TÍTULO "ARCHITECT OF XPERIENCE" EM UMA LINHA SÓ */
-  .hero h1 {
-    font-size: 1.75rem; /* ligeiramente menor, mas legível */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.2;
-    margin-top: 20px;
-  }
-
-  /* 4. REMOVER LINHA PRETA ENTRE HERO E AI SECTION */
-  /* Essa linha vem do ::before da .ai-section — vamos escondê-la em mobile */
-  .ai-section::before {
-    display: none ;
-  }
-
-  /* Ajuste fino no subtitle e byline */
-  .hero h2 {
-    font-size: var(--text-md);
-    max-width: 100%;
-    word-break: break-word;
-    line-height: 1.4;
-  }
-  .hero .byline {
-    font-size: 0.85rem;
-    margin-top: 0.3rem;
-  }
-
-  /* Garantir que o container do hero não empurre conteúdo */
-  .hero-container {
-    text-align: center;
-  }
+.hero h1 {
+font-size: 1.75rem;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+line-height: 1.2;
+margin-top: 20px;
+}
+/* 4. REMOVER LINHA PRETA ENTRE HERO E AI SECTION */
+.ai-section::before {
+display: none;
+}
+/* Ajuste fino no subtitle e byline */
+.hero h2 {
+font-size: var(--text-md);
+max-width: 100%;
+word-break: break-word;
+line-height: 1.4;
+}
+.hero .byline {
+font-size: 0.85rem;
+margin-top: 0.3rem;
+}
+/* Garantir que o container do hero não empurre conteúdo */
+.hero-container {
+text-align: center;
+}
 }
 @media (max-width: 480px) {
-  .section-overlay-film .film-backdrop {
-    display: none;
-  }
+.section-overlay-film .film-backdrop {
+display: none;
+}
 }
 @media (max-width: 768px) {
-  /* HERO */
-  .hero {
-    flex-direction: column;
-    text-align: center;
-    padding: 6rem 1.5rem 2rem;
-    gap: 2rem;
-    min-height: auto;
-  }
-  .hero-container {
-    max-width: 100%;
-  }
-  .hero-image {
-    margin-top: 1rem;
-  }
-  .image-container {
-    width: 240px;
-    margin: 0 auto;
-  }
- .section-overlay-film .film-backdrop {
-    display: none;
-  }
-  /* NAV & LANGUAGE BAR */
-  .language-bar {
-    right: 15px;
-    top: 18px;
-    margin: 0;
-    position: fixed;
-    z-index: 1001;
-  }
-  .language-bar button {
-    margin-right: 0;
-    margin-top: 0;
-  }
-
-  /* AI GRID */
-  .ai-grid-midjourney {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-  }
-
-  /* ABOUT TEXT */
-  .about p {
-    text-align: left;
-    font-size: var(--text-sm);
-    padding: 0 10px;
-  }
-
-  /* XR SECTION */
-  .xr-video-section {
-    height: 100dvh;
-  }
-  .xr-title {
-    font-size: 1.8rem;
-    letter-spacing: 4px;
-  }
-
-  /* MODAL GALLERY */
-  .ai-modal-gallery {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    padding: 20px;
-  }
-  .ai-modal-gallery img,
-  .ai-modal-gallery video {
-    height: 220px;
-  }
-
-  /* CTA BUTTON */
-  .curriculum-button {
-    padding: 16px 28px;
-    font-size: var(--text-sm);
-  }
+/* HERO */
+.hero {
+flex-direction: column;
+text-align: center;
+padding: 6rem 1.5rem 2rem;
+gap: 2rem;
+min-height: auto;
 }
-
+.hero-container {
+max-width: 100%;
+}
+.hero-image {
+margin-top: 1rem;
+}
+.image-container {
+width: 240px;
+margin: 0 auto;
+}
+.section-overlay-film .film-backdrop {
+display: none;
+}
+/* NAV & LANGUAGE BAR */
+.language-bar {
+right: 15px;
+top: 18px;
+margin: 0;
+position: fixed;
+z-index: 1001;
+}
+.language-bar button {
+margin-right: 0;
+margin-top: 0;
+}
+/* AI GRID */
+.ai-grid-midjourney {
+grid-template-columns: repeat(2, 1fr);
+gap: 2px;
+}
+/* ABOUT TEXT */
+.about p {
+text-align: left;
+font-size: var(--text-sm);
+padding: 0 10px;
+}
+/* XR SECTION */
+.xr-video-section {
+height: 100dvh;
+}
+.xr-title {
+font-size: 1.8rem;
+letter-spacing: 4px;
+}
+/* MODAL GALLERY */
+.ai-modal-gallery {
+grid-template-columns: repeat(3, 1fr);
+gap: 12px;
+padding: 20px;
+}
+.ai-modal-gallery img,
+.ai-modal-gallery video {
+height: 220px;
+}
+/* CTA BUTTON */
+.curriculum-button {
+padding: 16px 28px;
+font-size: var(--text-sm);
+}
+}
 @media (max-width: 480px) {
-  /* HERO */
-  .hero {
-    padding: 5rem 1rem 1.5rem;
-  }
-  .image-container {
-    width: 200px;
-  }
-
-  /* AI GRID */
-  .ai-grid-midjourney {
-    grid-template-columns: 1fr;
-  }
-
-  /* MODAL GALLERY */
-  .ai-modal-gallery {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 15px;
-  }
-  .ai-modal-gallery img,
-  .ai-modal-gallery video {
-    height: 180px;
-  }
-
-  /* XR TITLE */
-  .xr-title {
-    font-size: 1.4rem;
-    letter-spacing: 3px;
-  }
-
-  /* ABOUT */
-  .about-lead {
-    font-size: var(--text-md);
-    padding: 0 8px;
-  }
-  .about p {
-    font-size: var(--text-sm);
-    padding: 0 8px;
-  }
-
-  /* FOOTER */
-  .footer-content p {
-    padding: 0 10px;
-    font-size: var(--text-sm);
-  }
+/* HERO */
+.hero {
+padding: 5rem 1rem 1.5rem;
+}
+.image-container {
+width: 200px;
+}
+/* AI GRID */
+.ai-grid-midjourney {
+grid-template-columns: 1fr;
+}
+/* MODAL GALLERY */
+.ai-modal-gallery {
+grid-template-columns: 1fr;
+gap: 10px;
+padding: 15px;
+}
+.ai-modal-gallery img,
+.ai-modal-gallery video {
+height: 180px;
+}
+/* XR TITLE */
+.xr-title {
+font-size: 1.4rem;
+letter-spacing: 3px;
+}
+/* ABOUT */
+.about-lead {
+font-size: var(--text-md);
+padding: 0 8px;
+}
+.about p {
+font-size: var(--text-sm);
+padding: 0 8px;
+}
+/* FOOTER */
+.footer-content p {
+padding: 0 10px;
+font-size: var(--text-sm);
+}
 }
 </style>
 </head>
 <body>
-
 <!-- Barra de Idiomas -->
 <div class="language-bar">
-<button onclick="translateTo('pt')" aria-label="Português">
+<button onclick="alert('Português selecionado')" aria-label="Português">
 <img src="https://flagcdn.com/br.svg" alt="Português" width="24" height="16">
 </button>
-<button onclick="translateTo('es')" aria-label="Español">
+<button onclick="alert('Español selecionado')" aria-label="Español">
 <img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
 </button>
 </div>
 <div id="google_translate_element" style="display: none;"></div>
-
 <!-- NAV -->
 <nav class="main-nav">
 <div class="nav-container">
@@ -1430,15 +1322,14 @@ transition: all 0.3s ease;
 </button>
 <ul class="nav-menu" id="navMenu">
 <li><a href="#home" class="active">Home</a></li>
-<li><a href="#ai">AI Creative</a></li>
-<li><a href="#xr">XR Experiences</a></li>
+<li><a href="#xr">AIVRSE Hub</a></li>
+<!-- <li><a href="#ai">AI Creative</a></li> -->
 <li><a href="#about">About</a></li>
-<li><a href="#work">Work</a></li>
+<li><a href="#work">Portfolio</a></li>
 <li><a href="#contact">Contact</a></li>
 </ul>
 </div>
 </nav>
-
 <!-- HERO REDUZIDO -->
 <section class="hero" id="home">
 <div class="hero-container">
@@ -1453,16 +1344,34 @@ transition: all 0.3s ease;
 </div>
 </div>
 </section>
-
+<!-- === AIVRSE SPATIAL HUB 3D === -->
+<section class="hub-section" id="xr">
+<div class="hub-container">
+<!-- Título flutuante sobre o hub -->
+<div class="hub-overlay-text">
+<h2 class="hub-title">
+<!-- <span class="hub-main">AIVRSE HUB</span>
+<span class="hub-sub">Spatial Gallery & Immersive Portfolio</span> -->
+</h2>
+</div>
+<!-- Iframe do hub -->
+<iframe
+src="hub.html"
+title="AIVRSE Spatial Hub"
+allow="xr-spatial-tracking; accelerometer; gyroscope; vr; autoplay"
+allowfullscreen
+class="hub-iframe">
+</iframe>
+</div>
+</section>
 <!-- AI CREATIVE -->
-<section class="ai-section" id="ai">
+<!-- <section class="ai-section" id="ai">
 <div class="section-overlay-film">
 <div class="film-backdrop"></div>
 <div class="main-category">AI CREATIVE</div>
- <div class="description">AI-assisted concept design</div> 
+<div class="description">AI-assisted concept design</div>
 </div>
 <div class="ai-grid-midjourney">
-<!-- Linha 1 -->
 <div class="ai-grid-item" data-modal="urban">
 <img src="/imagens/axlara_urban_mixed-use_residential_complex_.png" alt="Urban Complex Mixed-Use" loading="lazy">
 <div class="ai-grid-overlay">
@@ -1484,7 +1393,6 @@ transition: all 0.3s ease;
 <div class="ai-grid-category">Architecture / Urban AI</div>
 </div>
 </div>
-<!-- Linha 2 - Product/Brand -->
 <div class="ai-grid-item" data-modal="lumen">
 <img src="/imagens/lumen_.png" alt="Lumen" loading="lazy">
 <div class="ai-grid-overlay">
@@ -1507,65 +1415,33 @@ transition: all 0.3s ease;
 </div>
 </div>
 </div>
-</section>
-
-<!-- XR IMMERSIVE (PANNELLUM 360) -->
-<section class="xr-video-section" id="xr">
-  <div id="xr-pannellum-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
-  
-  <!-- Película escura -->
-  <div class="xr-film-backdrop"></div>
-  
-  <!-- Máscara Oculus VR -->
-  <div class="oculus-mask"></div>
-  <!-- Ou use esta versão alternativa -->
-  <!-- <div class="oculus-mask-alt"><div class="bridge"></div></div> -->
-  
-  <!-- Título centralizado e clicável -->
-  <div class="xr-overlay-text">
-    <h2 class="xr-title">
-      <a href="xr-projects.html" title="Explore XR Projects">XR IMMERSIVE</a>
-    </h2>
-  </div>
-</section>
-
+</section> -->
 <!-- ABOUT -->
 <section class="about" id="about">
 <div class="about-container"><h3 class="about-lead">
 I craft spatial narratives through technology, design and human perception.
 </h3>
-
 <div class="gradient-mask" id="about-content">
-
 <p>
 My work lives at the intersection of design, storytelling and technology, creating digital environments and spatial narratives that connect the physical and virtual worlds in meaningful ways.
 </p>
-
 <p>
 My journey began in architecture and urbanism, with specialization in architectural design and neuroarchitecture. These fields gave me a deep understanding of spatial perception and how environments influence emotions and behaviors.
 </p>
-
 <p>
 Over time, I felt the need to expand beyond traditional architectural boundaries and started exploring technology as a new creative territory. Programming and immersive technologies (XR) became the natural bridge between my spatial background and the digital world.
 </p>
-
 <p>
 Along this path, generative AI became part of my creative process, helping me prototype visual concepts, atmospheres and spatial narratives with clarity and agility. I use AI as a support tool for visual direction and concept development across architecture, brand and immersive projects.
 </p>
-
 <p><strong>
 Today, I design immersive and visually driven experiences that merge spatial thinking, XR and AI into environments meant to be felt, explored and remembered.
 </strong></p>
-
-
-
-
 <p class="about-signature">— Lara E. Negreiros</p>
 </div>
 <button class="expand-button" id="expand-about">See more</button>
 </div>
 </section>
-
 <section class="curriculum-cta" id="work">
 <div class="curriculum-content">
 <a href="portproj.html" class="curriculum-button">View Full Portfolio</a>
@@ -1575,7 +1451,6 @@ combining AI, XR and design as tools for perception, presence and storytelling.
 </p>
 </div>
 </section>
-
 <!-- FOOTER -->
 <footer id="contact">
 <div class="footer-content">
@@ -1589,7 +1464,6 @@ combining AI, XR and design as tools for perception, presence and storytelling.
 </div>
 </div>
 </footer>
-
 <!-- MODAL AI -->
 <div class="ai-modal" id="aiModal">
 <div class="ai-modal-content">
@@ -1605,7 +1479,6 @@ combining AI, XR and design as tools for perception, presence and storytelling.
 <div class="ai-modal-gallery" id="modalGallery"></div>
 </div>
 </div>
-
 <script>
 // Mobile menu
 const menuToggle = document.getElementById("menuToggle");
@@ -1639,7 +1512,6 @@ if (window.innerWidth > 768 && navMenu.classList.contains("show")) {
 toggleMenu();
 }
 });
-// Scroll spy
 window.addEventListener('scroll', function() {
 const sections = document.querySelectorAll('section');
 let current = '';
@@ -1657,7 +1529,6 @@ link.classList.add('active');
 }
 });
 });
-// Botão "See more" About
 const expandButton = document.getElementById('expand-about');
 const aboutContent = document.getElementById('about-content');
 if (expandButton && aboutContent) {
@@ -1667,8 +1538,7 @@ expandButton.classList.toggle('rotated');
 expandButton.textContent = aboutContent.classList.contains('expanded') ? 'See less' : 'See more';
 });
 }
-
-// === AUTOPLAY VIDEO ON VIEW ===
+// === AUTOPLAY VIDEO ON VIEW ===//
 const observer = new IntersectionObserver((entries) => {
 entries.forEach(entry => {
 const video = entry.target;
@@ -1682,82 +1552,71 @@ video.pause();
 document.querySelectorAll('[data-autoplay-on-view]').forEach(video => {
 observer.observe(video);
 });
-
-// === AI MODAL DATA ===
-// === AI MODAL DATA ===
+// === AI MODAL DATA ===//
 const modalData = {
-  'urban': {
-    title: 'Urban Complex Mixed-Use',
-    category: 'Architecture / Urban AI',
-    description: 'AI-assisted spatial exploration of dense, buildable urban scenarios. Study of scale, circulation, mixed-use logic and realistic architectural language applied to Scandinavian-inspired developments.',
-    gallery: [
-      '/imagens/axlara_urban_mixed-use_residential_complex_.png',
-      '/imagens/axlara_near-orthographic_top-down_aerial_view_of_the_SAME_urban.png',
-      '/imagens/axlara_aerial_oblique_drone_view_of_the_SAME_urban_mixed.png'
-    ]
-  },
-
-  'coastal': {
-    title: 'Coastal Residential',
-    category: 'Architecture / Real Estate',
-    description: 'AI-driven feasibility study for a coastal residential development, exploring architectural language, material logic, human-scale experience and real estate potential through spatial reasoning and visualization.',
-    gallery: [
-      '/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_.png',
-      '/imagens/axlara_aerial_oblique_drone_view_.png',
-      '/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_details.png'
-    ]
-  },
-
-  'aerial': {
-    title: 'Aerial Masterplan View',
-    category: 'Architecture / Urban AI',
-    description: 'Aerial territorial analysis of the same coastal development, focusing on land occupation, density distribution and environmental integration at masterplan scale.',
-    gallery: [
-      '/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti.png',
-      '/imagens/axlara_aerial_oblique_drone_view.png',
-      '/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti_.png'
-    ]
-  },
-
- 'lumen': {
-  title: 'Lumen — Brand Presence',
-  category: 'Product / Brand AI',
-  description: 'Concept brand developed from a fictional briefing for a lighting company centered on atmosphere, perception and spatial presence. These visuals define the sensory universe and emotional tone that shape the brand identity.',
-  hasVideo: true,
-  gallery: [
-    '/imagens/lumen_.png',
-    '/imagens/lumen5.png',
-    '/imagens/lumen_video.mp4',
-    '/imagens/lumen3.png'
-  ]
+'urban': {
+title: 'Urban Complex Mixed-Use',
+category: 'Architecture / Urban AI',
+description: 'AI-assisted spatial exploration of dense, buildable urban scenarios. Study of scale, circulation, mixed-use logic and realistic architectural language applied to Scandinavian-inspired developments.',
+gallery: [
+'/imagens/axlara_urban_mixed-use_residential_complex_.png',
+'/imagens/axlara_near-orthographic_top-down_aerial_view_of_the_SAME_urban.png',
+'/imagens/axlara_aerial_oblique_drone_view_of_the_SAME_urban_mixed.png'
+]
 },
-
+'coastal': {
+title: 'Coastal Residential',
+category: 'Architecture / Real Estate',
+description: 'AI-driven feasibility study for a coastal residential development, exploring architectural language, material logic, human-scale experience and real estate potential through spatial reasoning and visualization.',
+gallery: [
+'/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_.png',
+'/imagens/axlara_aerial_oblique_drone_view_.png',
+'/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_details.png'
+]
+},
+'aerial': {
+title: 'Aerial Masterplan View',
+category: 'Architecture / Urban AI',
+description: 'Aerial territorial analysis of the same coastal development, focusing on land occupation, density distribution and environmental integration at masterplan scale.',
+gallery: [
+'/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti.png',
+'/imagens/axlara_aerial_oblique_drone_view.png',
+'/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti_.png'
+]
+},
+'lumen': {
+title: 'Lumen — Brand Presence',
+category: 'Product / Brand AI',
+description: 'Concept brand developed from a fictional briefing for a lighting company centered on atmosphere, perception and spatial presence. These visuals define the sensory universe and emotional tone that shape the brand identity.',
+hasVideo: true,
+gallery: [
+'/imagens/lumen_.png',
+'/imagens/lumen5.png',
+'/imagens/lumen_video.mp4',
+'/imagens/lumen3.png'
+]
+},
 'lumen2': {
-  title: 'Lumen — Sensory Language',
-  category: 'Product / Brand AI',
-  description: 'Visual explorations that express how texture, light, space and materiality contribute to the brand’s sensory language, reinforcing its atmosphere and perception.',
-  gallery: [
-    '/imagens/lumen2.png',
-    '/imagens/lumen4.png',
-    '/imagens/lumen3.png'
-  ]
+title: 'Lumen — Sensory Language',
+category: 'Product / Brand AI',
+description: 'Visual explorations that express how texture, light, space and materiality contribute to the brand\'s sensory language, reinforcing its atmosphere and perception.',
+gallery: [
+'/imagens/lumen2.png',
+'/imagens/lumen4.png',
+'/imagens/lumen3.png'
+]
 },
-
 'lumen3': {
-  title: 'Lumen — Visual Universe',
-  category: 'Product / Brand AI',
-  description: 'Additional studies that expand the visual universe of the brand, where image, space and atmosphere work together to communicate a coherent and immersive identity.',
-  gallery: [
-    
-    '/imagens/axlara_coastal_masterplan_with_minimal_architecture_integrated__.png',
-    '/imagens/axlara_monumental_circular_concrete_chamber_perfect_symmetry_.png',
-    '/imagens/axlara_vast_immersive_minimal_architecture_subtle_sense_of_huma_.png'
-  ]
+title: 'Lumen — Visual Universe',
+category: 'Product / Brand AI',
+description: 'Additional studies that expand the visual universe of the brand, where image, space and atmosphere work together to communicate a coherent and immersive identity.',
+gallery: [
+'/imagens/axlara_coastal_masterplan_with_minimal_architecture_integrated__.png',
+'/imagens/axlara_monumental_circular_concrete_chamber_perfect_symmetry_.png',
+'/imagens/axlara_vast_immersive_minimal_architecture_subtle_sense_of_huma_.png'
+]
 }
-
 };
-
-
 // === AI MODAL OPEN ===
 const aiGridItems = document.querySelectorAll('[data-modal]');
 const aiModal = document.getElementById('aiModal');
@@ -1766,103 +1625,70 @@ const modalTitle = document.getElementById('modalTitle');
 const modalCategory = document.getElementById('modalCategory');
 const modalDescription = document.getElementById('modalDescription');
 const modalGallery = document.getElementById('modalGallery');
-
 aiGridItems.forEach(item => {
-  item.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const modalId = item.dataset.modal;
-    const data = modalData[modalId] || modalData['urban'];
-    if (!aiModal) return;
-
-    modalTitle.textContent = data.title;
-    modalCategory.textContent = data.category;
-    modalDescription.textContent = data.description;
-
-    // Mostrar galeria com 3 itens (pode ser vídeo ou imagem)
-    if (modalGallery) {
-      modalGallery.innerHTML = '';
-      
-      // Limita a 3 itens
-      const itemsToShow = data.gallery.slice(0, 3);
-      
-      itemsToShow.forEach(itemSrc => {
-        // Verifica se é vídeo (termina com .mp4)
-        if (itemSrc.endsWith('.mp4')) {
-          const video = document.createElement('video');
-          video.src = itemSrc;
-          video.controls = true;
-          video.autoplay = true;
-          video.muted = true;
-          video.loop = true;
-          video.style.width = '100%';
-          video.style.height = '100%';
-          video.style.objectFit = 'contain';
-          video.style.borderRadius = '12px';
-          video.style.backgroundColor = 'rgba(10, 10, 15, 0.9)';
-          modalGallery.appendChild(video);
-        } else {
-          // É imagem
-          const img = document.createElement('img');
-          img.src = itemSrc;
-          img.alt = data.title + ' gallery';
-          modalGallery.appendChild(img);
-        }
-      });
-    }
-
-    aiModal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-  });
+item.addEventListener('click', (e) => {
+e.stopPropagation();
+const modalId = item.dataset.modal;
+const data = modalData[modalId] || modalData['urban'];
+if (!aiModal) return;
+modalTitle.textContent = data.title;
+modalCategory.textContent = data.category;
+modalDescription.textContent = data.description;
+// Mostrar galeria com 3 itens (pode ser vídeo ou imagem)
+if (modalGallery) {
+modalGallery.innerHTML = '';
+// Limita a 3 itens
+const itemsToShow = data.gallery.slice(0, 3);
+itemsToShow.forEach(itemSrc => {
+// Verifica se é vídeo (termina com .mp4)
+if (itemSrc.endsWith('.mp4')) {
+const video = document.createElement('video');
+video.src = itemSrc;
+video.controls = true;
+video.autoplay = true;
+video.muted = true;
+video.loop = true;
+video.style.width = '100%';
+video.style.height = '100%';
+video.style.objectFit = 'contain';
+video.style.borderRadius = '12px';
+video.style.backgroundColor = 'rgba(10, 10, 15, 0.9)';
+modalGallery.appendChild(video);
+} else {
+// É imagem
+const img = document.createElement('img');
+img.src = itemSrc;
+img.alt = data.title + ' gallery';
+modalGallery.appendChild(img);
+}
 });
-
+}
+aiModal.style.display = 'block';
+document.body.style.overflow = 'hidden';
+});
+});
 // Fechar modal
 modalClose?.addEventListener('click', () => {
-  aiModal.style.display = 'none';
-  document.body.style.overflow = 'auto';
+aiModal.style.display = 'none';
+document.body.style.overflow = 'auto';
 });
 aiModal?.addEventListener('click', (e) => {
-  if (e.target === aiModal) {
-    aiModal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-  }
+if (e.target === aiModal) {
+aiModal.style.display = 'none';
+document.body.style.overflow = 'auto';
+}
 });
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && aiModal && aiModal.style.display === 'block') {
-    aiModal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-  }
+if (e.key === 'Escape' && aiModal && aiModal.style.display === 'block') {
+aiModal.style.display = 'none';
+document.body.style.overflow = 'auto';
+}
 });
-</script>
-
-</script>
-<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    pannellum.viewer('xr-pannellum-container', {
-      "type": "equirectangular",
-      "panorama": "/imagens/sala360tour.png",
-      "autoLoad": true,
-      "autoRotate": -1.5,
-      "compass": true,
-      "showZoomCtrl": true,
-      "showFullscreenCtrl": true,
-      "hotSpots": [
-        {
-          "pitch": -5,
-          "yaw": 90,
-          "type": "info",
-          "text": "Sofá modular com almofadas geométricas"
-        },
-        {
-          "pitch": -8,
-          "yaw": -120,
-          "type": "info",
-          "text": "Área de jantar com vista para o exterior"
-        }
-      ],
-      "errorMessage": "Erro ao carregar o tour virtual. Por favor, tente novamente."
-    });
-  });
+// Funções de tradução placeholder (substitua com implementação real se necessário)
+function translateTo(lang) {
+console.log(`Traduzir para: ${lang}`);
+// Implemente aqui sua lógica de tradução ou integração com Google Translate
+}
 </script>
 </body>
 </html>
