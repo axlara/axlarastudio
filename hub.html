@@ -233,29 +233,34 @@
 
     this.desktopCamPos = {x: 0, y: 1.6, z: 0};
     this._raf = null;
+this.onEnterVR = () => {
+  // No VR: a camera deve ficar em 0,0,0 (pose do headset manda)
+  if (this.camEl) this.camEl.setAttribute('position', {x: 0, y: 0, z: 0});
 
-    this.onEnterVR = () => {
-      // No VR: a camera deve ficar em 0,0,0 (pose do headset manda)
-      if (this.camEl) this.camEl.setAttribute('position', {x: 0, y: 0, z: 0});
+  // Espera 1 frame para o WebXR atualizar a pose, aí mede a altura real do HMD
+  cancelAnimationFrame(this._raf);
+  this._raf = requestAnimationFrame(() => {
+    if (!this.camEl || !this.rigEl) return;
 
-      // Espera 1 frame para o WebXR atualizar a pose, aí mede a altura real do HMD
-      cancelAnimationFrame(this._raf);
-      this._raf = requestAnimationFrame(() => {
-        if (!this.camEl || !this.rigEl) return;
+    const hmdY = this.camEl.object3D.position.y || 0;
+    const target = this.data.targetEyeHeight;
 
-        const hmdY = this.camEl.object3D.position.y || 0; // altura real do headset no reference space
-        const target = this.data.targetEyeHeight;
+    const p = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
+    this.rigEl.setAttribute('position', { x: p.x, y: (target - hmdY), z: p.z });
 
-        // Ajusta o rig para que o eye height "virtual" fique igual ao do panorama
-        // Ex: se o HMD está em 1.75 e target é 1.60, rigY vira -0.15 (desce o mundo)
-        const p = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
-        this.rigEl.setAttribute('position', { x: p.x, y: (target - hmdY), z: p.z });
-
-        // Mostra HUD do VR
-        const hud = document.getElementById('vr-hud');
-        if (hud) hud.setAttribute('visible', true);
-      });
+    // tentativa imediata
+    const showHud = () => {
+      const hud = document.getElementById('vr-hud');
+      if (hud) hud.setAttribute('visible', true);
     };
+
+    showHud();
+
+    // retries (ESSA PARTE resolve no Oculus)
+    setTimeout(showHud, 150);
+    setTimeout(showHud, 600);
+  });
+};
 
     this.onExitVR = () => {
       cancelAnimationFrame(this._raf);
@@ -589,7 +594,12 @@
 
     <!-- FIXED: intro-autorotate REMOVED from rig -->
     <!-- Added: vr-floor-lock + thumbstick-locomotion + VR hands + VR HUD Exit button -->
-    <a-entity id="rig" position="0 0 0" camera-movement vr-floor-lock thumbstick-locomotion="speed: 1.35; deadzone: 0.12">
+ <a-entity id="rig"
+          position="0 0 0"
+          camera-movement
+          vr-floor-lock="targetEyeHeight: 1.45"
+          thumbstick-locomotion="speed: 1.35; deadzone: 0.12">
+
       <a-entity id="cam" camera look-controls position="0 1.6 0" fov="80">
         <a-cursor material="color: #00fff7; shader: flat" geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.011"></a-cursor>
 
