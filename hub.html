@@ -15,7 +15,7 @@
     .topbar { position: fixed; top: 15px; left: 15px; z-index: 10; display:flex; gap:12px; align-items:center; background: rgba(10, 20, 25, 0.75); border: 1px solid rgba(0, 255, 247, 0.3); border-radius: 12px; padding: 10px 16px; color: #E8FFFF; font-size: 13px; backdrop-filter: blur(12px); }
     .btn { border: 1px solid rgba(0, 255, 247, 0.2); background: rgba(255, 255, 255, 0.05); color: #00fff7; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
     .btn:hover { background: rgba(0, 255, 247, 0.15); border-color: #00fff7; }
-    
+
     .footer-hint {
       position: fixed;
       bottom: 20px;
@@ -173,7 +173,7 @@
         this.activeKeys = new Set();
         this.keyMap = {
           'ArrowUp': 'forward',
-          'ArrowDown': 'backward', 
+          'ArrowDown': 'backward',
           'ArrowLeft': 'left',
           'ArrowRight': 'right',
           'w': 'forward',
@@ -221,72 +221,70 @@
        VR FIXES / CONTROLS
        ========================= */
 
-    // Keeps VR camera on floor-level (headset defines height). Restores desktop height on exit.
+    // VR height calibration + HUD show (works reliably on Quest/Wolvic)
     AFRAME.registerComponent('vr-floor-lock', {
-  schema: {
-    targetEyeHeight: { type: 'number', default: 1.6 } // altura “ideal” do panorama
-  },
-  init: function () {
-    this.sceneEl = this.el.sceneEl;
-    this.rigEl = document.getElementById('rig');
-    this.camEl = document.getElementById('cam');
+      schema: {
+        targetEyeHeight: { type: 'number', default: 1.6 }
+      },
+      init: function () {
+        this.sceneEl = this.el.sceneEl;
+        this.rigEl = document.getElementById('rig');
+        this.camEl = document.getElementById('cam');
 
-    this.desktopCamPos = {x: 0, y: 1.6, z: 0};
-    this._raf = null;
-this.onEnterVR = () => {
-  // No VR: a camera deve ficar em 0,0,0 (pose do headset manda)
-  if (this.camEl) this.camEl.setAttribute('position', {x: 0, y: 0, z: 0});
+        this.desktopCamPos = {x: 0, y: 1.6, z: 0};
+        this._raf = null;
 
-  // Espera 1 frame para o WebXR atualizar a pose, aí mede a altura real do HMD
-  cancelAnimationFrame(this._raf);
-  this._raf = requestAnimationFrame(() => {
-    if (!this.camEl || !this.rigEl) return;
+        this.onEnterVR = () => {
+          if (this.camEl) this.camEl.setAttribute('position', {x: 0, y: 0, z: 0});
 
-    const hmdY = this.camEl.object3D.position.y || 0;
-    const target = this.data.targetEyeHeight;
+          cancelAnimationFrame(this._raf);
+          this._raf = requestAnimationFrame(() => {
+            if (!this.camEl || !this.rigEl) return;
 
-    const p = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
-    this.rigEl.setAttribute('position', { x: p.x, y: (target - hmdY), z: p.z });
+            const hmdY = this.camEl.object3D.position.y || 0;
+            const target = this.data.targetEyeHeight;
 
-    // tentativa imediata
-    const showHud = () => {
-      const hud = document.getElementById('vr-hud');
-      if (hud) hud.setAttribute('visible', true);
-    };
+            const yOffset = (target - hmdY);
+            this.rigEl.__vrYOffset = yOffset; // <- IMPORTANT: store offset for locomotion/teleport
 
-    showHud();
+            const p = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
+            this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
 
-    // retries (ESSA PARTE resolve no Oculus)
-    setTimeout(showHud, 150);
-    setTimeout(showHud, 600);
-  });
-};
+            // Show HUD (and retry to avoid Wolvic timing issues)
+            const showHud = () => {
+              const hud = document.getElementById('vr-hud');
+              if (hud) hud.setAttribute('visible', true);
+            };
+            showHud();
+            setTimeout(showHud, 150);
+            setTimeout(showHud, 600);
+          });
+        };
 
-    this.onExitVR = () => {
-      cancelAnimationFrame(this._raf);
+        this.onExitVR = () => {
+          cancelAnimationFrame(this._raf);
 
-      // Restaura desktop
-      if (this.rigEl) {
-        const p = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
-        this.rigEl.setAttribute('position', { x: p.x, y: 0, z: p.z });
+          if (this.rigEl) {
+            this.rigEl.__vrYOffset = 0;
+            const p = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
+            this.rigEl.setAttribute('position', { x: p.x, y: 0, z: p.z });
+          }
+          if (this.camEl) this.camEl.setAttribute('position', this.desktopCamPos);
+
+          const hud = document.getElementById('vr-hud');
+          if (hud) hud.setAttribute('visible', false);
+        };
+
+        this.sceneEl.addEventListener('enter-vr', this.onEnterVR);
+        this.sceneEl.addEventListener('exit-vr', this.onExitVR);
+      },
+      remove: function () {
+        cancelAnimationFrame(this._raf);
+        if (!this.sceneEl) return;
+        this.sceneEl.removeEventListener('enter-vr', this.onEnterVR);
+        this.sceneEl.removeEventListener('exit-vr', this.onExitVR);
       }
-      if (this.camEl) this.camEl.setAttribute('position', this.desktopCamPos);
-
-      const hud = document.getElementById('vr-hud');
-      if (hud) hud.setAttribute('visible', false);
-    };
-
-    this.sceneEl.addEventListener('enter-vr', this.onEnterVR);
-    this.sceneEl.addEventListener('exit-vr', this.onExitVR);
-  },
-  remove: function () {
-    cancelAnimationFrame(this._raf);
-    if (!this.sceneEl) return;
-    this.sceneEl.removeEventListener('enter-vr', this.onEnterVR);
-    this.sceneEl.removeEventListener('exit-vr', this.onExitVR);
-  }
-});
-
+    });
 
     // Makes teleport-to work when raycaster hits child geometry (common in VR laser clicks).
     AFRAME.registerComponent('teleport-to', {
@@ -297,10 +295,9 @@ this.onEnterVR = () => {
         const handler = () => {
           const rig = document.getElementById('rig');
           const cam = document.getElementById('cam');
-          rig.setAttribute('position', this.data.pos);
-          // Keep rig on floor
-          const p = rig.getAttribute('position');
-          rig.setAttribute('position', {x: p.x, y: 0, z: p.z});
+
+          const yKeep = (rig && typeof rig.__vrYOffset === 'number') ? rig.__vrYOffset : (rig.getAttribute('position')?.y || 0);
+          rig.setAttribute('position', { x: this.data.pos.x, y: yKeep, z: this.data.pos.z });
 
           if (cam && cam.components['look-controls']) {
             const lc = cam.components['look-controls'];
@@ -309,17 +306,13 @@ this.onEnterVR = () => {
           hideAll();
         };
 
-        // Click on the parent
         this.el.addEventListener('click', handler);
 
-        // Click on any child (so VR ray hits still works)
-        // (No bubbling in A-Frame "click", so we bind to descendants too.)
         const bindChildren = () => {
           const kids = this.el.querySelectorAll('*');
           kids.forEach(k => k.classList && k.classList.add('clickable'));
           kids.forEach(k => k.addEventListener('click', handler));
         };
-        // Bind once now and again after model/children are ready (safe)
         bindChildren();
         this.el.addEventListener('loaded', bindChildren);
       }
@@ -340,12 +333,10 @@ this.onEnterVR = () => {
         const rightHand = document.getElementById('rightHand');
 
         const onMove = (e) => {
-          // e.detail: {x, y} where y is forward/back on most controllers
           this.axis.x = e.detail.x || 0;
           this.axis.y = e.detail.y || 0;
         };
 
-        // Prefer left thumbstick, but accept either if available
         if (leftHand) leftHand.addEventListener('thumbstickmoved', onMove);
         if (rightHand) rightHand.addEventListener('thumbstickmoved', onMove);
       },
@@ -359,7 +350,6 @@ this.onEnterVR = () => {
 
         const rigPos = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
 
-        // Use camera yaw for movement direction
         let yaw = 0;
         const cam = this.camEl;
         const lc = cam && cam.components && cam.components['look-controls'];
@@ -368,7 +358,6 @@ this.onEnterVR = () => {
         const forward = new THREE.Vector3(0, 0, -1).applyAxisAngle(new THREE.Vector3(0,1,0), yaw);
         const right = new THREE.Vector3(1, 0, 0).applyAxisAngle(new THREE.Vector3(0,1,0), yaw);
 
-        // On most controllers: ay negative = forward, so invert ay
         const move = new THREE.Vector3()
           .addScaledVector(right, ax)
           .addScaledVector(forward, -ay);
@@ -378,9 +367,10 @@ this.onEnterVR = () => {
 
         const step = (dt / 1000) * this.data.speed;
 
+        // IMPORTANT: preserve Y (VR offset) instead of forcing y=0
         this.rigEl.setAttribute('position', {
           x: rigPos.x + move.x * step,
-          y: 0, // lock floor
+          y: rigPos.y,
           z: rigPos.z + move.z * step
         });
       }
@@ -392,9 +382,7 @@ this.onEnterVR = () => {
         this.el.classList.add('clickable');
         this.el.addEventListener('click', () => {
           const scene = document.querySelector('a-scene');
-          if (scene && scene.is('vr-mode')) {
-            scene.exitVR();
-          }
+          if (scene && scene.is('vr-mode')) scene.exitVR();
           showSplash();
         });
       }
@@ -419,24 +407,21 @@ this.onEnterVR = () => {
       }
     });
 
-    // FIXED: Added proper cleanup in remove() and made activation conditional
     AFRAME.registerComponent('intro-autorotate', {
       init: function () {
         this.yaw = 0;
         this.active = true;
         this.timeoutId = null;
 
-        // Stop on first user interaction
-        const stop = () => { 
+        const stop = () => {
           this.active = false;
           if (this.timeoutId) clearTimeout(this.timeoutId);
         };
-        
+
         window.addEventListener('mousemove', stop, { once: true });
         window.addEventListener('mousedown', stop, { once: true });
         window.addEventListener('keydown', stop, { once: true });
 
-        // Auto-stop after 6 seconds
         this.timeoutId = setTimeout(stop, 22000);
       },
 
@@ -447,11 +432,9 @@ this.onEnterVR = () => {
         const lc = cam && cam.components && cam.components['look-controls'];
         if (!lc || !lc.yawObject) return;
 
-        // Constant rotation speed
         lc.yawObject.rotation.y += delta * 0.00030;
       },
 
-      
       remove: function() {
         if (this.timeoutId) {
           clearTimeout(this.timeoutId);
@@ -469,12 +452,14 @@ this.onEnterVR = () => {
         focus.setAttribute('visible', true);
       }
     }
-    
+
     function goToCenter() {
       const rig = document.getElementById('rig');
       const cam = document.getElementById('cam');
+      const scene = document.querySelector('a-scene');
 
-      rig.setAttribute('position', {x: 0, y: 0, z: 0});
+      const yKeep = (scene && scene.is('vr-mode') && typeof rig.__vrYOffset === 'number') ? rig.__vrYOffset : 0;
+      rig.setAttribute('position', {x: 0, y: yKeep, z: 0});
 
       if (cam && cam.components['look-controls']) {
         const lc = cam.components['look-controls'];
@@ -483,12 +468,10 @@ this.onEnterVR = () => {
       hideAll();
     }
 
-    /* FIXED: Splash logic with autorotate activation */
     function hideSplash(){
       const s = document.getElementById('splash');
       if(s) s.classList.add('splash-hide');
 
-      // ONLY activate autorotate AFTER splash is hidden AND scene is ready
       if (sceneReady) {
         const rig = document.getElementById('rig');
         if (rig && !rig.hasAttribute('intro-autorotate')) {
@@ -496,7 +479,6 @@ this.onEnterVR = () => {
           console.log('Autorotate activated');
         }
       } else {
-        // Fallback: wait for scene ready event
         document.querySelector('a-scene').addEventListener('loaded', () => {
           const rig = document.getElementById('rig');
           if (rig && !rig.hasAttribute('intro-autorotate')) {
@@ -511,7 +493,6 @@ this.onEnterVR = () => {
       const s = document.getElementById('splash');
       if(s) s.classList.remove('splash-hide');
 
-      // Deactivate autorotate when showing splash
       const rig = document.getElementById('rig');
       if (rig && rig.hasAttribute('intro-autorotate')) {
         rig.removeAttribute('intro-autorotate');
@@ -523,7 +504,6 @@ this.onEnterVR = () => {
       const btn = document.getElementById('enterBtn');
       const splash = document.getElementById('splash');
 
-      // Unified splash hiding handler
       const handleEnter = (e) => {
         if (e) e.preventDefault();
         hideSplash();
@@ -532,12 +512,10 @@ this.onEnterVR = () => {
       btn?.addEventListener('pointerdown', handleEnter);
       btn?.addEventListener('click', handleEnter);
 
-      // Hide splash when clicking background (not card)
       splash?.addEventListener('click', (e) => {
         if (e.target === splash) handleEnter();
       });
 
-      // Hide on Enter key
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && splash && !splash.classList.contains('splash-hide')) {
           handleEnter();
@@ -569,15 +547,13 @@ this.onEnterVR = () => {
 
   <div class="footer-hint">Use Mouse to look around • Click beacons to teleport • arrows/WASD to move • Space to center</div>
 
-  <!-- SCENE: Note intro-autorotate REMOVED from rig -->
-<a-scene
-  renderer="colorManagement: true; antialias: true;"
-  cursor="rayOrigin: mouse"
-  raycaster="objects: .clickable"
-  vr-mode-ui="enabled: true"
-  webxr="referenceSpaceType: local-floor"
->
-
+  <a-scene
+    renderer="colorManagement: true; antialias: true;"
+    cursor="rayOrigin: mouse"
+    raycaster="objects: .clickable"
+    vr-mode-ui="enabled: true"
+    webxr="referenceSpaceType: local-floor"
+  >
     <a-assets>
       <img id="panoLobby" src="imagens/panorama_gallery.jpg" />
       <img id="logoAivrse" src="imagens/logoaiv.png" />
@@ -592,38 +568,35 @@ this.onEnterVR = () => {
     <a-entity light="type: ambient; intensity: 1.3;"></a-entity>
     <a-entity light="type: directional; intensity: 0.8; position: 5 10 5"></a-entity>
 
-    <!-- FIXED: intro-autorotate REMOVED from rig -->
-    <!-- Added: vr-floor-lock + thumbstick-locomotion + VR hands + VR HUD Exit button -->
- <a-entity id="rig"
-          position="0 0 0"
-          camera-movement
-          vr-floor-lock="targetEyeHeight: 1.45"
-          thumbstick-locomotion="speed: 1.35; deadzone: 0.12">
+    <a-entity id="rig"
+              position="0 0 0"
+              camera-movement
+              vr-floor-lock="targetEyeHeight: 1.45"
+              thumbstick-locomotion="speed: 1.35; deadzone: 0.12">
 
       <a-entity id="cam" camera look-controls position="0 1.6 0" fov="80">
         <a-cursor material="color: #00fff7; shader: flat" geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.011"></a-cursor>
 
-        <!-- VR HUD (hidden on desktop, shown in VR) -->
-    <a-entity id="vr-hud" visible="false" position="-1.20 0.92 -1.05">
-
+        <!-- VR HUD: keep INSIDE FOV (top-left) -->
+        <a-entity id="vr-hud" visible="false" position="-0.55 0.35 -0.85">
           <a-plane class="clickable" vr-exit width="0.30" height="0.12"
                    material="shader: flat; color: #00161a; opacity: 0.78; transparent: true"
-                   position="0 -0.33 0">
+                   position="0 0 0">
           </a-plane>
           <a-plane width="0.30" height="0.12"
                    material="shader: flat; color: #00fff7; opacity: 0.10; transparent: true"
-                   position="0 -0.33 0.001">
+                   position="0 0 0.001">
           </a-plane>
           <a-text value="EXIT" align="center" width="1.6"
                   color="#00fff7"
                   font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
                   shader="msdf"
-                  position="0 -0.33 0.01">
+                  position="0 0 0.01">
           </a-text>
         </a-entity>
       </a-entity>
 
-      <!-- VR Controllers (laser + click + raycaster for .clickable) -->
+      <!-- VR Controllers -->
       <a-entity id="leftHand"
                 laser-controls="hand: left"
                 raycaster="objects: .clickable; far: 30"
@@ -646,9 +619,7 @@ this.onEnterVR = () => {
                material="shader: flat; src: #logoAivrse; transparent: true; opacity: 0.9"
                billboard="onlyY: true"></a-plane>
 
-      <!-- WELCOME (com sombra/outline sutil) -->
       <a-entity position="0 -0.70 0.05" billboard="onlyY: true">
-        <!-- sombra (atrás) -->
         <a-text value="Welcome to the AIVRSE Spatial Gallery"
                 align="center"
                 width="5.6"
@@ -658,8 +629,7 @@ this.onEnterVR = () => {
                 opacity="0.28"
                 position="0.018 -0.018 -0.001"></a-text>
 
-        <!-- texto principal -->
-        <a-text value="Welcome to the AIVRSE Spatial Gallery" 
+        <a-text value="Welcome to the AIVRSE Spatial Gallery"
                 align="center"
                 width="5.6"
                 color="#086171"
@@ -668,7 +638,6 @@ this.onEnterVR = () => {
                 opacity="0.92"></a-text>
       </a-entity>
 
-      <!-- SUBTITLE (limpo + legível) -->
       <a-entity position="0 -1.15 0.05" billboard="onlyY: true">
         <a-text value="Where immersive dreams take shape, light, and presence"
                 align="center"
@@ -694,13 +663,12 @@ this.onEnterVR = () => {
       <a-plane width="3.6" height="2"
                material="shader: flat; color: #000000; opacity: 0.18; transparent: true"
                position="0.03 0.07 0.016"></a-plane>
-      <a-plane id="focus-image" width="3.6" height="2" position="0 0.1 0.02" 
+      <a-plane id="focus-image" width="3.6" height="2" position="0 0.1 0.02"
                material="shader: flat; src: #aboutaxlara; opacity: 0.82;"></a-plane>
-      
-      <!-- Beacon circular abaixo do about -->
-      <a-entity position="0 -2.5 0" rotation="-90 0 0" teleport-to="pos: -2.5 0 -0.5; rotY: 90"> 
+
+      <a-entity position="0 -2.5 0" rotation="-90 0 0" teleport-to="pos: -2.5 0 -0.5; rotY: 90">
         <a-circle radius="0.8" material="shader: flat; color: #00fff7; opacity: 0.1; transparent: true; side: double"></a-circle>
-        <a-ring radius-inner="0.6" radius-outer="0.65" 
+        <a-ring radius-inner="0.6" radius-outer="0.65"
                 material="shader: flat; color: #00fff7; opacity: 0.3; transparent: true; side: double"
                 animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
         </a-ring>
@@ -710,7 +678,6 @@ this.onEnterVR = () => {
         </a-ring>
       </a-entity>
 
-      <!-- ABOUT label (com sombra discreta) -->
       <a-entity position="0 -2 0" billboard="onlyY: true">
         <a-text value="ABOUT" align="center" width="2.2" color="#000000" opacity="0.25"
                 font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"
@@ -721,7 +688,8 @@ this.onEnterVR = () => {
     </a-entity>
 
     <!-- CAPSULE EM PÉ (totem/objeto) -->
-    <a-entity id="capsule-stand" position="-1.8 0.10 3.2" rotation="0 35 0">
+    <!-- FIX: y from 0.10 -> 0 -->
+    <a-entity id="capsule-stand" position="-1.8 0 3.2" rotation="0 35 0">
       <a-entity position="0 0.72 0" billboard="onlyY: true">
         <a-plane width="1.75" height="2.15"
                  material="shader: flat; src: #capsule; transparent: true; opacity: 0.98">
@@ -755,7 +723,7 @@ this.onEnterVR = () => {
                material="shader: flat; src: #g2; transparent: true; opacity: 0.95"></a-plane>
       <a-text value="AI CREATIVE RESEARCH" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
     </a-entity>
-    
+
     <a-entity class="clickable" position="8.7 1.65 7" look-at="#cam" onclick="focusImage('g3')"
               animation="property: position; to: 8.7 1.70 7; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
       <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
@@ -766,11 +734,11 @@ this.onEnterVR = () => {
 
     <!-- Center -->
     <a-entity id="teleport-back" position="1.5 0 1.5" class="clickable" onclick="goToCenter()">
-      <a-ring radius-inner="0.3" radius-outer="0.35" rotation="-90 0 0" 
+      <a-ring radius-inner="0.3" radius-outer="0.35" rotation="-90 0 0"
               material="color: #00fff7; emissive: #00fff7; emissiveIntensity: 2; opacity: 0.4; transparent: true"
               animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 2000; dir: alternate; loop: true">
       </a-ring>
-      <a-circle radius="0.5" rotation="-90 0 0" 
+      <a-circle radius="0.5" rotation="-90 0 0"
                 material="color: #00fff7; opacity: 0.05; transparent: true; side: double">
       </a-circle>
       <a-text value="CENTER" position="0 0.5 0" align="center" width="2" color="#E8FFFF" billboard="onlyY: true"></a-text>
@@ -778,7 +746,7 @@ this.onEnterVR = () => {
   </a-scene>
 
   <script>
-    document.addEventListener('keydown', (e) => { 
+    document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') hideAll();
       if (e.key === ' ') goToCenter();
     });
