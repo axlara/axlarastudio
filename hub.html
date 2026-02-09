@@ -217,6 +217,184 @@
       }
     });
 
+    /* =========================
+       VR FIXES / CONTROLS
+       ========================= */
+
+    // Keeps VR camera on floor-level (headset defines height). Restores desktop height on exit.
+    AFRAME.registerComponent('vr-floor-lock', {
+  schema: {
+    targetEyeHeight: { type: 'number', default: 1.6 } // altura “ideal” do panorama
+  },
+  init: function () {
+    this.sceneEl = this.el.sceneEl;
+    this.rigEl = document.getElementById('rig');
+    this.camEl = document.getElementById('cam');
+
+    this.desktopCamPos = {x: 0, y: 1.6, z: 0};
+    this._raf = null;
+
+    this.onEnterVR = () => {
+      // No VR: a camera deve ficar em 0,0,0 (pose do headset manda)
+      if (this.camEl) this.camEl.setAttribute('position', {x: 0, y: 0, z: 0});
+
+      // Espera 1 frame para o WebXR atualizar a pose, aí mede a altura real do HMD
+      cancelAnimationFrame(this._raf);
+      this._raf = requestAnimationFrame(() => {
+        if (!this.camEl || !this.rigEl) return;
+
+        const hmdY = this.camEl.object3D.position.y || 0; // altura real do headset no reference space
+        const target = this.data.targetEyeHeight;
+
+        // Ajusta o rig para que o eye height "virtual" fique igual ao do panorama
+        // Ex: se o HMD está em 1.75 e target é 1.60, rigY vira -0.15 (desce o mundo)
+        const p = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
+        this.rigEl.setAttribute('position', { x: p.x, y: (target - hmdY), z: p.z });
+
+        // Mostra HUD do VR
+        const hud = document.getElementById('vr-hud');
+        if (hud) hud.setAttribute('visible', true);
+      });
+    };
+
+    this.onExitVR = () => {
+      cancelAnimationFrame(this._raf);
+
+      // Restaura desktop
+      if (this.rigEl) {
+        const p = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
+        this.rigEl.setAttribute('position', { x: p.x, y: 0, z: p.z });
+      }
+      if (this.camEl) this.camEl.setAttribute('position', this.desktopCamPos);
+
+      const hud = document.getElementById('vr-hud');
+      if (hud) hud.setAttribute('visible', false);
+    };
+
+    this.sceneEl.addEventListener('enter-vr', this.onEnterVR);
+    this.sceneEl.addEventListener('exit-vr', this.onExitVR);
+  },
+  remove: function () {
+    cancelAnimationFrame(this._raf);
+    if (!this.sceneEl) return;
+    this.sceneEl.removeEventListener('enter-vr', this.onEnterVR);
+    this.sceneEl.removeEventListener('exit-vr', this.onExitVR);
+  }
+});
+
+
+    // Makes teleport-to work when raycaster hits child geometry (common in VR laser clicks).
+    AFRAME.registerComponent('teleport-to', {
+      schema: { pos: {type: 'vec3'}, rotY: {type: 'number', default: 0} },
+      init: function () {
+        this.el.classList.add('clickable');
+
+        const handler = () => {
+          const rig = document.getElementById('rig');
+          const cam = document.getElementById('cam');
+          rig.setAttribute('position', this.data.pos);
+          // Keep rig on floor
+          const p = rig.getAttribute('position');
+          rig.setAttribute('position', {x: p.x, y: 0, z: p.z});
+
+          if (cam && cam.components['look-controls']) {
+            const lc = cam.components['look-controls'];
+            if (lc.yawObject) lc.yawObject.rotation.y = THREE.MathUtils.degToRad(this.data.rotY);
+          }
+          hideAll();
+        };
+
+        // Click on the parent
+        this.el.addEventListener('click', handler);
+
+        // Click on any child (so VR ray hits still works)
+        // (No bubbling in A-Frame "click", so we bind to descendants too.)
+        const bindChildren = () => {
+          const kids = this.el.querySelectorAll('*');
+          kids.forEach(k => k.classList && k.classList.add('clickable'));
+          kids.forEach(k => k.addEventListener('click', handler));
+        };
+        // Bind once now and again after model/children are ready (safe)
+        bindChildren();
+        this.el.addEventListener('loaded', bindChildren);
+      }
+    });
+
+    // Thumbstick locomotion (Meta/Oculus controllers) moving the rig on XZ plane.
+    AFRAME.registerComponent('thumbstick-locomotion', {
+      schema: {
+        speed: { type: 'number', default: 1.35 },
+        deadzone: { type: 'number', default: 0.12 }
+      },
+      init: function () {
+        this.axis = { x: 0, y: 0 };
+        this.camEl = document.getElementById('cam');
+        this.rigEl = this.el;
+
+        const leftHand = document.getElementById('leftHand');
+        const rightHand = document.getElementById('rightHand');
+
+        const onMove = (e) => {
+          // e.detail: {x, y} where y is forward/back on most controllers
+          this.axis.x = e.detail.x || 0;
+          this.axis.y = e.detail.y || 0;
+        };
+
+        // Prefer left thumbstick, but accept either if available
+        if (leftHand) leftHand.addEventListener('thumbstickmoved', onMove);
+        if (rightHand) rightHand.addEventListener('thumbstickmoved', onMove);
+      },
+      tick: function (t, dt) {
+        if (!dt) return;
+
+        const ax = this.axis.x;
+        const ay = this.axis.y;
+
+        if (Math.abs(ax) < this.data.deadzone && Math.abs(ay) < this.data.deadzone) return;
+
+        const rigPos = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
+
+        // Use camera yaw for movement direction
+        let yaw = 0;
+        const cam = this.camEl;
+        const lc = cam && cam.components && cam.components['look-controls'];
+        if (lc && lc.yawObject) yaw = lc.yawObject.rotation.y;
+
+        const forward = new THREE.Vector3(0, 0, -1).applyAxisAngle(new THREE.Vector3(0,1,0), yaw);
+        const right = new THREE.Vector3(1, 0, 0).applyAxisAngle(new THREE.Vector3(0,1,0), yaw);
+
+        // On most controllers: ay negative = forward, so invert ay
+        const move = new THREE.Vector3()
+          .addScaledVector(right, ax)
+          .addScaledVector(forward, -ay);
+
+        const len = move.length();
+        if (len > 0) move.divideScalar(len);
+
+        const step = (dt / 1000) * this.data.speed;
+
+        this.rigEl.setAttribute('position', {
+          x: rigPos.x + move.x * step,
+          y: 0, // lock floor
+          z: rigPos.z + move.z * step
+        });
+      }
+    });
+
+    // VR Exit button action: exits WebXR session and shows splash again.
+    AFRAME.registerComponent('vr-exit', {
+      init: function () {
+        this.el.classList.add('clickable');
+        this.el.addEventListener('click', () => {
+          const scene = document.querySelector('a-scene');
+          if (scene && scene.is('vr-mode')) {
+            scene.exitVR();
+          }
+          showSplash();
+        });
+      }
+    });
+
     AFRAME.registerComponent('billboard', {
       schema: { onlyY: {type: 'boolean', default: false} },
       tick: function () {
@@ -275,23 +453,6 @@
           this.timeoutId = null;
         }
         this.active = false;
-      }
-    });
-
-    AFRAME.registerComponent('teleport-to', {
-      schema: { pos: {type: 'vec3'}, rotY: {type: 'number', default: 0} },
-      init: function () {
-        this.el.classList.add('clickable');
-        this.el.addEventListener('click', () => {
-          const rig = document.getElementById('rig');
-          const cam = document.getElementById('cam');
-          rig.setAttribute('position', this.data.pos);
-          if (cam && cam.components['look-controls']) {
-            const lc = cam.components['look-controls'];
-            if (lc.yawObject) lc.yawObject.rotation.y = THREE.MathUtils.degToRad(this.data.rotY);
-          }
-          hideAll();
-        });
       }
     });
 
@@ -404,7 +565,14 @@
   <div class="footer-hint">Use Mouse to look around • Click beacons to teleport • arrows/WASD to move • Space to center</div>
 
   <!-- SCENE: Note intro-autorotate REMOVED from rig -->
-  <a-scene renderer="colorManagement: true; antialias: true;" cursor="rayOrigin: mouse">
+<a-scene
+  renderer="colorManagement: true; antialias: true;"
+  cursor="rayOrigin: mouse"
+  raycaster="objects: .clickable"
+  vr-mode-ui="enabled: true"
+  webxr="referenceSpaceType: local-floor"
+>
+
     <a-assets>
       <img id="panoLobby" src="imagens/panorama_gallery.jpg" />
       <img id="logoAivrse" src="imagens/logoaiv.png" />
@@ -420,9 +588,44 @@
     <a-entity light="type: directional; intensity: 0.8; position: 5 10 5"></a-entity>
 
     <!-- FIXED: intro-autorotate REMOVED from rig -->
-    <a-entity id="rig" position="0 0 0" camera-movement>
+    <!-- Added: vr-floor-lock + thumbstick-locomotion + VR hands + VR HUD Exit button -->
+    <a-entity id="rig" position="0 0 0" camera-movement vr-floor-lock thumbstick-locomotion="speed: 1.35; deadzone: 0.12">
       <a-entity id="cam" camera look-controls position="0 1.6 0" fov="80">
         <a-cursor material="color: #00fff7; shader: flat" geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.011"></a-cursor>
+
+        <!-- VR HUD (hidden on desktop, shown in VR) -->
+    <a-entity id="vr-hud" visible="false" position="-1.20 0.92 -1.05">
+
+          <a-plane class="clickable" vr-exit width="0.30" height="0.12"
+                   material="shader: flat; color: #00161a; opacity: 0.78; transparent: true"
+                   position="0 -0.33 0">
+          </a-plane>
+          <a-plane width="0.30" height="0.12"
+                   material="shader: flat; color: #00fff7; opacity: 0.10; transparent: true"
+                   position="0 -0.33 0.001">
+          </a-plane>
+          <a-text value="EXIT" align="center" width="1.6"
+                  color="#00fff7"
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
+                  shader="msdf"
+                  position="0 -0.33 0.01">
+          </a-text>
+        </a-entity>
+      </a-entity>
+
+      <!-- VR Controllers (laser + click + raycaster for .clickable) -->
+      <a-entity id="leftHand"
+                laser-controls="hand: left"
+                raycaster="objects: .clickable; far: 30"
+                cursor="rayOrigin: entity; fuse: false"
+                line="opacity: 0.75">
+      </a-entity>
+
+      <a-entity id="rightHand"
+                laser-controls="hand: right"
+                raycaster="objects: .clickable; far: 30"
+                cursor="rayOrigin: entity; fuse: false"
+                line="opacity: 0.75">
       </a-entity>
     </a-entity>
 
@@ -517,7 +720,7 @@
     </a-entity>
 
     <!-- Beacon para galeria -->
-    <a-entity id="beacon-gallery" position="5 0 2" rotation="0 -100 0" teleport-to="pos: 5 0 2; rotY: -90">
+    <a-entity id="beacon-gallery" class="clickable" position="5 0 2" rotation="0 -100 0" teleport-to="pos: 5 0 2; rotY: -90">
       <a-entity rotation="-90 0 0">
         <a-circle radius="0.60" material="shader: flat; color: #00fff7; opacity: 0.15; transparent: true"></a-circle>
         <a-ring radius-inner="0.35" radius-outer="0.40" material="shader: flat; color: #00fff7; opacity: 0.5; transparent: true"

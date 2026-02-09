@@ -352,6 +352,35 @@ border: none;
 background: #000;
 display: block;
 }
+/* Container com efeito 3D */
+.hub-container.rotating-3d {
+  transform-style: preserve-3d;
+  perspective: 1200px;
+}
+
+/* Efeito de rotação com profundidade */
+@keyframes rotate3D {
+  0% {
+    transform: rotateY(0deg) translateZ(0px);
+  }
+  25% {
+    transform: rotateY(90deg) translateZ(10px);
+  }
+  50% {
+    transform: rotateY(180deg) translateZ(0px);
+  }
+  75% {
+    transform: rotateY(270deg) translateZ(10px);
+  }
+  100% {
+    transform: rotateY(360deg) translateZ(0px);
+  }
+}
+
+.hub-iframe.rotating-3d {
+  animation: rotate3D 30s linear infinite;
+  border: 1px solid rgba(0, 255, 247, 0.3);
+}
 /* Título flutuante sobre o hub */
 .hub-overlay-text {
 position: absolute;
@@ -1356,11 +1385,11 @@ font-size: var(--text-sm);
 </div>
 <!-- Iframe do hub -->
 <iframe
-src="hub.html"
-title="AIVRSE Spatial Hub"
-allow="xr-spatial-tracking; accelerometer; gyroscope; vr; autoplay"
-allowfullscreen
-class="hub-iframe">
+  src="hub.html"
+  title="AIVRSE Spatial Hub"
+  allow="xr-spatial-tracking; accelerometer; gyroscope; vr; autoplay"
+  allowfullscreen
+  class="hub-iframe rotating-hub">
 </iframe>
 </div>
 </section>
