@@ -5,7 +5,6 @@
   <title>AIVRSE Hub | AI WebXR Experience</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- FIXED: Removed extra spaces in script URLs -->
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aframe-text-component@0.5.0/dist/aframe-text-component.min.js"></script>
@@ -218,66 +217,65 @@
     });
 
     /* =========================
-       VR FIXES / CONTROLS
+       VR FIXES / CONTROLS (VR-ONLY)
        ========================= */
 
-    // VR height calibration + HUD show (works reliably on Quest/Wolvic)
+    // VR-only visibility helper (Exit beacon appears only in VR)
+    AFRAME.registerComponent('vr-only', {
+      init: function () {
+        const scene = this.el.sceneEl;
+        const set = (v) => this.el.setAttribute('visible', !!v);
+
+        set(false); // default hidden on desktop
+
+        scene.addEventListener('enter-vr', () => set(true));
+        scene.addEventListener('exit-vr', () => set(false));
+      }
+    });
+
+    // IMPORTANT CHANGE: adjust WORLD height in VR (NOT the rig).
+    // Desktop stays unchanged (world y=0, camera y=1.6).
     AFRAME.registerComponent('vr-floor-lock', {
-      schema: {
-        targetEyeHeight: { type: 'number', default: 1.6 }
-      },
+      schema: { targetEyeHeight: { type: 'number', default: 1.6 } },
       init: function () {
         this.sceneEl = this.el.sceneEl;
-        this.rigEl = document.getElementById('rig');
+        this.worldEl = document.getElementById('world');
         this.camEl = document.getElementById('cam');
-
-        this.desktopCamPos = {x: 0, y: 1.6, z: 0};
         this._raf = null;
 
         this.onEnterVR = () => {
+          // In VR, headset pose controls camera height, so keep camera at 0.
           if (this.camEl) this.camEl.setAttribute('position', {x: 0, y: 0, z: 0});
 
           cancelAnimationFrame(this._raf);
           this._raf = requestAnimationFrame(() => {
-            if (!this.camEl || !this.rigEl) return;
+            if (!this.camEl || !this.worldEl) return;
 
             const hmdY = this.camEl.object3D.position.y || 0;
             const target = this.data.targetEyeHeight;
-            let yOffset = (target - hmdY);
 
-// LIMITA o quanto o mundo pode subir/descer (isso resolve seu pano “afundando”)
-yOffset = Math.max(-0.35, Math.min(0.35, yOffset));
+            // worldY is inverse of what we used on rig before
+            let worldY = -(target - hmdY);
 
-this.rigEl.__vrYOffset = yOffset;
+            // clamp to avoid extreme shifts
+            worldY = Math.max(-0.35, Math.min(0.35, worldY));
 
-const p = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
-this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
-
-
-           
-            // Show HUD (and retry to avoid Wolvic timing issues)
-            const showHud = () => {
-              const hud = document.getElementById('vr-hud');
-              if (hud) hud.setAttribute('visible', true);
-            };
-            showHud();
-            setTimeout(showHud, 150);
-            setTimeout(showHud, 600);
+            const wp = this.worldEl.getAttribute('position') || {x:0,y:0,z:0};
+            this.worldEl.setAttribute('position', { x: wp.x, y: worldY, z: wp.z });
           });
         };
 
         this.onExitVR = () => {
           cancelAnimationFrame(this._raf);
 
-          if (this.rigEl) {
-            this.rigEl.__vrYOffset = 0;
-            const p = this.rigEl.getAttribute('position') || {x:0,y:0,z:0};
-            this.rigEl.setAttribute('position', { x: p.x, y: 0, z: p.z });
+          // restore world position for desktop
+          if (this.worldEl) {
+            const wp = this.worldEl.getAttribute('position') || {x:0,y:0,z:0};
+            this.worldEl.setAttribute('position', { x: wp.x, y: 0, z: wp.z });
           }
-          if (this.camEl) this.camEl.setAttribute('position', this.desktopCamPos);
 
-          const hud = document.getElementById('vr-hud');
-          if (hud) hud.setAttribute('visible', false);
+          // restore desktop camera height exactly as you had
+          if (this.camEl) this.camEl.setAttribute('position', {x: 0, y: 1.6, z: 0});
         };
 
         this.sceneEl.addEventListener('enter-vr', this.onEnterVR);
@@ -291,7 +289,7 @@ this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
       }
     });
 
-    // Makes teleport-to work when raycaster hits child geometry (common in VR laser clicks).
+    // Teleport
     AFRAME.registerComponent('teleport-to', {
       schema: { pos: {type: 'vec3'}, rotY: {type: 'number', default: 0} },
       init: function () {
@@ -300,9 +298,7 @@ this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
         const handler = () => {
           const rig = document.getElementById('rig');
           const cam = document.getElementById('cam');
-
-          const yKeep = (rig && typeof rig.__vrYOffset === 'number') ? rig.__vrYOffset : (rig.getAttribute('position')?.y || 0);
-          rig.setAttribute('position', { x: this.data.pos.x, y: yKeep, z: this.data.pos.z });
+          rig.setAttribute('position', {x: this.data.pos.x, y: 0, z: this.data.pos.z});
 
           if (cam && cam.components['look-controls']) {
             const lc = cam.components['look-controls'];
@@ -323,7 +319,7 @@ this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
       }
     });
 
-    // Thumbstick locomotion (Meta/Oculus controllers) moving the rig on XZ plane.
+    // Thumbstick locomotion (rig on XZ plane)
     AFRAME.registerComponent('thumbstick-locomotion', {
       schema: {
         speed: { type: 'number', default: 1.35 },
@@ -372,16 +368,40 @@ this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
 
         const step = (dt / 1000) * this.data.speed;
 
-        // IMPORTANT: preserve Y (VR offset) instead of forcing y=0
         this.rigEl.setAttribute('position', {
           x: rigPos.x + move.x * step,
-          y: rigPos.y,
+          y: 0,
           z: rigPos.z + move.z * step
         });
       }
     });
+AFRAME.registerComponent('vr-ground-offset', {
+  schema: { y: { type: 'number', default: -0.12 } }, // ajuste fino aqui
+  init: function () {
+    this.sceneEl = this.el.sceneEl;
+    this.basePos = null;
 
-    // VR Exit button action: exits WebXR session and shows splash again.
+    this.onEnter = () => {
+      const p = this.el.getAttribute('position') || {x:0,y:0,z:0};
+      this.basePos = { x: p.x, y: p.y, z: p.z };
+      this.el.setAttribute('position', { x: p.x, y: p.y + this.data.y, z: p.z });
+    };
+
+    this.onExit = () => {
+      if (this.basePos) this.el.setAttribute('position', this.basePos);
+    };
+
+    this.sceneEl.addEventListener('enter-vr', this.onEnter);
+    this.sceneEl.addEventListener('exit-vr', this.onExit);
+  },
+  remove: function () {
+    if (!this.sceneEl) return;
+    this.sceneEl.removeEventListener('enter-vr', this.onEnter);
+    this.sceneEl.removeEventListener('exit-vr', this.onExit);
+  }
+});
+
+    // VR Exit action (used by world beacon)
     AFRAME.registerComponent('vr-exit', {
       init: function () {
         this.el.classList.add('clickable');
@@ -412,6 +432,7 @@ this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
       }
     });
 
+    // Autorotate stays unchanged
     AFRAME.registerComponent('intro-autorotate', {
       init: function () {
         this.yaw = 0;
@@ -461,10 +482,8 @@ this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
     function goToCenter() {
       const rig = document.getElementById('rig');
       const cam = document.getElementById('cam');
-      const scene = document.querySelector('a-scene');
 
-      const yKeep = (scene && scene.is('vr-mode') && typeof rig.__vrYOffset === 'number') ? rig.__vrYOffset : 0;
-      rig.setAttribute('position', {x: 0, y: yKeep, z: 0});
+      rig.setAttribute('position', {x: 0, y: 0, z: 0});
 
       if (cam && cam.components['look-controls']) {
         const lc = cam.components['look-controls'];
@@ -545,6 +564,7 @@ this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
     </div>
   </div>
 
+  <!-- DESKTOP UI (unchanged) -->
   <div class="topbar">
     <div style="font-weight: bold; color: #00fff7; border-right: 1px solid rgba(255,255,255,0.2); padding-right: 12px; margin-right: 4px;">AIVRSE</div>
     <button class="btn" onclick="showSplash()">Exit</button>
@@ -569,41 +589,14 @@ this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
       <img id="capsule" src="imagens/capsule.png" />
     </a-assets>
 
-    <a-sky src="#panoLobby" rotation="0 -40 0" material="color: #fff; shader: flat; opacity: 0.8"></a-sky>
-    <a-entity light="type: ambient; intensity: 1.3;"></a-entity>
-    <a-entity light="type: directional; intensity: 0.8; position: 5 10 5"></a-entity>
-
+    <!-- RIG (player) stays as before for desktop -->
     <a-entity id="rig"
               position="0 0 0"
               camera-movement
-             vr-floor-lock="targetEyeHeight: 1.6"
-        
+              vr-floor-lock="targetEyeHeight: 1.3"
               thumbstick-locomotion="speed: 1.35; deadzone: 0.12">
-
       <a-entity id="cam" camera look-controls position="0 1.6 0" fov="80">
         <a-cursor material="color: #00fff7; shader: flat" geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.011"></a-cursor>
-
-        <!-- VR HUD: keep INSIDE FOV (top-left) -->
-      <a-entity id="vr-hud" visible="false" position="-0.35 0.20 -0.70">
-
-         <a-plane class="clickable" vr-exit width="0.42" height="0.18"
-
-                   material="shader: flat; color: #00161a; opacity: 0.78; transparent: true"
-                   position="0 0 0">
-          </a-plane>
-          <a-plane width="0.42" height="0.18"
-
-                   material="shader: flat; color: #00fff7; opacity: 0.10; transparent: true"
-                   position="0 0 0.001">
-          </a-plane>
-        <a-text value="EXIT" align="center" width="2.1"
-
-                  color="#00fff7"
-                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
-                  shader="msdf"
-                  position="0 0 0.01">
-          </a-text>
-        </a-entity>
       </a-entity>
 
       <!-- VR Controllers -->
@@ -622,136 +615,178 @@ this.rigEl.setAttribute('position', { x: p.x, y: yOffset, z: p.z });
       </a-entity>
     </a-entity>
 
-    <!-- Logo principal -->
-    <a-entity id="logo-container" position="0 3.85 -4.25" rotation="0 0 0"
-              animation="property: position; to: 0 3.95 -4.25; dur: 3000; dir: alternate; loop: true; easing: easeInOutQuad">
-      <a-plane width="3.3" height="1.5"
-               material="shader: flat; src: #logoAivrse; transparent: true; opacity: 0.9"
-               billboard="onlyY: true"></a-plane>
+    <!-- WORLD (everything visual). This is what we move in VR to fix height) -->
+    <a-entity id="world" position="0 0 0">
+      <a-sky src="#panoLobby" rotation="0 -40 0" material="color: #fff; shader: flat; opacity: 0.8"></a-sky>
+      <a-entity light="type: ambient; intensity: 1.3;"></a-entity>
+      <a-entity light="type: directional; intensity: 0.8; position: 5 10 5"></a-entity>
 
-      <a-entity position="0 -0.70 0.05" billboard="onlyY: true">
-        <a-text value="Welcome to the AIVRSE Spatial Gallery"
-                align="center"
-                width="5.6"
-                color="#000000"
+      <!-- VR-only Exit Beacon (fixed in panorama, no HUD) -->
+      <a-entity id="exit-beacon" class="clickable" vr-only vr-exit
+                position="2.5 .15 -2.6"
+                billboard="onlyY: true">
+        <a-plane width="0.75" height="0.30"
+                 material="shader: flat; color: #00161a; opacity: 0.78; transparent: true"></a-plane>
+        <a-plane width="0.75" height="0.30"
+                 material="shader: flat; color: #00fff7; opacity: 0.10; transparent: true"
+                 position="0 0 0.001"></a-plane>
+        <a-text value="EXIT" align="center" width="2.8"
+                color="#00fff7"
                 font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
                 shader="msdf"
-                opacity="0.28"
-                position="0.018 -0.018 -0.001"></a-text>
-
-        <a-text value="Welcome to the AIVRSE Spatial Gallery"
-                align="center"
-                width="5.6"
-                color="#086171"
-                font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
-                shader="msdf"
-                opacity="0.92"></a-text>
+                position="0 0 0.01"></a-text>
       </a-entity>
 
-      <a-entity position="0 -1.15 0.05" billboard="onlyY: true">
-        <a-text value="Where immersive dreams take shape, light, and presence"
-                align="center"
-                width="4.6"
-                color="#E8FFFF"
-                font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
-                shader="msdf"
-                opacity="0.92"
-                lineHeight="58"
-                wrapCount="42"></a-text>
+      <!-- Logo principal -->
+      <a-entity id="logo-container" position="0 3.85 -4.25" rotation="0 0 0"
+                animation="property: position; to: 0 3.95 -4.25; dur: 3000; dir: alternate; loop: true; easing: easeInOutQuad">
+        <a-plane width="3.3" height="1.5"
+                 material="shader: flat; src: #logoAivrse; transparent: true; opacity: 0.9"
+                 billboard="onlyY: true"></a-plane>
+
+        <!-- WELCOME -->
+        <a-entity position="0 -0.70 0.05" billboard="onlyY: true">
+          <a-text value="Welcome to the AIVRSE Spatial Gallery"
+                  align="center"
+                  width="5.6"
+                  color="#000000"
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
+                  shader="msdf"
+                  opacity="0.28"
+                  position="0.018 -0.018 -0.001"></a-text>
+
+          <a-text value="Welcome to the AIVRSE Spatial Gallery"
+                  align="center"
+                  width="5.6"
+                  color="#086171"
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
+                  shader="msdf"
+                  opacity="0.92"></a-text>
+        </a-entity>
+
+        <!-- SUBTITLE -->
+        <a-entity position="0 -1.15 0.05" billboard="onlyY: true">
+          <a-text value="Where immersive dreams take shape, light, and presence"
+                  align="center"
+                  width="4.6"
+                  color="#E8FFFF"
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json"
+                  shader="msdf"
+                  opacity="0.92"
+                  lineHeight="58"
+                  wrapCount="42"></a-text>
+        </a-entity>
       </a-entity>
-    </a-entity>
 
-    <!-- About section -->
-    <a-entity id="about-image-fixed" position="-5.5 1.5 -0.5" rotation="0 90 0"
-              animation="property: position; to: -5.5 1.6 -0.5; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
-      <a-plane width="4" height="2.6"
-               material="color: #0b0f12; opacity: 0.62; transparent: true"
-               position="0 0 0.01"></a-plane>
-      <a-plane width="3.74" height="2.14"
-               material="shader: flat; color: #00fff7; opacity: 0.08; transparent: true"
-               position="0 0.1 0.015"></a-plane>
-      <a-plane width="3.6" height="2"
-               material="shader: flat; color: #000000; opacity: 0.18; transparent: true"
-               position="0.03 0.07 0.016"></a-plane>
-      <a-plane id="focus-image" width="3.6" height="2" position="0 0.1 0.02"
-               material="shader: flat; src: #aboutaxlara; opacity: 0.82;"></a-plane>
+      <!-- About section -->
+      <a-entity id="about-image-fixed" position="-5.5 1.5 -0.5" rotation="0 90 0"
+                animation="property: position; to: -5.5 1.6 -0.5; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
+        <a-plane width="4" height="2.6"
+                 material="color: #0b0f12; opacity: 0.62; transparent: true"
+                 position="0 0 0.01"></a-plane>
+        <a-plane width="3.74" height="2.14"
+                 material="shader: flat; color: #00fff7; opacity: 0.08; transparent: true"
+                 position="0 0.1 0.015"></a-plane>
+        <a-plane width="3.6" height="2"
+                 material="shader: flat; color: #000000; opacity: 0.18; transparent: true"
+                 position="0.03 0.07 0.016"></a-plane>
+        <a-plane id="focus-image" width="3.6" height="2" position="0 0.1 0.02"
+                 material="shader: flat; src: #aboutaxlara; opacity: 0.82;"></a-plane>
 
-      <a-entity position="0 -2.5 0" rotation="-90 0 0" teleport-to="pos: -2.5 0 -0.5; rotY: 90">
-        <a-circle radius="0.8" material="shader: flat; color: #00fff7; opacity: 0.1; transparent: true; side: double"></a-circle>
-        <a-ring radius-inner="0.6" radius-outer="0.65"
-                material="shader: flat; color: #00fff7; opacity: 0.3; transparent: true; side: double"
-                animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
+        <!-- Beacon circular abaixo do about -->
+        <a-entity position="0 -2.5 0" rotation="-90 0 0" teleport-to="pos: -2.5 0 -0.5; rotY: 90">
+          <a-circle radius="0.8" material="shader: flat; color: #00fff7; opacity: 0.1; transparent: true; side: double"></a-circle>
+          <a-ring radius-inner="0.6" radius-outer="0.65"
+                  material="shader: flat; color: #00fff7; opacity: 0.3; transparent: true; side: double"
+                  animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
+          </a-ring>
+          <a-ring radius-inner="0.4" radius-outer="0.45"
+                  material="shader: flat; color: #00fff7; opacity: 0.2; transparent: true; side: double"
+                  animation="property: scale; from: 1 1 1; to: 0.9 0.9 1; dur: 2500; dir: alternate; loop: true; easing: easeInOutSine; delay: 500">
+          </a-ring>
+        </a-entity>
+
+        <!-- ABOUT label -->
+        <a-entity position="0 -2 0" billboard="onlyY: true">
+          <a-text value="ABOUT" align="center" width="2.2" color="#000000" opacity="0.25"
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"
+                  position="0.012 -0.012 -0.001"></a-text>
+          <a-text value="ABOUT" align="center" width="2.2" color="#00fff7" opacity="0.95"
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
+        </a-entity>
+      </a-entity>
+
+      <!-- CAPSULE EM PÉ (totem/objeto) -->
+      <!-- FIX: y 0.10 -> 0 so it doesn't float -->
+      <a-entity id="capsule-stand"
+          position="-1.8 0 3.2"
+          vr-ground-offset="y: -0.10"
+          rotation="0 35 0">
+
+        <a-entity position="0 0.72 0" billboard="onlyY: true">
+          <a-plane width="1.75" height="2.15"
+                   material="shader: flat; src: #capsule; transparent: true; opacity: 0.98">
+          </a-plane>
+        </a-entity>
+      </a-entity>
+
+      <!-- Beacon para galeria -->
+      <a-entity id="beacon-gallery"
+          class="clickable"
+          position="5 0 2"
+          vr-ground-offset="y: -0.12"
+          rotation="0 -100 0"
+          teleport-to="pos: 5 0 2; rotY: -90">
+
+        <a-entity rotation="-90 0 0">
+          <a-circle radius="0.60" material="shader: flat; color: #00fff7; opacity: 0.15; transparent: true"></a-circle>
+          <a-ring radius-inner="0.35" radius-outer="0.40" material="shader: flat; color: #00fff7; opacity: 0.5; transparent: true"
+                  animation="property: scale; from: 1 1 1; to: 1.15 1.15 1.15; dur: 2000; dir: alternate; loop: true"></a-ring>
+        </a-entity>
+        <a-text value="EXPLORE WORKS" position="0 0.5 0" align="center" width="2.5" color="#00fff7" billboard="onlyY: true"></a-text>
+      </a-entity>
+
+      <!-- Cards -->
+      <a-entity class="clickable" position="6.5 1.65 -0.5" look-at="#cam" onclick="focusImage('g1')"
+                animation="property: position; to: 6.5 1.72 -0.5; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
+        <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
+        <a-plane width="3.6" height="2" position="0 0.1 0.02"
+                 material="shader: flat; src: #g1; transparent: true; opacity: 0.95"></a-plane>
+        <a-text value="IMMERSIVE EXPERIENCES VR" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
+      </a-entity>
+
+      <a-entity class="clickable" position="8.7 1.65 2.4" look-at="#cam" onclick="focusImage('g2')"
+                animation="property: position; to: 8.7 1.58 2.4; dur: 3500; dir: alternate; loop: true; easing: easeInOutSine">
+        <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
+        <a-plane width="3.6" height="2" position="0 0.1 0.02"
+                 material="shader: flat; src: #g2; transparent: true; opacity: 0.95"></a-plane>
+        <a-text value="AI CREATIVE RESEARCH" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
+      </a-entity>
+
+      <a-entity class="clickable" position="8.7 1.65 7" look-at="#cam" onclick="focusImage('g3')"
+                animation="property: position; to: 8.7 1.70 7; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
+        <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
+        <a-plane width="3.6" height="2" position="0 0.1 0.02"
+                 material="shader: flat; src: #g3; transparent: true; opacity: 0.95"></a-plane>
+        <a-text value="SPATIAL / ARCHITECTURE 360°" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
+      </a-entity>
+
+      <!-- Center -->
+     <a-entity id="teleport-back"
+          position="1.5 0 1.5"
+          class="clickable"
+          vr-ground-offset="y: -0.12"
+          onclick="goToCenter()">
+
+        <a-ring radius-inner="0.3" radius-outer="0.35" rotation="-90 0 0"
+                material="color: #00fff7; emissive: #00fff7; emissiveIntensity: 2; opacity: 0.4; transparent: true"
+                animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 2000; dir: alternate; loop: true">
         </a-ring>
-        <a-ring radius-inner="0.4" radius-outer="0.45"
-                material="shader: flat; color: #00fff7; opacity: 0.2; transparent: true; side: double"
-                animation="property: scale; from: 1 1 1; to: 0.9 0.9 1; dur: 2500; dir: alternate; loop: true; easing: easeInOutSine; delay: 500">
-        </a-ring>
+        <a-circle radius="0.5" rotation="-90 0 0"
+                  material="color: #00fff7; opacity: 0.05; transparent: true; side: double">
+        </a-circle>
+        <a-text value="CENTER" position="0 0.5 0" align="center" width="2" color="#E8FFFF" billboard="onlyY: true"></a-text>
       </a-entity>
-
-      <a-entity position="0 -2 0" billboard="onlyY: true">
-        <a-text value="ABOUT" align="center" width="2.2" color="#000000" opacity="0.25"
-                font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"
-                position="0.012 -0.012 -0.001"></a-text>
-        <a-text value="ABOUT" align="center" width="2.2" color="#00fff7" opacity="0.95"
-                font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
-      </a-entity>
-    </a-entity>
-
-    <!-- CAPSULE EM PÉ (totem/objeto) -->
-    <!-- FIX: y from 0.10 -> 0 -->
-    <a-entity id="capsule-stand" position="-1.8 0 3.2" rotation="0 35 0">
-      <a-entity position="0 0.72 0" billboard="onlyY: true">
-        <a-plane width="1.75" height="2.15"
-                 material="shader: flat; src: #capsule; transparent: true; opacity: 0.98">
-        </a-plane>
-      </a-entity>
-    </a-entity>
-
-    <!-- Beacon para galeria -->
-    <a-entity id="beacon-gallery" class="clickable" position="5 0 2" rotation="0 -100 0" teleport-to="pos: 5 0 2; rotY: -90">
-      <a-entity rotation="-90 0 0">
-        <a-circle radius="0.60" material="shader: flat; color: #00fff7; opacity: 0.15; transparent: true"></a-circle>
-        <a-ring radius-inner="0.35" radius-outer="0.40" material="shader: flat; color: #00fff7; opacity: 0.5; transparent: true"
-                animation="property: scale; from: 1 1 1; to: 1.15 1.15 1.15; dur: 2000; dir: alternate; loop: true"></a-ring>
-      </a-entity>
-      <a-text value="EXPLORE WORKS" position="0 0.5 0" align="center" width="2.5" color="#00fff7" billboard="onlyY: true"></a-text>
-    </a-entity>
-
-    <!-- Cards -->
-    <a-entity class="clickable" position="6.5 1.65 -0.5" look-at="#cam" onclick="focusImage('g1')"
-              animation="property: position; to: 6.5 1.72 -0.5; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
-      <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
-      <a-plane width="3.6" height="2" position="0 0.1 0.02"
-               material="shader: flat; src: #g1; transparent: true; opacity: 0.95"></a-plane>
-      <a-text value="IMMERSIVE EXPERIENCES VR" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
-    </a-entity>
-
-    <a-entity class="clickable" position="8.7 1.65 2.4" look-at="#cam" onclick="focusImage('g2')"
-              animation="property: position; to: 8.7 1.58 2.4; dur: 3500; dir: alternate; loop: true; easing: easeInOutSine">
-      <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
-      <a-plane width="3.6" height="2" position="0 0.1 0.02"
-               material="shader: flat; src: #g2; transparent: true; opacity: 0.95"></a-plane>
-      <a-text value="AI CREATIVE RESEARCH" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
-    </a-entity>
-
-    <a-entity class="clickable" position="8.7 1.65 7" look-at="#cam" onclick="focusImage('g3')"
-              animation="property: position; to: 8.7 1.70 7; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
-      <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
-      <a-plane width="3.6" height="2" position="0 0.1 0.02"
-               material="shader: flat; src: #g3; transparent: true; opacity: 0.95"></a-plane>
-      <a-text value="SPATIAL / ARCHITECTURE 360°" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
-    </a-entity>
-
-    <!-- Center -->
-    <a-entity id="teleport-back" position="1.5 0 1.5" class="clickable" onclick="goToCenter()">
-      <a-ring radius-inner="0.3" radius-outer="0.35" rotation="-90 0 0"
-              material="color: #00fff7; emissive: #00fff7; emissiveIntensity: 2; opacity: 0.4; transparent: true"
-              animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 2000; dir: alternate; loop: true">
-      </a-ring>
-      <a-circle radius="0.5" rotation="-90 0 0"
-                material="color: #00fff7; opacity: 0.05; transparent: true; side: double">
-      </a-circle>
-      <a-text value="CENTER" position="0 0.5 0" align="center" width="2" color="#E8FFFF" billboard="onlyY: true"></a-text>
     </a-entity>
   </a-scene>
 
