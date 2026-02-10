@@ -737,7 +737,7 @@
                 vr-exit
                 big-hit="w: 1.1; h: 0.55; d: 0.25"
                 hover-glow
-                position="2.3 1.25 -1.6"
+                position="1.5 0.5 -1.6"
                 billboard="onlyY: true"
                 vr-y="dy: 0.50">
         <a-plane width="0.85" height="0.30"
@@ -798,13 +798,14 @@
         <a-plane id="focus-image" width="3.6" height="2" position="0 0.1 0.02"
                  material="shader: flat; src: #aboutaxlara; opacity: 0.82;"></a-plane>
 
-        <!-- Beacon circular abaixo do about (BIG hit + hover + triggerdown via teleport-to) -->
+        <!-- Beacon circular abaixo do about (BIG hit + hover + triggerdown via teleport-to) - VR-LIFT DOWN -->
         <a-entity class="clickable"
                   position="0 -2.5 0"
                   rotation="-90 0 0"
                   big-hit="w: 1.6; h: 1.6; d: 0.35"
                   hover-glow
-                  teleport-to="pos: -3.6 0 -0.8; rotY: 90">
+                  teleport-to="pos: -3.6 0 -0.8; rotY: 90"
+                  vr-y="dy: -0.50">
           <a-circle radius="0.8" material="shader: flat; color: #00fff7; opacity: 0.1; transparent: true; side: double"></a-circle>
           <a-ring radius-inner="0.6" radius-outer="0.65"
                   material="shader: flat; color: #00fff7; opacity: 0.3; transparent: true; side: double"
@@ -827,8 +828,8 @@
 
       <!-- CAPSULE -->
       <a-entity id="capsule-stand"
-                position="-1.8 0 3.2"
-                vr-ground-offset="y: -0.10"
+                position="-1.8 0 3.5"
+                vr-ground-offset="y: -0.20"
                 vr-push="dx: -0.2; dz: 0.8"
                 rotation="0 35 0">
         <a-entity position="0 0.72 0" billboard="onlyY: true">
@@ -838,7 +839,7 @@
         </a-entity>
       </a-entity>
 
-      <!-- Beacon para galeria (more VR distance + BIG hit + hover) -->
+      <!-- Beacon para galeria (more VR distance + BIG hit + hover) - VR-LIFT DOWN -->
       <a-entity id="beacon-gallery"
                 class="clickable"
                 position="6 0 2.6"
@@ -847,7 +848,8 @@
                 big-hit="w: 1.8; h: 1.8; d: 0.35"
                 hover-glow
                 rotation="0 -100 0"
-                teleport-to="pos: 6 0 2.6; rotY: -90">
+                teleport-to="pos: 6 0 2.6; rotY: -90"
+                vr-y="dy: -0.50">
 
         <a-entity rotation="-90 0 0">
           <a-circle radius="0.60" material="shader: flat; color: #00fff7; opacity: 0.15; transparent: true"></a-circle>
@@ -860,11 +862,11 @@
 
       <!-- Cards (ALL THREE HAVE vr-y="dy: 0.50" + on-triggerdown ADDED) -->
       <a-entity class="clickable"
-                position="6.5 1.75 -0.5"
+                position="7.5 1.65 -0.5"
                 vr-push="dx: 0.6; dz: -0.3"
                 look-at="#cam"
                 on-triggerdown="action: focusImage; param: g1"
-                animation="property: position; to: 6.5 1.72 -0.5; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine"
+                animation="property: position; to: 7.5 1.72 -0.5; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine"
                 vr-y="dy: 0.50">
         <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
         <a-plane width="3.6" height="2" position="0 0.1 0.02"
@@ -873,11 +875,11 @@
       </a-entity>
 
       <a-entity class="clickable"
-                position="8.7 2.10 2.4"
+                position="9.7 1.65 2.4"
                 vr-push="dx: 0.7; dz: 0.5"
                 look-at="#cam"
                 on-triggerdown="action: focusImage; param: g2"
-                animation="property: position; to: 8.7 1.90 2.4; dur: 3500; dir: alternate; loop: true; easing: easeInOutSine"
+                animation="property: position; to: 9.7 1.58 2.4; dur: 3500; dir: alternate; loop: true; easing: easeInOutSine"
                 vr-y="dy: 0.50">
         <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
         <a-plane width="3.6" height="2" position="0 0.1 0.02"
@@ -886,11 +888,11 @@
       </a-entity>
 
       <a-entity class="clickable"
-                position="8.7 1.95 7"
+                position="9.9 1.65 7"
                 vr-push="dx: 0.7; dz: 0.6"
                 look-at="#cam"
                 on-triggerdown="action: focusImage; param: g3"
-                animation="property: position; to: 8.7 1.80 7; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine"
+                animation="property: position; to: 9.7 1.70 7; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine"
                 vr-y="dy: 0.50">
         <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
         <a-plane width="3.6" height="2" position="0 0.1 0.02"
@@ -898,15 +900,16 @@
         <a-text value="SPATIAL / ARCHITECTURE 360°" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
       </a-entity>
 
-      <!-- Center (BIG hit + hover + triggerdown) -->
+      <!-- Center (BIG hit + hover + triggerdown) - VR-LIFT DOWN -->
       <a-entity id="teleport-back"
-                position="1.5 0 1.5"
+                position="0 0 0"
                 vr-ground-offset="y: -0.12"
                 vr-push="dx: 0.7; dz: 0.6"
                 big-hit="w: 1.6; h: 1.6; d: 0.35"
                 hover-glow
                 class="clickable"
-                on-triggerdown="action: goToCenter">
+                on-triggerdown="action: goToCenter"
+                vr-y="dy: -0.50">
         <a-ring radius-inner="0.3" radius-outer="0.35" rotation="-90 0 0"
                 material="color: #00fff7; emissive: #00fff7; emissiveIntensity: 2; opacity: 0.4; transparent: true"
                 animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 2000; dir: alternate; loop: true">
