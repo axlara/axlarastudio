@@ -255,10 +255,14 @@
             const target = this.data.targetEyeHeight;
 
             // worldY is inverse of what we used on rig before
-            let worldY = -(target - hmdY);
+          let worldY = -(target - hmdY);
 
-            // clamp to avoid extreme shifts
-            worldY = Math.max(-0.35, Math.min(0.35, worldY));
+// micro-ajuste fino de “sensação” (VR only): valores típicos: 0.03 a 0.08
+          const feelLower = 0.05;
+          worldY += feelLower;
+
+          worldY = Math.max(-0.35, Math.min(0.35, worldY));
+
 
             const wp = this.worldEl.getAttribute('position') || {x:0,y:0,z:0};
             this.worldEl.setAttribute('position', { x: wp.x, y: worldY, z: wp.z });
@@ -318,6 +322,36 @@
         this.el.addEventListener('loaded', bindChildren);
       }
     });
+
+    AFRAME.registerComponent('vr-push', {
+  schema: {
+    dx: { type: 'number', default: 0 },
+    dz: { type: 'number', default: 0 }
+  },
+  init: function () {
+    this.sceneEl = this.el.sceneEl;
+    this.basePos = null;
+
+    this.onEnter = () => {
+      const p = this.el.getAttribute('position') || {x:0,y:0,z:0};
+      this.basePos = { x: p.x, y: p.y, z: p.z };
+      this.el.setAttribute('position', { x: p.x + this.data.dx, y: p.y, z: p.z + this.data.dz });
+    };
+
+    this.onExit = () => {
+      if (this.basePos) this.el.setAttribute('position', this.basePos);
+    };
+
+    this.sceneEl.addEventListener('enter-vr', this.onEnter);
+    this.sceneEl.addEventListener('exit-vr', this.onExit);
+  },
+  remove: function () {
+    if (!this.sceneEl) return;
+    this.sceneEl.removeEventListener('enter-vr', this.onEnter);
+    this.sceneEl.removeEventListener('exit-vr', this.onExit);
+  }
+});
+
 
     // Thumbstick locomotion (rig on XZ plane)
     AFRAME.registerComponent('thumbstick-locomotion', {
@@ -623,7 +657,7 @@ AFRAME.registerComponent('vr-ground-offset', {
 
       <!-- VR-only Exit Beacon (fixed in panorama, no HUD) -->
       <a-entity id="exit-beacon" class="clickable" vr-only vr-exit
-                position="2.5 .15 -2.6"
+                position="2.5 .55 -2.6"
                 billboard="onlyY: true">
         <a-plane width="0.75" height="0.30"
                  material="shader: flat; color: #00161a; opacity: 0.78; transparent: true"></a-plane>
@@ -677,99 +711,126 @@ AFRAME.registerComponent('vr-ground-offset', {
                   wrapCount="42"></a-text>
         </a-entity>
       </a-entity>
+<!-- About section -->
+<a-entity id="about-image-fixed"
+          position="-5.5 1.5 -0.5"
+          vr-push="dx: -0.6; dz: -0.3"
+          rotation="0 90 0"
+          animation="property: position; to: -5.5 1.6 -0.5; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
 
-      <!-- About section -->
-      <a-entity id="about-image-fixed" position="-5.5 1.5 -0.5" rotation="0 90 0"
-                animation="property: position; to: -5.5 1.6 -0.5; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
-        <a-plane width="4" height="2.6"
-                 material="color: #0b0f12; opacity: 0.62; transparent: true"
-                 position="0 0 0.01"></a-plane>
-        <a-plane width="3.74" height="2.14"
-                 material="shader: flat; color: #00fff7; opacity: 0.08; transparent: true"
-                 position="0 0.1 0.015"></a-plane>
-        <a-plane width="3.6" height="2"
-                 material="shader: flat; color: #000000; opacity: 0.18; transparent: true"
-                 position="0.03 0.07 0.016"></a-plane>
-        <a-plane id="focus-image" width="3.6" height="2" position="0 0.1 0.02"
-                 material="shader: flat; src: #aboutaxlara; opacity: 0.82;"></a-plane>
+  <a-plane width="4" height="2.6"
+           material="color: #0b0f12; opacity: 0.62; transparent: true"
+           position="0 0 0.01"></a-plane>
 
-        <!-- Beacon circular abaixo do about -->
-        <a-entity position="0 -2.5 0" rotation="-90 0 0" teleport-to="pos: -2.5 0 -0.5; rotY: 90">
-          <a-circle radius="0.8" material="shader: flat; color: #00fff7; opacity: 0.1; transparent: true; side: double"></a-circle>
-          <a-ring radius-inner="0.6" radius-outer="0.65"
-                  material="shader: flat; color: #00fff7; opacity: 0.3; transparent: true; side: double"
-                  animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
-          </a-ring>
-          <a-ring radius-inner="0.4" radius-outer="0.45"
-                  material="shader: flat; color: #00fff7; opacity: 0.2; transparent: true; side: double"
-                  animation="property: scale; from: 1 1 1; to: 0.9 0.9 1; dur: 2500; dir: alternate; loop: true; easing: easeInOutSine; delay: 500">
-          </a-ring>
-        </a-entity>
+  <a-plane width="3.74" height="2.14"
+           material="shader: flat; color: #00fff7; opacity: 0.08; transparent: true"
+           position="0 0.1 0.015"></a-plane>
 
-        <!-- ABOUT label -->
-        <a-entity position="0 -2 0" billboard="onlyY: true">
-          <a-text value="ABOUT" align="center" width="2.2" color="#000000" opacity="0.25"
-                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"
-                  position="0.012 -0.012 -0.001"></a-text>
-          <a-text value="ABOUT" align="center" width="2.2" color="#00fff7" opacity="0.95"
-                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
-        </a-entity>
-      </a-entity>
+  <a-plane width="3.6" height="2"
+           material="shader: flat; color: #000000; opacity: 0.18; transparent: true"
+           position="0.03 0.07 0.016"></a-plane>
 
-      <!-- CAPSULE EM PÉ (totem/objeto) -->
-      <!-- FIX: y 0.10 -> 0 so it doesn't float -->
-      <a-entity id="capsule-stand"
+  <a-plane id="focus-image" width="3.6" height="2" position="0 0.1 0.02"
+           material="shader: flat; src: #aboutaxlara; opacity: 0.82;"></a-plane>
+
+  <!-- Beacon circular abaixo do about -->
+  <a-entity position="0 -2.5 0"
+            rotation="-90 0 0"
+            teleport-to="pos: -3.6 0 -0.8; rotY: 90">
+    <a-circle radius="0.8" material="shader: flat; color: #00fff7; opacity: 0.1; transparent: true; side: double"></a-circle>
+
+    <a-ring radius-inner="0.6" radius-outer="0.65"
+            material="shader: flat; color: #00fff7; opacity: 0.3; transparent: true; side: double"
+            animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
+    </a-ring>
+
+    <a-ring radius-inner="0.4" radius-outer="0.45"
+            material="shader: flat; color: #00fff7; opacity: 0.2; transparent: true; side: double"
+            animation="property: scale; from: 1 1 1; to: 0.9 0.9 1; dur: 2500; dir: alternate; loop: true; easing: easeInOutSine; delay: 500">
+    </a-ring>
+  </a-entity>
+
+  <!-- ABOUT label -->
+  <a-entity position="0 -2 0" billboard="onlyY: true">
+    <a-text value="ABOUT" align="center" width="2.2" color="#000000" opacity="0.25"
+            font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"
+            position="0.012 -0.012 -0.001"></a-text>
+    <a-text value="ABOUT" align="center" width="2.2" color="#00fff7" opacity="0.95"
+            font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
+  </a-entity>
+</a-entity>
+
+<!-- CAPSULE EM PÉ (totem/objeto) -->
+<a-entity id="capsule-stand"
           position="-1.8 0 3.2"
           vr-ground-offset="y: -0.10"
+          vr-push="dx: -0.2; dz: 0.8"
           rotation="0 35 0">
+  <a-entity position="0 0.72 0" billboard="onlyY: true">
+    <a-plane width="1.75" height="2.15"
+             material="shader: flat; src: #capsule; transparent: true; opacity: 0.98">
+    </a-plane>
+  </a-entity>
+</a-entity>
 
-        <a-entity position="0 0.72 0" billboard="onlyY: true">
-          <a-plane width="1.75" height="2.15"
-                   material="shader: flat; src: #capsule; transparent: true; opacity: 0.98">
-          </a-plane>
-        </a-entity>
-      </a-entity>
-
-      <!-- Beacon para galeria -->
-      <a-entity id="beacon-gallery"
+<!-- Beacon para galeria -->
+<a-entity id="beacon-gallery"
           class="clickable"
-          position="5 0 2"
+          position="6 0 2.6"
           vr-ground-offset="y: -0.12"
+          vr-push="dx: 0.8; dz: 0.6"
           rotation="0 -100 0"
-          teleport-to="pos: 5 0 2; rotY: -90">
+          teleport-to="pos: 6 0 2.6; rotY: -90">
 
-        <a-entity rotation="-90 0 0">
-          <a-circle radius="0.60" material="shader: flat; color: #00fff7; opacity: 0.15; transparent: true"></a-circle>
-          <a-ring radius-inner="0.35" radius-outer="0.40" material="shader: flat; color: #00fff7; opacity: 0.5; transparent: true"
-                  animation="property: scale; from: 1 1 1; to: 1.15 1.15 1.15; dur: 2000; dir: alternate; loop: true"></a-ring>
-        </a-entity>
-        <a-text value="EXPLORE WORKS" position="0 0.5 0" align="center" width="2.5" color="#00fff7" billboard="onlyY: true"></a-text>
-      </a-entity>
+  <a-entity rotation="-90 0 0">
+    <a-circle radius="0.60" material="shader: flat; color: #00fff7; opacity: 0.15; transparent: true"></a-circle>
+    <a-ring radius-inner="0.35" radius-outer="0.40"
+            material="shader: flat; color: #00fff7; opacity: 0.5; transparent: true"
+            animation="property: scale; from: 1 1 1; to: 1.15 1.15 1.15; dur: 2000; dir: alternate; loop: true"></a-ring>
+  </a-entity>
 
-      <!-- Cards -->
-      <a-entity class="clickable" position="6.5 1.65 -0.5" look-at="#cam" onclick="focusImage('g1')"
-                animation="property: position; to: 6.5 1.72 -0.5; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
-        <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
-        <a-plane width="3.6" height="2" position="0 0.1 0.02"
-                 material="shader: flat; src: #g1; transparent: true; opacity: 0.95"></a-plane>
-        <a-text value="IMMERSIVE EXPERIENCES VR" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
-      </a-entity>
+  <a-text value="EXPLORE WORKS" position="0 0.5 0" align="center" width="2.5" color="#00fff7" billboard="onlyY: true"></a-text>
+</a-entity>
 
-      <a-entity class="clickable" position="8.7 1.65 2.4" look-at="#cam" onclick="focusImage('g2')"
-                animation="property: position; to: 8.7 1.58 2.4; dur: 3500; dir: alternate; loop: true; easing: easeInOutSine">
-        <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
-        <a-plane width="3.6" height="2" position="0 0.1 0.02"
-                 material="shader: flat; src: #g2; transparent: true; opacity: 0.95"></a-plane>
-        <a-text value="AI CREATIVE RESEARCH" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
-      </a-entity>
+<!-- Cards -->
+<a-entity class="clickable"
+          position="6.5 1.65 -0.5"
+          vr-push="dx: 0.6; dz: -0.3"
+          look-at="#cam"
+          onclick="focusImage('g1')"
+          animation="property: position; to: 6.5 1.72 -0.5; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
 
-      <a-entity class="clickable" position="8.7 1.65 7" look-at="#cam" onclick="focusImage('g3')"
-                animation="property: position; to: 8.7 1.70 7; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
-        <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
-        <a-plane width="3.6" height="2" position="0 0.1 0.02"
-                 material="shader: flat; src: #g3; transparent: true; opacity: 0.95"></a-plane>
-        <a-text value="SPATIAL / ARCHITECTURE 360°" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
-      </a-entity>
+  <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
+  <a-plane width="3.6" height="2" position="0 0.1 0.02"
+           material="shader: flat; src: #g1; transparent: true; opacity: 0.95"></a-plane>
+  <a-text value="IMMERSIVE EXPERIENCES VR" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
+</a-entity>
+
+<a-entity class="clickable"
+          position="8.7 1.65 2.4"
+          vr-push="dx: 0.7; dz: 0.5"
+          look-at="#cam"
+          onclick="focusImage('g2')"
+          animation="property: position; to: 8.7 1.58 2.4; dur: 3500; dir: alternate; loop: true; easing: easeInOutSine">
+
+  <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
+  <a-plane width="3.6" height="2" position="0 0.1 0.02"
+           material="shader: flat; src: #g2; transparent: true; opacity: 0.95"></a-plane>
+  <a-text value="AI CREATIVE RESEARCH" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
+</a-entity>
+
+<a-entity class="clickable"
+          position="8.7 1.65 7"
+          vr-push="dx: 0.7; dz: 0.6"
+          look-at="#cam"
+          onclick="focusImage('g3')"
+          animation="property: position; to: 8.7 1.70 7; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
+
+  <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
+  <a-plane width="3.6" height="2" position="0 0.1 0.02"
+           material="shader: flat; src: #g3; transparent: true; opacity: 0.95"></a-plane>
+  <a-text value="SPATIAL / ARCHITECTURE 360°" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
+</a-entity>
 
       <!-- Center -->
      <a-entity id="teleport-back"
