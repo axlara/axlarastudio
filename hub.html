@@ -392,41 +392,34 @@
     });
 
     // Teleport: supports desktop click + VR triggerdown (much more reliable on Quest/Wolvic)
-    AFRAME.registerComponent('teleport-to', {
-      schema: { pos: {type: 'vec3'}, rotY: {type: 'number', default: 0} },
-      init: function () {
-        this.el.classList.add('clickable');
+  AFRAME.registerComponent('teleport-to', {
+  schema: { pos: {type: 'vec3'}, rotY: {type: 'number', default: 0} },
+  init: function () {
+    this.el.classList.add('clickable');
 
-        const handler = () => {
-          const rig = document.getElementById('rig');
-          const cam = document.getElementById('cam');
-          rig.setAttribute('position', {x: this.data.pos.x, y: 0, z: this.data.pos.z});
+    const handler = (evt) => {
+      // Se for um evento de trigger (VR), mas o sensor indicar que não estamos em VR, ignora
+      if (evt.type === 'triggerdown' && !this.el.sceneEl.is('vr-mode')) return;
+      if (evt.detail && evt.detail.cursorEl) evt.stopPropagation();
+      const rig = document.getElementById('rig');
+      const cam = document.getElementById('cam');
+      
+      // Executa o teleporte
+      rig.setAttribute('position', {x: this.data.pos.x, y: 0, z: this.data.pos.z});
 
-          if (cam && cam.components['look-controls']) {
-            const lc = cam.components['look-controls'];
-            if (lc.yawObject) lc.yawObject.rotation.y = THREE.MathUtils.degToRad(this.data.rotY);
-          }
-          hideAll();
-        };
-
-        // Desktop
-        this.el.addEventListener('click', handler);
-        // VR (Quest/Wolvic)
-        this.el.addEventListener('triggerdown', handler);
-
-        // Make children clickable too (VR rays often hit inner geometry)
-        const bindChildren = () => {
-          const kids = this.el.querySelectorAll('*');
-          kids.forEach(k => k.classList && k.classList.add('clickable'));
-          kids.forEach(k => {
-            k.addEventListener('click', handler);
-            k.addEventListener('triggerdown', handler);
-          });
-        };
-        bindChildren();
-        this.el.addEventListener('loaded', bindChildren);
+      if (cam && cam.components['look-controls']) {
+        const lc = cam.components['look-controls'];
+        if (lc.yawObject) lc.yawObject.rotation.y = THREE.MathUtils.degToRad(this.data.rotY);
       }
-    });
+      hideAll();
+    };
+
+    // Desktop
+    this.el.addEventListener('click', handler);
+    // VR (Apenas processa se for disparado pelo controller)
+    this.el.addEventListener('triggerdown', handler);
+  }
+});
 
     // Thumbstick locomotion (rig on XZ plane)
     AFRAME.registerComponent('thumbstick-locomotion', {
@@ -486,40 +479,33 @@
     });
 
     // Click-to-action: supports desktop click + VR triggerdown for cards/buttons
-    AFRAME.registerComponent('on-triggerdown', {
-      schema: { action: { type: 'string' }, param: { type: 'string' } },
-      init: function () {
-        this.el.classList.add('clickable');
-        
-        const handler = () => {
-          const action = this.data.action;
-          const param = this.data.param;
-          
-          if (action === 'focusImage' && param) {
-            focusImage(param);
-          } else if (action === 'goToCenter') {
-            goToCenter();
-          }
-        };
+  AFRAME.registerComponent('on-triggerdown', {
+  schema: { action: { type: 'string' }, param: { type: 'string' } },
+  init: function () {
+    this.el.classList.add('clickable');
+    
+    const handler = (evt) => {
+      // Bloqueia execução de "triggerdown" se o mouse clicar no desktop
+      // E garante que ações de VR só funcionem em modo VR
+      const isVR = this.el.sceneEl.is('vr-mode');
+      
+      // Se você quer que o goToCenter NUNCA ocorra no desktop via clique acidental:
+      if (this.data.action === 'goToCenter' && !isVR && evt.type === 'click') return;
 
-        // Desktop
-        this.el.addEventListener('click', handler);
-        // VR (Quest/Wolvic)
-        this.el.addEventListener('triggerdown', handler);
-
-        // Make children clickable too (VR rays often hit inner geometry)
-        const bindChildren = () => {
-          const kids = this.el.querySelectorAll('*');
-          kids.forEach(k => k.classList && k.classList.add('clickable'));
-          kids.forEach(k => {
-            k.addEventListener('click', handler);
-            k.addEventListener('triggerdown', handler);
-          });
-        };
-        bindChildren();
-        this.el.addEventListener('loaded', bindChildren);
+      const action = this.data.action;
+      const param = this.data.param;
+      
+      if (action === 'focusImage' && param) {
+        focusImage(param);
+      } else if (action === 'goToCenter') {
+        goToCenter();
       }
-    });
+    };
+
+    this.el.addEventListener('click', handler);
+    this.el.addEventListener('triggerdown', handler);
+  }
+});
 
     AFRAME.registerComponent('billboard', {
       schema: { onlyY: {type: 'boolean', default: false} },
@@ -594,7 +580,56 @@
         }
       });
     });
+    
+  // Cancel ONLY the click that happens right after a drag-look (desktop)
+  document.addEventListener('DOMContentLoaded', () => {
+    const scene = document.querySelector('a-scene');
+    if (!scene) return;
+
+    scene.addEventListener('loaded', () => {
+      const canvas = scene.canvas;
+      if (!canvas) return;
+
+      let down = false;
+      let moved = false;
+      let sx = 0, sy = 0;
+      let suppressUntil = 0;
+
+      const TH = 8;      // px (mais tolerante pra não matar clique normal)
+      const SUP = 220;   // ms (janela pós-drag para ignorar o "mouseup->click")
+
+      canvas.addEventListener('mousedown', (e) => {
+        down = true;
+        moved = false;
+        sx = e.clientX;
+        sy = e.clientY;
+      }, true);
+
+      window.addEventListener('mousemove', (e) => {
+        if (!down) return;
+        const dx = e.clientX - sx;
+        const dy = e.clientY - sy;
+        if ((dx*dx + dy*dy) > TH*TH) moved = true;
+      }, true);
+
+      window.addEventListener('mouseup', () => {
+        if (down && moved) suppressUntil = performance.now() + SUP;
+        down = false;
+      }, true);
+
+      canvas.addEventListener('click', (e) => {
+        // Só bloqueia o click se ele vier logo depois de um drag real
+        if (performance.now() < suppressUntil) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }
+      }, true);
+    });
+  });
+
+
   </script>
+
 </head>
 
 <body>
@@ -643,7 +678,12 @@
               camera-movement
               vr-floor-lock="targetEyeHeight: 1.6"
               thumbstick-locomotion="speed: 1.35; deadzone: 0.12">
-     <a-entity id="cam" camera look-controls="magicWindowTrackingEnabled: false" position="0 1.6 0" fov="80">
+    <a-entity id="cam"
+  camera
+  look-controls="magicWindowTrackingEnabled: false; pointerLockEnabled: true"
+  position="0 1.6 0"
+  fov="80">
+
         <a-cursor material="color: #00fff7; shader: flat" geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.011"></a-cursor>
       </a-entity>
 
@@ -722,51 +762,32 @@
         </a-entity>
       </a-entity>
 
-      <!-- About section -->
-      <a-entity id="about-image-fixed"
-                position="-9.9 1.5 -0.1"
-                vr-push="dx: -0.6; dz: -0.3"
-                rotation="0 90 0"
-                animation="property: position; to: -9.9 1.6 -0.1; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
-        <a-plane width="4" height="2.6"
-                 material="color: #0b0f12; opacity: 0.62; transparent: true"
-                 position="0 0 0.01"></a-plane>
-        <a-plane width="3.74" height="2.14"
-                 material="shader: flat; color: #00fff7; opacity: 0.08; transparent: true"
-                 position="0 0.1 0.015"></a-plane>
-        <a-plane width="3.6" height="2"
-                 material="shader: flat; color: #000000; opacity: 0.18; transparent: true"
-                 position="0.03 0.07 0.016"></a-plane>
-        <a-plane id="focus-image" width="3.6" height="2" position="0 0.1 0.02"
-                 material="shader: flat; src: #aboutaxlara; opacity: 0.82;"></a-plane>
+    <a-entity id="about-content" position="-9.9 1.6 -0.1" rotation="0 90 0">
+  <a-entity animation="property: position; from: 0 0 0; to: 0 0.2 0; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
+    <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.62; transparent: true"></a-plane>
+    <a-plane width="3.6" height="2" position="0 0 0.02" material="shader: flat; src: #aboutaxlara; opacity: 0.9;"></a-plane>
+    
+    <a-entity position="0 -1.6 0.1" billboard="onlyY: true">
+      <a-text value="ABOUT" align="center" width="4" color="#00fff7" font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
+    </a-entity>
+  </a-entity>
+</a-entity>
 
-        <!-- Beacon circular abaixo do about (BIG hit + hover + triggerdown via teleport-to) - VR-LIFT DOWN -->
-        <a-entity class="clickable"
-                  position="0 -2.5 0"
-                  rotation="-90 0 0"
-                  big-hit="w: 1.6; h: 1.6; d: 0.35"
-                  hover-glow
-                  teleport-to="pos: -3.6 0 -0.8; rotY: 90"
-                  vr-y="dy: -0.50">
-          <a-circle radius="0.8" material="shader: flat; color: #00fff7; opacity: 0.1; transparent: true; side: double"></a-circle>
-          <a-ring radius-inner="0.6" radius-outer="0.65"
-                  material="shader: flat; color: #00fff7; opacity: 0.3; transparent: true; side: double"
-                  animation="property: scale; from: 1 1 1; to: 1.2 1.2 1.2; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
-          </a-ring>
-          <a-ring radius-inner="0.4" radius-outer="0.45"
-                  material="shader: flat; color: #00fff7; opacity: 0.2; transparent: true; side: double"
-                  animation="property: scale; from: 1 1 1; to: 0.9 0.9 1; dur: 2500; dir: alternate; loop: true; easing: easeInOutSine; delay: 500">
-          </a-ring>
-        </a-entity>
+<a-entity class="clickable"
+          id="beacon-about-final"
+          position="-8.5 0.05 -0.1" 
+          rotation="-90 0 0"
+          teleport-to="pos: -7.5 0 -0.1; rotY: 90"
+          hover-glow>
+  
+  <a-box width="2" height="2" depth="0.2" material="transparent: true; opacity: 0" position="0 0 0.5"></a-box>
 
-        <a-entity position="0 -2 0" billboard="onlyY: true">
-          <a-text value="ABOUT" align="center" width="2.2" color="#000000" opacity="0.25"
-                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json    " shader="msdf"
-                  position="0.012 -0.012 -0.001"></a-text>
-          <a-text value="ABOUT" align="center" width="2.2" color="#00fff7" opacity="0.95"
-                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json    " shader="msdf"></a-text>
-        </a-entity>
-      </a-entity>
+  <a-circle radius="0.7" material="shader: flat; color: #00fff7; opacity: 0.3; side: double"></a-circle>
+  <a-ring radius-inner="0.5" radius-outer="0.6" 
+          material="shader: flat; color: #00fff7; opacity: 0.6; side: double"
+          animation="property: scale; from: 1 1 1; to: 1.2 1.2 1; dur: 2000; dir: alternate; loop: true">
+  </a-ring>
+</a-entity>
 
       <!-- CAPSULE -->
       <a-entity id="capsule-stand"
@@ -775,13 +796,13 @@
                 vr-push="dx: -0.2; dz: 0.8"
                 rotation="0 35 0">
         <a-entity position="0 0.50 0" billboard="onlyY: true">
-          <a-plane width="1.75" height="2.15"
+          <a-plane width="1.95" height="2.35"
                    material="shader: flat; src: #capsule; transparent: true; opacity: 0.98">
           </a-plane>
         </a-entity>
       </a-entity>
 
-      <!-- Beacon para galeria (more VR distance + BIG hit + hover) - VR-LIFT DOWN -->
+      <!-- Beacon para galeria  - VR-LIFT DOWN -->
       <a-entity id="beacon-gallery"
                 class="clickable"
                 position="6 0 2.6"
@@ -802,7 +823,7 @@
         <a-text value="EXPLORE WORKS" position="0 0.5 0" align="center" width="2.5" color="#00fff7" billboard="onlyY: true"></a-text>
       </a-entity>
 
-      <!-- Cards (ALL THREE HAVE vr-y="dy: 0.50" + on-triggerdown ADDED) -->
+      <!-- Cards  -->
       <a-entity class="clickable"
                 position="9 1.65 -0.1"
                 vr-push="dx: 0.6; dz: -0.3"
@@ -843,7 +864,7 @@
       </a-entity>
 
       <!-- Center (BIG hit + hover + triggerdown) - VR-LIFT DOWN -->
-      <a-entity id="teleport-back"
+     <a-entity id="teleport-back" 
                 position="0 0 0"
                 vr-ground-offset="y: -0.12"
                 vr-push="dx: 0.7; dz: 0.6"
