@@ -1,2 +1,3 @@
 *.mp4 -filter -diff -merge -text
 imagens/** -filter -diff -merge -text
+*.pem -text
