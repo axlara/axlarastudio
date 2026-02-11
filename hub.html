@@ -5,9 +5,9 @@
   <title>AIVRSE Hub | AI WebXR Experience</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js  "></script>
-  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js  "></script>
-  <script src="https://cdn.jsdelivr.net/npm/aframe-text-component@0.5.0/dist/aframe-text-component.min.js  "></script>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js    "></script>
+  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js    "></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-text-component@0.5.0/dist/aframe-text-component.min.js    "></script>
 
   <style>
     html, body { margin:0; height:100%; background:#000; overflow:hidden; font-family: 'Segoe UI', sans-serif; }
@@ -540,42 +540,6 @@
       }
     });
 
-    AFRAME.registerComponent('intro-autorotate', {
-      init: function () {
-        this.active = true;
-        this.timeoutId = null;
-
-        const stop = () => {
-          this.active = false;
-          if (this.timeoutId) clearTimeout(this.timeoutId);
-        };
-
-        window.addEventListener('mousemove', stop, { once: true });
-        window.addEventListener('mousedown', stop, { once: true });
-        window.addEventListener('keydown', stop, { once: true });
-
-        this.timeoutId = setTimeout(stop, 22000);
-      },
-
-      tick: function (time, delta) {
-        if (!this.active) return;
-
-        const cam = document.getElementById('cam');
-        const lc = cam && cam.components && cam.components['look-controls'];
-        if (!lc || !lc.yawObject) return;
-
-        lc.yawObject.rotation.y += delta * 0.00030;
-      },
-
-      remove: function() {
-        if (this.timeoutId) {
-          clearTimeout(this.timeoutId);
-          this.timeoutId = null;
-        }
-        this.active = false;
-      }
-    });
-
     function focusImage(assetId){
       const imgPlane = document.getElementById('focus-image');
       const focus = document.getElementById('focus-card');
@@ -601,33 +565,11 @@
     function hideSplash(){
       const s = document.getElementById('splash');
       if(s) s.classList.add('splash-hide');
-
-      if (sceneReady) {
-        const rig = document.getElementById('rig');
-        if (rig && !rig.hasAttribute('intro-autorotate')) {
-          rig.setAttribute('intro-autorotate', '');
-          console.log('Autorotate activated');
-        }
-      } else {
-        document.querySelector('a-scene').addEventListener('loaded', () => {
-          const rig = document.getElementById('rig');
-          if (rig && !rig.hasAttribute('intro-autorotate')) {
-            rig.setAttribute('intro-autorotate', '');
-            console.log('Autorotate activated (delayed)');
-          }
-        });
-      }
     }
 
     function showSplash(){
       const s = document.getElementById('splash');
       if(s) s.classList.remove('splash-hide');
-
-      const rig = document.getElementById('rig');
-      if (rig && rig.hasAttribute('intro-autorotate')) {
-        rig.removeAttribute('intro-autorotate');
-        console.log('Autorotate deactivated');
-      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -701,7 +643,7 @@
               camera-movement
               vr-floor-lock="targetEyeHeight: 1.6"
               thumbstick-locomotion="speed: 1.35; deadzone: 0.12">
-      <a-entity id="cam" camera look-controls position="0 1.6 0" fov="80">
+     <a-entity id="cam" camera look-controls="magicWindowTrackingEnabled: false" position="0 1.6 0" fov="80">
         <a-cursor material="color: #00fff7; shader: flat" geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.011"></a-cursor>
       </a-entity>
 
@@ -737,9 +679,9 @@
                 vr-exit
                 big-hit="w: 1.1; h: 0.55; d: 0.25"
                 hover-glow
-                position="3 0 -4"
+                position="3.9 0 -3.7"
                 billboard="onlyY: true"
-                vr-y="dy: 0.20">
+                vr-y="dy: 0.50">
         <a-plane width="0.85" height="0.30"
                  material="shader: flat; color: #00161a; opacity: 0.78; transparent: true"></a-plane>
         <a-plane width="0.85" height="0.30"
@@ -747,7 +689,7 @@
                  position="0 0 0.001"></a-plane>
         <a-text value="EXIT" align="center" width="2.8"
                 color="#00fff7"
-                font="https://cdn.aframe.io/fonts/Roboto-msdf.json  "
+                font="https://cdn.aframe.io/fonts/Roboto-msdf.json    "
                 shader="msdf"
                 position="0 0 0.01"></a-text>
       </a-entity>
@@ -763,29 +705,29 @@
         <a-entity position="0 -0.70 0.05" billboard="onlyY: true">
           <a-text value="Welcome to the AIVRSE Spatial Gallery"
                   align="center" width="5.6" color="#000000"
-                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json  " shader="msdf"
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json    " shader="msdf"
                   opacity="0.28" position="0.018 -0.018 -0.001"></a-text>
 
           <a-text value="Welcome to the AIVRSE Spatial Gallery"
                   align="center" width="5.6" color="#086171"
-                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json  " shader="msdf"
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json    " shader="msdf"
                   opacity="0.92"></a-text>
         </a-entity>
 
         <a-entity position="0 -1.15 0.05" billboard="onlyY: true">
           <a-text value="Where immersive dreams take shape, light, and presence"
                   align="center" width="4.6" color="#E8FFFF"
-                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json  " shader="msdf"
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json    " shader="msdf"
                   opacity="0.92" lineHeight="58" wrapCount="42"></a-text>
         </a-entity>
       </a-entity>
 
       <!-- About section -->
       <a-entity id="about-image-fixed"
-                position="-7.5 1.5 -0.2"
+                position="-9.9 1.5 -0.1"
                 vr-push="dx: -0.6; dz: -0.3"
                 rotation="0 90 0"
-                animation="property: position; to: -7.5 1.6 -0.2; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
+                animation="property: position; to: -9.9 1.6 -0.1; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine">
         <a-plane width="4" height="2.6"
                  material="color: #0b0f12; opacity: 0.62; transparent: true"
                  position="0 0 0.01"></a-plane>
@@ -819,20 +761,20 @@
 
         <a-entity position="0 -2 0" billboard="onlyY: true">
           <a-text value="ABOUT" align="center" width="2.2" color="#000000" opacity="0.25"
-                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json  " shader="msdf"
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json    " shader="msdf"
                   position="0.012 -0.012 -0.001"></a-text>
           <a-text value="ABOUT" align="center" width="2.2" color="#00fff7" opacity="0.95"
-                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json  " shader="msdf"></a-text>
+                  font="https://cdn.aframe.io/fonts/Roboto-msdf.json    " shader="msdf"></a-text>
         </a-entity>
       </a-entity>
 
       <!-- CAPSULE -->
       <a-entity id="capsule-stand"
                 position="-1.8 0 4"
-                vr-ground-offset="y: -0.20"
+                vr-ground-offset="y: -0.60"
                 vr-push="dx: -0.2; dz: 0.8"
                 rotation="0 35 0">
-        <a-entity position="0 0.72 0" billboard="onlyY: true">
+        <a-entity position="0 0.50 0" billboard="onlyY: true">
           <a-plane width="1.75" height="2.15"
                    material="shader: flat; src: #capsule; transparent: true; opacity: 0.98">
           </a-plane>
@@ -862,11 +804,11 @@
 
       <!-- Cards (ALL THREE HAVE vr-y="dy: 0.50" + on-triggerdown ADDED) -->
       <a-entity class="clickable"
-                position="6.5 1.65 -0.5"
+                position="9 1.65 -0.1"
                 vr-push="dx: 0.6; dz: -0.3"
                 look-at="#cam"
                 on-triggerdown="action: focusImage; param: g1"
-                animation="property: position; to: 6.5 1.72 -0.5; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine"
+                animation="property: position; to: 9 1.72 -0.1; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine"
                 vr-y="dy: 0.50">
         <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
         <a-plane width="3.6" height="2" position="0 0.1 0.02"
@@ -875,11 +817,11 @@
       </a-entity>
 
       <a-entity class="clickable"
-                position="9.7 1.65 4.4"
+                position="9.9 1.65 4.4"
                 vr-push="dx: 0.7; dz: 0.5"
                 look-at="#cam"
                 on-triggerdown="action: focusImage; param: g2"
-                animation="property: position; to: 9.7 1.58 4.4; dur: 3500; dir: alternate; loop: true; easing: easeInOutSine"
+                animation="property: position; to: 9.9 1.58 4.4; dur: 3500; dir: alternate; loop: true; easing: easeInOutSine"
                 vr-y="dy: 0.50">
         <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
         <a-plane width="3.6" height="2" position="0 0.1 0.02"
@@ -888,11 +830,11 @@
       </a-entity>
 
       <a-entity class="clickable"
-                position="9.9 1.65 8.5"
+                position="9.7 1.65 9.9"
                 vr-push="dx: 0.7; dz: 0.6"
                 look-at="#cam"
                 on-triggerdown="action: focusImage; param: g3"
-                animation="property: position; to: 9.7 1.70 8.5; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine"
+                animation="property: position; to: 9.7 1.70 9.9; dur: 4000; dir: alternate; loop: true; easing: easeInOutSine"
                 vr-y="dy: 0.50">
         <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
         <a-plane width="3.6" height="2" position="0 0.1 0.02"
