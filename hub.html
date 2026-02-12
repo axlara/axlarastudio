@@ -721,8 +721,8 @@
                 hover-glow
                 position="3.7 0 -3.7"
                 billboard="onlyY: true"
-                vr-y="dy: 0.65">
-        <a-plane width="0.85" height="0.30"
+                vr-y="dy: 1.35">
+        <a-plane width="1.15" height="0.30"
                  material="shader: flat; color: #00161a; opacity: 0.78; transparent: true"></a-plane>
         <a-plane width="0.85" height="0.30"
                  material="shader: flat; color: #00fff7; opacity: 0.10; transparent: true"
@@ -762,49 +762,37 @@
         </a-entity>
       </a-entity>
     <!-- about section -->
-   <a-entity id="about-section-container" 
-          position="-9.9 1.65 -0.1" 
+<a-entity id="about-panel"
+          position="-9.9 1.65 -0.1"
           rotation="0 90 0"
-          vr-y="dy: 0.50">
-
-  <a-entity id="about-content"
-            animation="property: position; to: 0 0.07 0; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
-    
-    <a-plane width="4" height="2.6" 
-             material="color: #0b0f12; opacity: 0.75; transparent: true" 
-             position="0 0 0.01"></a-plane>
-    
-    <a-plane width="3.6" height="2" position="0 0.1 0.02"
-             material="shader: flat; src: #aboutaxlara; opacity: 0.95; transparent: true"></a-plane>
-    
-    <a-text value="ABOUT" align="center" position="0 -1.1 0.03" 
-            width="3" color="#00fff7" billboard="onlyY: true"></a-text>
-  </a-entity>
-
-  <a-entity class="clickable"
-            id="about-teleport-beacon"
-            position="0 -1.6 0.6" 
-            teleport-to="pos: -7.5 0 -0.1; rotY: 90"
-            hover-glow>
-    
-    <a-box width="3.5" height="3" depth="1.5" 
-           position="0 1.5 -0.3"
-           material="transparent: true; opacity: 0"
-           visible="false">
-    </a-box>
-
-    <a-entity rotation="-90 0 0">
-      <a-circle radius="0.60" material="shader: flat; color: #00fff7; opacity: 0.2; transparent: true; depthTest: false; side: double"></a-circle>
-      <a-ring radius-inner="0.35" radius-outer="0.40"
-              material="shader: flat; color: #00fff7; opacity: 0.5; transparent: true; depthTest: false; side: double"
-              animation="property: scale; from: 1 1 1; to: 1.15 1.15 1.15; dur: 2000; dir: alternate; loop: true"></a-ring>
-    </a-entity>
-  </a-entity>
-
+          vr-y="dy: 0.50"
+          animation="property: position; to: -9.9 1.72 -0.1; dur: 3000; dir: alternate; loop: true; easing: easeInOutSine">
+  
+  <a-plane width="4" height="2.6" material="color: #0b0f12; opacity: 0.75; transparent: true" position="0 0 0.01"></a-plane>
+  <a-plane width="3.6" height="2" position="0 0.1 0.02"
+           material="shader: flat; src: #aboutaxlara; transparent: true; opacity: 0.95"></a-plane>
+  <a-text value="ABOUT" align="center" position="0 -1.7 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
 </a-entity>
- 
 
+<a-entity id="about-teleport-trigger"
+          class="clickable"
+          position="-8.5 0 0" 
+          vr-y="dy: -0.40"
+          teleport-to="pos: -7.5 0 -0.1; rotY: 90"
+          hover-glow>
 
+  <a-box width="6" height="5" depth="1" 
+         position="-1 2 0"
+         material="transparent: true; opacity: 0"
+         visible="false"></a-box>
+
+  <a-entity rotation="-90 0 0" position="0 0.02 0">
+    <a-circle radius="0.60" material="shader: flat; color: #00fff7; opacity: 0.2; transparent: true; depthTest: false"></a-circle>
+    <a-ring radius-inner="0.35" radius-outer="0.40"
+            material="shader: flat; color: #00fff7; opacity: 0.5; transparent: true; depthTest: false"
+            animation="property: scale; from: 1 1 1; to: 1.15 1.15 1.15; dur: 2000; dir: alternate; loop: true"></a-ring>
+  </a-entity>
+</a-entity>
       <!-- CAPSULE -->
       <a-entity id="capsule-stand"
                 position="-1.8 0 4"
@@ -812,7 +800,7 @@
                 vr-push="dx: -0.2; dz: 0.8"
                 rotation="0 35 0">
         <a-entity position="0 0.50 0" billboard="onlyY: true">
-          <a-plane width="1.95" height="2.35"
+          <a-plane width="2.25" height="2.9"
                    material="shader: flat; src: #capsule; transparent: true; opacity: 0.98">
           </a-plane>
         </a-entity>
