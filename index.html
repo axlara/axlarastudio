@@ -1171,14 +1171,14 @@ padding: 8px;
 .menu-toggle span{
 margin-left: -70px;
 }
-/* === REPOSICIONAR LOGO DA HERO EM MOBILE === */
+
 .hero {
 flex-direction: column;
 align-items: center;
 justify-content: flex-start;
 padding: 5rem 1rem 1.5rem;
 }
-/* Esconde a logo da hero na posição original */
+
 .hero .hero-logo {
 display: none;
 }
@@ -1193,11 +1193,11 @@ text-overflow: ellipsis;
 line-height: 1.2;
 margin-top: 20px;
 }
-/* 4. REMOVER LINHA PRETA ENTRE HERO E AI SECTION */
+
 .ai-section::before {
 display: none;
 }
-/* Ajuste fino no subtitle e byline */
+
 .hero h2 {
 font-size: var(--text-md);
 max-width: 100%;
@@ -1208,7 +1208,7 @@ line-height: 1.4;
 font-size: 0.85rem;
 margin-top: 0.3rem;
 }
-/* Garantir que o container do hero não empurre conteúdo */
+
 .hero-container {
 text-align: center;
 }
@@ -1364,7 +1364,7 @@ font-size: var(--text-sm);
 <div class="hero-container">
 <div class="hero-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></div>
 <h1>Architect of Xperience</h1>
-<h2>Creative Technologist designing spatial and immersive systems with AI & XR</h2>
+<h2>Creative Technologist & XR Designer creating AI-driven, real-time experiences</h2>
 <p class="byline">by Lara E. Negreiros</p>
 </div>
 <div class="hero-image">
@@ -1379,8 +1379,7 @@ font-size: var(--text-sm);
 <!-- Título flutuante sobre o hub -->
 <div class="hub-overlay-text">
 <h2 class="hub-title">
-<!-- <span class="hub-main">AIVRSE HUB</span>
-<span class="hub-sub">Spatial Gallery & Immersive Portfolio</span> -->
+
 </h2>
 </div>
 <!-- Iframe do hub -->
@@ -1393,62 +1392,11 @@ font-size: var(--text-sm);
 </iframe>
 </div>
 </section>
-<!-- AI CREATIVE -->
-<!-- <section class="ai-section" id="ai">
-<div class="section-overlay-film">
-<div class="film-backdrop"></div>
-<div class="main-category">AI CREATIVE</div>
-<div class="description">AI-assisted concept design</div>
-</div>
-<div class="ai-grid-midjourney">
-<div class="ai-grid-item" data-modal="urban">
-<img src="/imagens/axlara_urban_mixed-use_residential_complex_.png" alt="Urban Complex Mixed-Use" loading="lazy">
-<div class="ai-grid-overlay">
-<div class="ai-grid-title">Urban Complex Mixed-Use</div>
-<div class="ai-grid-category">Architecture / Urban AI</div>
-</div>
-</div>
-<div class="ai-grid-item" data-modal="coastal">
-<img src="/imagens/axlara_ground-level_pedestrian_view_inside_the_SAME_coastal_.png" alt="Coastal Residential Masterplan" loading="lazy">
-<div class="ai-grid-overlay">
-<div class="ai-grid-title">Coastal Residential</div>
-<div class="ai-grid-category">Architecture / Real Estate</div>
-</div>
-</div>
-<div class="ai-grid-item" data-modal="aerial">
-<img src="/imagens/axlara_top-down_aerial_drone_view_of_the_SAME_coastal_residenti.png" alt="Aerial Coastal View" loading="lazy">
-<div class="ai-grid-overlay">
-<div class="ai-grid-title">Aerial Masterplan View</div>
-<div class="ai-grid-category">Architecture / Urban AI</div>
-</div>
-</div>
-<div class="ai-grid-item" data-modal="lumen">
-<img src="/imagens/lumen_.png" alt="Lumen" loading="lazy">
-<div class="ai-grid-overlay">
-<div class="ai-grid-title">Lumen</div>
-<div class="ai-grid-category">Product / Brand AI</div>
-</div>
-</div>
-<div class="ai-grid-item" data-modal="lumen2">
-<img src="/imagens/lumen2.png" alt="Lumen Variation 2" loading="lazy">
-<div class="ai-grid-overlay">
-<div class="ai-grid-title">Lumen Series</div>
-<div class="ai-grid-category">Product / Brand AI</div>
-</div>
-</div>
-<div class="ai-grid-item" data-modal="lumen3">
-<img src="/imagens/lumen3.png" alt="Lumen Variation 3" loading="lazy">
-<div class="ai-grid-overlay">
-<div class="ai-grid-title">Lumen Exploration</div>
-<div class="ai-grid-category">Product / Brand AI</div>
-</div>
-</div>
-</div>
-</section> -->
+
 <!-- ABOUT -->
 <section class="about" id="about">
 <div class="about-container"><h3 class="about-lead">
-I craft spatial narratives through technology, design and human perception.
+I craft spatial narratives through interactive technologies, design and human perception.
 </h3>
 <div class="gradient-mask" id="about-content">
 <p>
@@ -1663,13 +1611,13 @@ if (!aiModal) return;
 modalTitle.textContent = data.title;
 modalCategory.textContent = data.category;
 modalDescription.textContent = data.description;
-// Mostrar galeria com 3 itens (pode ser vídeo ou imagem)
+
 if (modalGallery) {
 modalGallery.innerHTML = '';
 // Limita a 3 itens
 const itemsToShow = data.gallery.slice(0, 3);
 itemsToShow.forEach(itemSrc => {
-// Verifica se é vídeo (termina com .mp4)
+
 if (itemSrc.endsWith('.mp4')) {
 const video = document.createElement('video');
 video.src = itemSrc;
@@ -1716,7 +1664,7 @@ document.body.style.overflow = 'auto';
 // Funções de tradução placeholder (substitua com implementação real se necessário)
 function translateTo(lang) {
 console.log(`Traduzir para: ${lang}`);
-// Implemente aqui sua lógica de tradução ou integração com Google Translate
+
 }
 </script>
 </body>

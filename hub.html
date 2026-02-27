@@ -55,6 +55,12 @@
       position:absolute; inset:0;
       background: radial-gradient(ellipse at center, rgba(0,0,0,0.25), rgba(0,0,0,0.86));
     }
+    .splash-sub2 {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.95em;
+  opacity: 0.8;
+}
     .splash-card{
       position: relative;
       width: min(920px, 88vw);
@@ -80,13 +86,15 @@
       margin: 0 0 10px;
       font-weight: 700;
     }
-    .splash-sub{
-      margin: 0 0 18px;
-      font-size: 15px;
-      line-height: 1.45;
-      color: rgba(232,255,255,0.86);
-      max-width: 58ch;
-    }
+ .splash-sub{
+  display: block;
+  width: 100%;
+  max-width: 100% !important;   
+  margin: 0.9rem 0 1.1rem;      
+  white-space: normal;
+  text-align: left;             
+  line-height: 1.55;
+}
     .splash-actions{
       display:flex;
       gap:10px;
@@ -485,11 +493,10 @@
     this.el.classList.add('clickable');
     
     const handler = (evt) => {
-      // Bloqueia execução de "triggerdown" se o mouse clicar no desktop
-      // E garante que ações de VR só funcionem em modo VR
+      
       const isVR = this.el.sceneEl.is('vr-mode');
       
-      // Se você quer que o goToCenter NUNCA ocorra no desktop via clique acidental:
+
       if (this.data.action === 'goToCenter' && !isVR && evt.type === 'click') return;
 
       const action = this.data.action;
@@ -581,7 +588,7 @@
       });
     });
     
-  // Cancel ONLY the click that happens right after a drag-look (desktop)
+ 
   document.addEventListener('DOMContentLoaded', () => {
     const scene = document.querySelector('a-scene');
     if (!scene) return;
@@ -595,8 +602,8 @@
       let sx = 0, sy = 0;
       let suppressUntil = 0;
 
-      const TH = 8;      // px (mais tolerante pra não matar clique normal)
-      const SUP = 220;   // ms (janela pós-drag para ignorar o "mouseup->click")
+      const TH = 8;      
+      const SUP = 220;   
 
       canvas.addEventListener('mousedown', (e) => {
         down = true;
@@ -618,7 +625,7 @@
       }, true);
 
       canvas.addEventListener('click', (e) => {
-        // Só bloqueia o click se ele vier logo depois de um drag real
+        
         if (performance.now() < suppressUntil) {
           e.preventDefault();
           e.stopImmediatePropagation();
@@ -634,19 +641,35 @@
 
 <body>
   <!-- SPLASH SCREEN -->
-  <div id="splash" class="splash">
-    <div class="splash-card splash-card--compact">
-      <div class="splash-kicker">LIVE PROJECT</div>
-      <h1 class="splash-title">Interactive Spatial Experience</h1>
-      <p class="splash-sub">Explore this project in a live 3D environment</p>
-      <div class="splash-actions">
-        <button class="splash-btn splash-btn--pulse" id="enterBtn">Enter Experience</button>
-        <div class="splash-hint">WebXR • In-browser • No install</div>
-      </div>
-      <div class="splash-clickhint">Click "Enter" or press Enter</div>
-    </div>
-  </div>
+<div id="splash" class="splash">
+  <div class="splash-card splash-card--compact">
 
+    <div class="splash-kicker">LIVE XR CASE</div>
+
+   <h1 class="splash-title">Aivrse Hub</h1>
+<p class="splash-sub">
+  A web-based XR prototype for digital lobbies, onboarding spaces and interactive brand hubs.
+  <br>
+  <br>
+  Built using WebXR (A-Frame), 3D workflows and AI-assisted environment generation, with a focus on lightweight deployment and intuitive 
+  spatial interaction.
+</p>
+    <div class="splash-actions">
+      <button class="splash-btn splash-btn--pulse" id="enterBtn">
+        Enter Experience
+      </button>
+
+      <div class="splash-hint">
+        Web-based · Real-time · no install required
+      </div>
+    </div>
+
+    <div class="splash-clickhint">
+      Click "Enter" or press Enter
+    </div>
+
+  </div>
+</div>
   <!-- DESKTOP UI (unchanged) -->
   <div class="topbar">
     <div style="font-weight: bold; color: #00fff7; border-right: 1px solid rgba(255,255,255,0.2); padding-right: 12px; margin-right: 4px;">AIVRSE</div>
@@ -709,7 +732,6 @@
       <a-entity light="type: ambient; intensity: 1.3;"></a-entity>
       <a-entity light="type: directional; intensity: 0.8; position: 5 10 5"></a-entity>
 
-      <!-- VR-LIFT CONTROLLER (NEW ENTITY) - Controls Y-lift for specific elements in VR -->
       <a-entity id="vr-lift" vr-y="dy: 0.50"></a-entity>
 
       <!-- VR-only Exit Beacon (BIG hit + hover + triggerdown via vr-exit) -->
@@ -719,7 +741,7 @@
                 vr-exit
                 big-hit="w: 1.1; h: 0.55; d: 0.25"
                 hover-glow
-                position="3.7 0 -3.7"
+                position="3.70, 0 -3.7"
                 billboard="onlyY: true"
                 vr-y="dy: 1.35">
         <a-plane width="1.15" height="0.30"
@@ -867,7 +889,6 @@
         <a-text value="SPATIAL / ARCHITECTURE 360°" align="center" position="0 -1.1 0.03" width="3" color="#00fff7" billboard="onlyY: true"></a-text>
       </a-entity>
 
-      <!-- Center (BIG hit + hover + triggerdown) - VR-LIFT DOWN -->
      <a-entity id="teleport-back" 
                 position="0 0 0"
                 vr-ground-offset="y: -0.12"
