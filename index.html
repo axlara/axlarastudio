@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AX-LARA - Home</title>
+<title>AXLARA</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
 --text-md: 1.05rem;
 --text-sm: 0.95rem;
 --text-xs: 0.45rem;
---text-ss: 0.85rem; /* CORRIGIDO: variável faltando */
+--text-ss: 0.85rem; 
 --text-primary: #ffffff;
 --text-secondary: rgba(255, 255, 255, 0.9);
 --text-tertiary: rgba(255, 255, 255, 0.7);
@@ -286,7 +286,7 @@ text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 .hero .byline {
 font-family: var(--font-body);
-font-size: var(--text-ss); /* CORRIGIDO: agora a variável existe */
+font-size: var(--text-ss); 
 color: #ccc;
 margin-top: 0.5rem;
 text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
@@ -611,7 +611,7 @@ z-index: 10;
 }
 .ai-section::before { top: 0; }
 .ai-section::after { bottom: 0; }
-/* Grid estilo Midjourney - cards grandes colados */
+
 .ai-grid-midjourney {
 display: grid;
 grid-template-columns: repeat(3, 1fr);
@@ -927,7 +927,7 @@ backdrop-filter: blur(0px);
 z-index: 1;
 pointer-events: none;
 }
-/* Projects grid original (para XR) – REMOVIDO, substituído por vídeo */
+
 /* CTA Work */
 .curriculum-cta {
 background: linear-gradient(180deg, #050505 0%, #0a0a0a 50%, #050505 100%);
@@ -1147,7 +1147,7 @@ height: 180px;
 width: 120px;
 }
 }
-/* Animação sutil (opcional) */
+
 @keyframes vr-pulse {
 0%, 100% { opacity: 0.7; }
 50% { opacity: 0.8; }
@@ -1156,7 +1156,7 @@ width: 120px;
 animation: vr-pulse 4s ease-in-out infinite;
 }
 @media (max-width: 480px) {
-/* 1. REPOSICIONAR BANDEIRINHAS PARA NÃO SOBREPOR HAMBURGER */
+
 .language-bar {
 right: 15px;
 top: 18px;
@@ -1423,15 +1423,14 @@ Today, I design immersive and visually driven experiences that merge spatial thi
 <div class="curriculum-content">
 <a href="portproj.html" class="curriculum-button">View Full Portfolio</a>
 <p>
-Explore a curated selection of visual concepts, immersive experiences and spatial projects,
-combining AI, XR and design as tools for perception, presence and storytelling.
+Explore immersive projects, concepts & technical background.
 </p>
 </div>
 </section>
 <!-- FOOTER -->
 <footer id="contact">
 <div class="footer-content">
-<p>Available for collaborative projects and on-demand experiences</p>
+<p>Available for immersive XR projects and studio collaborations</p>
 <p>Contact me: <a href="mailto:studio.axlara@gmail.com" class="contact-link">studio.axlara@gmail.com</a></p>
 <div class="social-links">
 <a href="https://www.linkedin.com/in/laranegreiros" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
@@ -1661,7 +1660,7 @@ aiModal.style.display = 'none';
 document.body.style.overflow = 'auto';
 }
 });
-// Funções de tradução placeholder (substitua com implementação real se necessário)
+// Funções de tradução placeholder 
 function translateTo(lang) {
 console.log(`Traduzir para: ${lang}`);
 
