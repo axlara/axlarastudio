@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8" />
     <title>REMEMBER</title>
-    <!-- Font Awesome para ícones sociais -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
     :root {
@@ -12,562 +11,405 @@
         --primary-light: #abddec;
         --primary-dark: #73afc2;
         --secondary: #246c81;
-        --secondary-dark: #b8e3eb;
-        --dark: #0a1929;
         --dark-gray: #97aebe;
         --medium-gray: #5e6b79;
-        --light-gray: #e3f2fd;
         --text-light: #1a1a1a;
         --text-medium: #333333;
-        --text-dark: #b0bec5;
-        --white: #FFFFFF;
         --overlay: rgba(24, 24, 24, 0.05);
     }
-
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-   body {
-    margin: 0;
-    padding: 0;
-    background: url('imagens/bg_clouds.jpg') center center / cover no-repeat fixed;
-    min-height: 100vh;
-    min-height: 100dvh;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    color: var(--text-light);
-    line-height: 1.6;
-    position: relative;
-    overflow-x: hidden;
-    width: 100%;
-}
-
-/* Overlay */
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: var(--overlay);
-    z-index: -1;
-    pointer-events: none;
-}
-
-    @keyframes subtlePan {
-        0% { background-position: 0% center; }
-        50% { background-position: 5% center ;}
-        100% { background-position: 0% center; }
-    }
-
-    @keyframes metallic-shine {
-        0%, 100% {
-            background-position: 0% center;
-        }
-        50% {
-            background-position: 100% center;
-        }
-    }
-
- @media (min-width: 769px) {
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-        animation: subtlePan 10s alternate infinite;
-        background-size: 200% auto;
+        background: url('imagens/bg_clouds.jpg') center center / cover no-repeat fixed;
+        min-height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        color: var(--text-light);
+        line-height: 1.6;
+        overflow-x: hidden;
     }
-}
-
-    /* === CORREÇÃO MOBILE: Background fixo e sem animação === */
-    @media (max-width: 768px) {
-        body {
-            background-attachment: fixed; /* Mantém fixo no mobile */
-            background-size: cover; /* Cobre toda a tela */
-            background-position: center center; /* Centraliza */
-           animation: subtlePan 7s alternate infinite;
-            background-size: cover !important; /* Força cover no mobile */
-        }
-    }
-.remember-bg {
-    display: none;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-
-    /* Ativa a camada */
-    .remember-bg {
-        display: block;
+    body::before {
+        content: '';
         position: fixed;
         inset: 0;
-        background: url('imagens/bg_clouds.jpg') center center / cover no-repeat;
-        z-index: -2;
-    }
-
-    /* Desliga background problemático do body */
-    body {
-        background: none !important;
-        animation: none !important;
-    }
-
-    body::before {
+        background: var(--overlay);
         z-index: -1;
+        pointer-events: none;
     }
-}
+    @keyframes subtlePan {
+        0% { background-position: 0% center; }
+        50% { background-position: 5% center; }
+        100% { background-position: 0% center; }
+    }
+    @keyframes metallic-shine {
+        0%, 100% { background-position: 0% center; }
+        50% { background-position: 100% center; }
+    }
+    @media (min-width: 769px) {
+        body { animation: subtlePan 10s alternate infinite; background-size: 200% auto; }
+    }
+    .remember-bg { display: none; }
+    @media (max-width: 768px) {
+        .remember-bg {
+            display: block;
+            position: fixed;
+            inset: 0;
+            background: url('imagens/bg_clouds.jpg') center center / cover no-repeat;
+            z-index: -2;
+        }
+        body { background: none !important; animation: none !important; }
+    }
+
+    /* LAYOUT */
     .remember-section {
-        padding: 100px 20px 80px;
+        padding: 80px 20px 80px;
         max-width: 1000px;
         margin: 0 auto;
         width: 100%;
     }
 
-    .container {
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
+    /* HERO */
     .section-title {
         font-size: 4rem;
         font-weight: 800;
         text-align: center;
-        margin-bottom: 1rem;
-        background: linear-gradient(135deg,
-            #ffffff 0%,
-            #f8f9fa 15%,
-            #e9ecef 30%,
-            #dae0e5 50%,
-            #e9ecef 70%,
-            #f8f9fa 85%,
-            #ffffff 100%
-        );
+        margin-bottom: 0.8rem;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 15%, #e9ecef 30%, #dae0e5 50%, #e9ecef 70%, #f8f9fa 85%, #ffffff 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
         letter-spacing: 2px;
         text-transform: uppercase;
-        position: relative;
         background-size: 200% auto;
-        
-        text-shadow: 
-            0 1px 0px rgba(255, 255, 255, 0.9),
-            0 2px 1px rgba(255, 255, 255, 0.8),
-            0 0 8px rgba(255, 255, 255, 0.6),
-            0 0 15px rgba(255, 255, 255, 0.4),
-            0 3px 3px rgba(0, 0, 0, 0.1),
-            0 6px 6px rgba(0, 0, 0, 0.562);
-        
+        text-shadow: 0 1px 0px rgba(255,255,255,0.9), 0 0 8px rgba(255,255,255,0.6), 0 6px 6px rgba(0,0,0,0.562);
         animation: metallic-shine 4s ease-in-out infinite;
     }
-
-    .section-title::after {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(135deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.1) 50%,
-            transparent 100%
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        z-index: -1;
-        opacity: 0.7;
-    }
-
     .section-subtitle {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         text-align: center;
-        color: var(--text-medium); 
-        margin-bottom: 70px;
+        color: var(--text-medium);
+        margin-bottom: 50px;
         font-weight: 400;
         letter-spacing: 1px;
         line-height: 1.6;
-        text-shadow: 
-            0 1px 2px rgba(255, 255, 255, 0.336),   
-            0 2px 4px rgba(0, 0, 0, 0.315);          
+        text-shadow: 0 1px 2px rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.3);
     }
 
-    .remember-intro,
+    /* MEMORIES LIVE FEATURE */
+    .memories-feature {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 16px;
+        border: 1px solid rgba(140, 248, 243, 0.15);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+    .memories-feature-inner {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+    }
+    .memories-video-side { background: #000; }
+    .memories-video-wrap {
+        position: relative;
+        padding-bottom: 75%;
+        height: 0;
+        overflow: hidden;
+    }
+    .memories-video-wrap iframe {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        border: none;
+    }
+    .memories-text-side {
+        padding: 2.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+    }
+    .memories-eyebrow {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--secondary);
+        font-weight: 600;
+        opacity: 0.8;
+    }
+    .memories-title {
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: var(--secondary);
+        line-height: 1.1;
+        letter-spacing: 1px;
+    }
+    .memories-desc {
+        font-size: 0.95rem;
+        color: var(--text-medium);
+        line-height: 1.75;
+    }
+    .memories-desc strong { color: var(--secondary); font-weight: 600; }
+    .memories-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+    .mbadge {
+        font-size: 0.62rem;
+        padding: 0.25rem 0.7rem;
+        border-radius: 20px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: rgba(36,108,129,0.1);
+        color: var(--secondary);
+        border: 1px solid rgba(36,108,129,0.25);
+    }
+    .memories-cta {
+        display: inline-block;
+        padding: 10px 22px;
+        background: linear-gradient(135deg, var(--secondary), var(--primary-dark));
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        width: fit-content;
+        box-shadow: 0 4px 15px rgba(36,108,129,0.3);
+    }
+    .memories-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(36,108,129,0.45);
+    }
+
+    /* RESEARCH TOGGLE */
+    .research-toggle {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .research-toggle-btn {
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(36,108,129,0.2);
+        border-radius: 30px;
+        padding: 10px 28px;
+        font-size: 0.85rem;
+        color: var(--secondary);
+        font-weight: 600;
+        cursor: pointer;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .research-toggle-btn:hover {
+        background: rgba(255,255,255,0.35);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .research-toggle-btn .arrow {
+        display: inline-block;
+        transition: transform 0.3s ease;
+        font-size: 0.75rem;
+    }
+    .research-content {
+        display: none;
+        animation: fadeIn 0.4s ease;
+    }
+    .research-content.visible { display: block; }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESEARCH BLOCKS */
     .remember-block {
-        background: rgba(255, 255, 255, 0.295); 
+        background: rgba(255, 255, 255, 0.295);
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
         border-radius: 16px;
-        padding: 45px;
-        margin-bottom: 35px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); 
-        border: 1px solid rgba(140, 248, 243, 0.1);
-        position: relative;
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        padding: 40px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        border: 1px solid rgba(140,248,243,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
         color: var(--text-medium);
     }
-
-    .remember-intro:hover,
     .remember-block:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+        background: rgba(255,255,255,0.95);
     }
-
-    .remember-intro {
-        border-left: 5px solid var(--secondary);
-    }
-
-    .remember-intro p,
     .remember-block p {
-        margin-bottom: 22px;
-        font-size: 1.15rem;
+        margin-bottom: 18px;
+        font-size: 1rem;
         line-height: 1.8;
-        color: var(--text-medium);
     }
-
-    .remember-intro p:first-of-type {
-        color: var(--secondary);
-        font-weight: 600;
-    }
-
+    .remember-block p:last-child { margin-bottom: 0; }
     .remember-title {
-        font-size: 1.9rem;
+        font-size: 1.5rem;
         color: var(--secondary);
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         font-weight: 700;
         position: relative;
-        padding-bottom: 15px;
+        padding-bottom: 12px;
     }
-
     .remember-title::after {
         content: '';
         position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 60px;
-        height: 3px;
+        bottom: 0; left: 0;
+        width: 60px; height: 3px;
         background: linear-gradient(to right, var(--secondary), var(--primary));
         border-radius: 1.5px;
     }
-
     .remember-list {
         list-style: none;
-        margin: 30px 0;
+        margin: 20px 0;
         padding: 0;
     }
-
     .remember-list li {
-        padding: 16px 0 16px 35px;
+        padding: 14px 0 14px 32px;
         position: relative;
-        color: var(--text-medium);
-        font-size: 1.1rem;
-        border-bottom: 1px solid rgba(140, 248, 243, 0.1);
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(140,248,243,0.1);
         transition: all 0.3s ease;
     }
-
-    .remember-list li:last-child {
-        border-bottom: none;
-    }
-
+    .remember-list li:last-child { border-bottom: none; }
     .remember-list li::before {
         content: '→';
         position: absolute;
         left: 0;
         color: var(--secondary);
-        font-size: 1.2rem;
         font-weight: bold;
     }
+    .remember-list li:hover { color: var(--secondary); padding-left: 37px; }
 
-    .remember-list li:hover {
-        color: var(--secondary);
-        padding-left: 40px;
-        background-color: rgba(140, 248, 243, 0.05);
-    }
-
-    .remember-list li:hover::before {
-        transform: translateX(3px);
-        color: var(--primary-light);
-    }
-
-    .remember-quote {
-        background: rgba(17, 112, 141, 0.08);
-        border-left: 5px solid var(--secondary);
-        padding: 30px;
-        margin: 35px 0;
-        border-radius: 12px;
-        font-style: italic;
-        font-size: 1.3rem;
-        color: var(--text-light);
-        line-height: 1.6;
-        position: relative;
-        font-weight: 500;
-    }
-
-    .remember-quote::before {
-        content: '"';
-        position: absolute;
-        top: 10px;
-        left: 20px;
-        font-size: 4rem;
-        color: rgba(140, 248, 243, 0.15);
-        font-family: Georgia, serif;
-    }
-
-    .remember-highlight {
-        background: rgba(17, 112, 141, 0.1);
-        border: 2px solid var(--secondary);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .remember-highlight::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(140, 248, 243, 0.1), transparent);
-        animation: shimmer 3s infinite;
-    }
-
-    @keyframes shimmer {
-        0% { left: -100%; }
-        100% { left: 100%; }
-    }
-
-    .remember-highlight strong {
-        color: var(--secondary);
-        font-weight: 700;
-    }
-
-    .remember-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        margin-top: 25px;
-        padding: 16px 36px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: var(--text-light) !important;
-        text-decoration: none;
-        border-radius: 12px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(17, 112, 141, 0.4);
-        position: relative;
-        z-index: 1;
-        max-width: 100%;
-        justify-content: center;
-    }
-
-    .remember-link:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 30px rgba(17, 112, 141, 0.6);
-        background: linear-gradient(135deg, var(--primary-light), var(--primary));
-    }
-
-    .remember-link::after {
-        content: '→';
-        font-size: 1.2rem;
-        transition: transform 0.3s ease;
-    }
-
-    .remember-link:hover::after {
-        transform: translateX(5px);
-    }
-
+    /* BACK BUTTON */
     .btn-voltar {
-        display: inline-flex;
+        display: flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
         margin: 40px auto 30px;
-        padding: 16px 36px;
-        background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray));
+        padding: 14px 32px;
+        /* background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray)); */
         color: var(--secondary) !important;
         text-decoration: none;
-        border-radius: 12px;
+        /* border-radius: 30px; */
         font-weight: 600;
         transition: all 0.3s ease;
-        font-size: 1rem;
-        border: 1px solid rgba(140, 248, 243, 0.2);
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        position: relative;
-        z-index: 1;
-        max-width: 100%;
+        font-size: 0.95rem;
+        /* border: 1px solid rgba(140,248,243,0.2); */
+        /* box-shadow: 0 4px 20px rgba(0,0,0,0.15); */
         width: fit-content;
     }
-
+    .btn-voltar::before { content: '←'; }
     .btn-voltar:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-        background: linear-gradient(135deg, var(--medium-gray), var(--dark-gray));
+        box-shadow: 0 8px 30px rgba(0,0,0,0.25);
         color: #ffffff !important;
     }
 
-    .btn-voltar::before {
-        content: '←';
-        font-size: 1.2rem;
-        transition: transform 0.3s ease;
-    }
-
-    .btn-voltar:hover::before {
-        transform: translateX(-3px);
-    }
-
+    /* FOOTER */
     footer {
         text-align: center;
         padding: 20px 0 40px;
         color: var(--text-medium);
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         margin-top: 20px;
-        width: 100%;
     }
-
-    .social-icons {
-        margin-bottom: 15px;
-    }
-
+    .social-icons { margin-bottom: 15px; }
     .social-icons a {
         display: inline-block;
         margin: 0 10px;
         color: var(--text-medium);
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         transition: color 0.3s ease, transform 0.3s ease;
     }
+    .social-icons a:hover { color: var(--secondary); transform: translateY(-3px); }
 
-    .social-icons a:hover {
-        color: var(--secondary);
-        transform: translateY(-3px);
-    }
-
-    /* === RESPONSIVO: MOBILE === */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-        .remember-section {
-            padding: 80px 15px 40px;
-            width: 100%;
-        }
-
-        .section-title {
-            font-size: 2.8rem;
-            line-height: 1.2;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-            line-height: 1.5;
-            padding: 0 10px;
-        }
-
-        .remember-intro,
-        .remember-block {
-            padding: 25px 20px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-            width: 100%;
-        }
-
-        .remember-title {
-            font-size: 1.6rem;
-        }
-
-        .remember-intro p,
-        .remember-block p {
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .remember-quote {
-            font-size: 1.1rem;
-            padding: 20px;
-            margin: 25px 0;
-        }
-
-        .remember-list li {
-            font-size: 1rem;
-            padding: 12px 0 12px 30px;
-        }
-
-        .remember-link,
-        .btn-voltar {
-            width: 100%;
-            justify-content: center;
-            padding: 14px 20px;
-            margin-top: 20px;
-        }
-
-        .btn-voltar {
-            margin: 30px auto;
-            width: calc(100% - 40px);
-            max-width: 300px;
-        }
+        .remember-section { padding: 60px 15px 40px; }
+        .section-title { font-size: 2.8rem; }
+        .section-subtitle { font-size: 1rem; margin-bottom: 30px; }
+        .memories-feature-inner { grid-template-columns: 1fr; }
+        .memories-video-wrap { padding-bottom: 56.25%; }
+        .memories-text-side { padding: 1.8rem 1.5rem; }
+        .memories-title { font-size: 1.6rem; }
+        .remember-block { padding: 25px 18px; }
     }
-
-    /* Ajustes para telas muito pequenas */
     @media (max-width: 480px) {
-        .section-title {
-            font-size: 2.2rem;
-        }
-        
-        .remember-section {
-            padding: 70px 10px 30px;
-        }
-        
-        .remember-intro,
-        .remember-block {
-            padding: 20px 15px;
-        }
+        .section-title { font-size: 2.2rem; }
+        .remember-section { padding: 50px 12px 30px; }
     }
     </style>
 </head>
 <body>
-  <!-- Background seguro para MOBILE -->
     <div class="remember-bg"></div>
-    <section class="remember-section" id="remember">
-        <div class="container">
-            <h2 class="section-title">REMEMBER</h2>
-            <p class="section-subtitle">An Immersive Research Exploring Memory, Identity and Presence</p>
 
-            <div class="remember-intro">
-                <p>
-                    REMEMBER is the first project of a broader research dedicated to investigating human behavior and the ways technology — especially Virtual Reality — can engage with deeper layers of human experience.
-                </p>
-                <p>
-                    It is an immersive research exploring how virtual environments can support processes related to perception, memory, and emotional awareness, creating spaces where presence and experience are approached in a sensitive and intentional way.
-                </p>
-                <p>
-                    The project is grounded in the understanding that our internal narratives shape how we exist in the world — influencing meaning, direction, and the way we relate to ourselves and to life.
-                </p>
+    <section class="remember-section" id="remember">
+
+        <h2 class="section-title">REMEMBER</h2>
+        <p class="section-subtitle">An Immersive Research Exploring Memory, Identity and Presence</p>
+
+        <!-- MEMORIES LIVE — destaque -->
+        <div class="memories-feature">
+            <div class="memories-feature-inner">
+                <div class="memories-video-side">
+                    <div class="memories-video-wrap">
+                        <iframe
+                            src="https://player.vimeo.com/video/1124202316?badge=0&autopause=0&player_id=0&app_id=58479"
+                            frameborder="0"
+                            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                            allowfullscreen
+                            title="Memories Live">
+                        </iframe>
+                    </div>
+                </div>
+                <div class="memories-text-side">
+                    <span class="memories-eyebrow">First Experimental Project</span>
+                    <h3 class="memories-title">Memories Live</h3>
+                    <p class="memories-desc">
+                        A personal VR experience built as a <strong>60th birthday gift</strong> — a lifetime of memories animated inside a 360° starry environment. She put on the headset and traveled through her own history.
+                    </p>
+                    <div class="memories-badges">
+                        <span class="mbadge">A-Frame · WebXR</span>
+                        <span class="mbadge">Browser-based</span>
+                        <span class="mbadge">No install required</span>
+                    </div>
+                    <a href="project-memories-live.html" class="memories-cta">Explore Memories Live →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESEARCH — colapsável -->
+        <div class="research-toggle">
+            <button class="research-toggle-btn" id="researchToggle">
+                Learn about the research <span class="arrow">▼</span>
+            </button>
+        </div>
+
+        <div class="research-content" id="researchContent">
+
+            <div class="remember-block">
+                <p>REMEMBER is the first project of a broader research dedicated to investigating human behavior and the ways technology — especially Virtual Reality — can engage with deeper layers of human experience.</p>
+                <p>It is an immersive research exploring how virtual environments can support processes related to perception, memory, and emotional awareness, creating spaces where presence and experience are approached in a sensitive and intentional way.</p>
+                <p>The project is grounded in the understanding that our internal narratives shape how we exist in the world — influencing meaning, direction, and the way we relate to ourselves and to life.</p>
             </div>
 
             <div class="remember-block">
                 <h3 class="remember-title">The origin of REMEMBER</h3>
-                <p>
-                    REMEMBER emerged from a personal experience marked by a constant sense of disconnection from the present during a career transition.
-                </p>
-                <p>
-                    Through therapy, study, spirituality, and deep self-observation, a clear calling emerged: to explore how technology could be used not only to create visual experiences, but to support meaningful inner processes.
-                </p>
-                <p>
-                    In a world increasingly fragmented by distraction, speed, and external expectations, REMEMBER is grounded in the observation that moments of clarity, belonging, and authenticity often arise when people reconnect with meaningful memories and their inner narratives.
-                </p>
+                <p>REMEMBER emerged from a personal experience marked by a constant sense of disconnection from the present during a career transition.</p>
+                <p>Through therapy, study, spirituality, and deep self-observation, a clear calling emerged: to explore how technology could be used not only to create visual experiences, but to support meaningful inner processes.</p>
+                <p>In a world increasingly fragmented by distraction, speed, and external expectations, REMEMBER is grounded in the observation that moments of clarity, belonging, and authenticity often arise when people reconnect with meaningful memories and their inner narratives.</p>
             </div>
 
             <div class="remember-block">
                 <h3 class="remember-title">The intention behind REMEMBER</h3>
-                <p>
-                    The core intention of REMEMBER is to help people remember who they are — and from that point, open pathways to other dimensions of knowledge, awareness, and personal evolution through immersive technology.
-                </p>
-                <p>
-                    Rather than offering answers, the research focuses on creating spatial, emotional, and sensory conditions in which self-recognition can emerge naturally.
-                </p>
-                <p>
-                    These conditions can take many forms: immersive environments, carefully designed questions that provoke reflection, and the possibility for individuals to construct spaces from their own lived memories — using photographs, videos, and personal fragments, as explored in the Memories Live project.
-                </p>
+                <p>The core intention of REMEMBER is to help people remember who they are — and from that point, open pathways to other dimensions of knowledge, awareness, and personal evolution through immersive technology.</p>
+                <p>Rather than offering answers, the research focuses on creating spatial, emotional, and sensory conditions in which self-recognition can emerge naturally.</p>
             </div>
 
             <div class="remember-block">
@@ -578,32 +420,18 @@ body::before {
                     <li>How immersion can reduce internal fragmentation and mental noise</li>
                     <li>How virtual spaces can foster belonging and inner coherence</li>
                 </ul>
-                <p>
-                    The research focuses on creating meaningful immersive environments where memory becomes a guide and presence opens space for reflection, recognition, and meaning — explored through multiple formats and possibilities.
-                </p>
-            </div>
-
-            <div class="remember-block remember-highlight">
-                <h3 class="remember-title">First experimental project</h3>
-                <p><strong>Memories Live</strong> is the first experiential prototype developed within REMEMBER.</p>
-                <p>
-                    The project explores personal memory through immersive environments built from real photographs and lived moments, inviting people to revisit fragments of their own life stories and reconnect with aspects of themselves that may have been forgotten along the way.
-                </p>
-                <a href="project-memories-live.html" class="remember-link">Explore Memories Live</a>
             </div>
 
             <div class="remember-block">
                 <h3 class="remember-title">Looking forward</h3>
-                <p>
-                    REMEMBER is an open and evolving research, with potential applications across cultural, educational, therapeutic, and human-centered XR contexts.
-                </p>
-                <p>
-                    The project seeks dialogue and collaboration with people interested in memory, identity, presence, and immersive storytelling — helping shape how this research can grow and reach more people in a meaningful way.
-                </p>
+                <p>REMEMBER is an open and evolving research, with potential applications across cultural, educational, therapeutic, and human-centered XR contexts.</p>
+                <p>The project seeks dialogue and collaboration with people interested in memory, identity, presence, and immersive storytelling.</p>
             </div>
 
-            <a href="xr-projects.html" class="btn-voltar">Back to Home</a>
         </div>
+
+        <a href="hub.html" class="btn-voltar">Back to Home</a>
+
     </section>
 
     <footer>
@@ -615,5 +443,15 @@ body::before {
         <p>&copy; 2025 AX-LARA Studio | All rights reserved</p>
     </footer>
 
+    <script>
+        const toggleBtn = document.getElementById('researchToggle');
+        const researchContent = document.getElementById('researchContent');
+        toggleBtn.addEventListener('click', () => {
+            const isOpen = researchContent.classList.contains('visible');
+            researchContent.classList.toggle('visible');
+            toggleBtn.classList.toggle('open');
+            toggleBtn.querySelector('.arrow').textContent = isOpen ? '▼' : '▲';
+        });
+    </script>
 </body>
 </html>
