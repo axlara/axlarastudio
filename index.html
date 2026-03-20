@@ -28,7 +28,7 @@
 --text-md: 1.05rem;
 --text-sm: 0.95rem;
 --text-xs: 0.45rem;
---text-ss: 0.85rem; 
+--text-ss: 0.85rem;
 --text-primary: #ffffff;
 --text-secondary: rgba(255, 255, 255, 0.9);
 --text-tertiary: rgba(255, 255, 255, 0.7);
@@ -48,26 +48,6 @@ text-rendering: optimizeLegibility;
 }
 html { scroll-padding-top: 80px; }
 @media (max-width: 768px) { html { scroll-padding-top: 70px; } }
-/* Barra de Idiomas */
-.language-bar {
-position: fixed;
-top: 18px;
-right: 15px;
-z-index: 1000;
-display: flex;
-gap: 6px;
-background: none;
-}
-.language-bar button {
-background: none;
-border: none;
-padding: 8px;
-cursor: pointer;
-margin-right: -17px;
-margin-top: 10px;
-}
-.language-bar img { border-radius: 3px; display: block; width: 22px; height: 16px; }
-.language-bar button:hover { opacity: 0.7; }
 /* Navegação */
 .main-nav {
 position: fixed;
@@ -167,15 +147,6 @@ transition: width 0.3s ease;
 .nav-logo { font-size: 1.2rem; }
 .logo-subtitle { font-size: 0.2rem; }
 .menu-toggle { display: flex; margin-left: 10px; }
-.language-bar {
-display: flex;
-gap: 6px;
-margin-left: 300px;
-margin-right: 50px;
-margin-top: -8px;
-z-index: 1001;
-}
-.language-bar button { padding: 10px; }
 .nav-menu {
 position: fixed;
 top: 0;
@@ -227,7 +198,6 @@ padding-left: 10px;
 .nav-menu { width: 250px; padding: 70px 20px 20px; }
 .nav-logo { font-size: 1.0rem; }
 .logo-subtitle { font-size: 0.35rem; }
-.language-bar img { width: 22px; height: 16px; margin-left: 5px; margin-right: -10px; }
 }
 /* Hero REDUZIDO */
 .hero {
@@ -286,7 +256,7 @@ text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 .hero .byline {
 font-family: var(--font-body);
-font-size: var(--text-ss); 
+font-size: var(--text-ss);
 color: #ccc;
 margin-top: 0.5rem;
 text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
@@ -354,32 +324,30 @@ display: block;
 }
 /* Container com efeito 3D */
 .hub-container.rotating-3d {
-  transform-style: preserve-3d;
-  perspective: 1200px;
+transform-style: preserve-3d;
+perspective: 1200px;
 }
-
 /* Efeito de rotação com profundidade */
 @keyframes rotate3D {
-  0% {
-    transform: rotateY(0deg) translateZ(0px);
-  }
-  25% {
-    transform: rotateY(90deg) translateZ(10px);
-  }
-  50% {
-    transform: rotateY(180deg) translateZ(0px);
-  }
-  75% {
-    transform: rotateY(270deg) translateZ(10px);
-  }
-  100% {
-    transform: rotateY(360deg) translateZ(0px);
-  }
+0% {
+transform: rotateY(0deg) translateZ(0px);
 }
-
+25% {
+transform: rotateY(90deg) translateZ(10px);
+}
+50% {
+transform: rotateY(180deg) translateZ(0px);
+}
+75% {
+transform: rotateY(270deg) translateZ(10px);
+}
+100% {
+transform: rotateY(360deg) translateZ(0px);
+}
+}
 .hub-iframe.rotating-3d {
-  animation: rotate3D 30s linear infinite;
-  border: 1px solid rgba(0, 255, 247, 0.3);
+animation: rotate3D 30s linear infinite;
+border: 1px solid rgba(0, 255, 247, 0.3);
 }
 /* Título flutuante sobre o hub */
 .hub-overlay-text {
@@ -611,7 +579,6 @@ z-index: 10;
 }
 .ai-section::before { top: 0; }
 .ai-section::after { bottom: 0; }
-
 .ai-grid-midjourney {
 display: grid;
 grid-template-columns: repeat(3, 1fr);
@@ -769,7 +736,6 @@ transform: translateY(-5px) scale(1.02);
 box-shadow: 0 15px 35px rgba(0, 255, 247, 0.25);
 border-color: rgba(0, 255, 247, 0.3);
 }
-
 .ai-modal-main-image {
 display: none;
 }
@@ -927,7 +893,6 @@ backdrop-filter: blur(0px);
 z-index: 1;
 pointer-events: none;
 }
-
 /* CTA Work */
 .curriculum-cta {
 background: linear-gradient(180deg, #050505 0%, #0a0a0a 50%, #050505 100%);
@@ -1089,7 +1054,6 @@ box-shadow:
 inset 0 0 100px rgba(0, 0, 0, 0.5);
 animation: vr-pulse 4s ease-in-out infinite;
 }
-
 /* Versão alternativa com CSS puro (sem SVG) */
 .oculus-mask-alt {
 position: absolute;
@@ -1148,7 +1112,6 @@ height: 180px;
 width: 120px;
 }
 }
-
 @keyframes vr-pulse {
 0%, 100% { opacity: 0.7; }
 50% { opacity: 0.8; }
@@ -1157,29 +1120,15 @@ width: 120px;
 animation: vr-pulse 4s ease-in-out infinite;
 }
 @media (max-width: 480px) {
-
-.language-bar {
-right: 15px;
-top: 18px;
-margin: 0 !important;
-gap: 4px;
-z-index: 1001;
-}
-.language-bar button {
-margin: 0 !important;
-padding: 8px;
-}
 .menu-toggle span{
 margin-left: -70px;
 }
-
 .hero {
 flex-direction: column;
 align-items: center;
 justify-content: flex-start;
 padding: 5rem 1rem 1.5rem;
 }
-
 .hero .hero-logo {
 display: none;
 }
@@ -1194,11 +1143,9 @@ text-overflow: ellipsis;
 line-height: 1.2;
 margin-top: 20px;
 }
-
 .ai-section::before {
 display: none;
 }
-
 .hero h2 {
 font-size: var(--text-md);
 max-width: 100%;
@@ -1209,7 +1156,6 @@ line-height: 1.4;
 font-size: 0.85rem;
 margin-top: 0.3rem;
 }
-
 .hero-container {
 text-align: center;
 }
@@ -1240,18 +1186,6 @@ margin: 0 auto;
 }
 .section-overlay-film .film-backdrop {
 display: none;
-}
-/* NAV & LANGUAGE BAR */
-.language-bar {
-right: 15px;
-top: 18px;
-margin: 0;
-position: fixed;
-z-index: 1001;
-}
-.language-bar button {
-margin-right: 0;
-margin-top: 0;
 }
 /* AI GRID */
 .ai-grid-midjourney {
@@ -1330,20 +1264,9 @@ padding: 0 10px;
 font-size: var(--text-sm);
 }
 }
-
 </style>
 </head>
 <body>
-<!-- Barra de Idiomas -->
-<div class="language-bar">
-<button onclick="alert('Português selecionado')" aria-label="Português">
-<img src="https://flagcdn.com/br.svg" alt="Português" width="24" height="16">
-</button>
-<button onclick="alert('Español selecionado')" aria-label="Español">
-<img src="https://flagcdn.com/es.svg" alt="Español" width="24" height="16">
-</button>
-</div>
-<div id="google_translate_element" style="display: none;"></div>
 <!-- NAV -->
 <nav class="main-nav">
 <div class="nav-container">
@@ -1366,7 +1289,7 @@ font-size: var(--text-sm);
 <div class="hero-container">
 <div class="hero-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></div>
 <h1>Architect of Xperience</h1>
-<h2>Creative Technologist & XR Designer creating AI-driven, real-time experiences</h2>
+<h2>Creative Technologist for immersive spatial experiences</h2>
 <p class="byline">by Lara E. Negreiros</p>
 </div>
 <div class="hero-image">
@@ -1381,42 +1304,39 @@ font-size: var(--text-sm);
 <!-- Título flutuante sobre o hub -->
 <div class="hub-overlay-text">
 <h2 class="hub-title">
-
 </h2>
 </div>
 <!-- Iframe do hub -->
 <iframe
-  src="hub.html"
-  title="AIVRSE Spatial Hub"
-  allow="xr-spatial-tracking; accelerometer; gyroscope; vr; autoplay"
-  allowfullscreen
-  class="hub-iframe rotating-hub">
+src="hub.html"
+title="AIVRSE Spatial Hub"
+allow="xr-spatial-tracking; accelerometer; gyroscope; vr; autoplay"
+allowfullscreen
+class="hub-iframe rotating-hub">
 </iframe>
 </div>
 </section>
-
 <!-- ABOUT -->
 <section class="about" id="about">
 <div class="about-container">
 <h3 class="about-lead">
-I craft spatial narratives through interactive technologies, design and human perception.
+My work explores the intersection of spatial design, technology and human perception, focusing on immersive and interactive experiences.
 </h3>
-<div class="gradient-mask" id="about-content">
 <p>
-My work lives at the intersection of spatial design, storytelling and technology — creating digital environments that connect the physical and virtual worlds in meaningful ways.
+With a background in architecture and neuroarchitecture, I developed a strong understanding of how space influences emotion, behavior and experience, which I’ve been expanding into digital and hybrid environments.
+<p>
+I’ve been working across 3D design, real-time environments and emerging technologies such as XR and AI, applying them to spatial visualization and interactive concepts.
 </p>
 <p>
-I come from architecture and neuroarchitecture, which gave me a deep understanding of how space influences emotions, perception and behavior. Over time, I expanded beyond traditional boundaries into immersive technologies — working across 3D modeling, architectural visualization, VR environments and interactive experiences.
-</p>
-<p>
- More recently, I've been exploring lightweight WebXR workflows — building browser-based immersive experiences that are accessible, fast and human-centered, without relying on heavy engines or native apps.
+More recently, I’ve been exploring lightweight WebXR workflows and AI-assisted processes to build accessible, browser-based immersive experiences.
+I’m particularly interested in developing new ways to connect physical and digital space through interaction and spatial storytelling.
 </p>
 <p><strong>
-I'm open to remote collaborations, XR projects and creative partnerships.
+I’m currently deepening my practice and open to collaborations, projects and opportunities in this field.
 </strong></p>
-<p class="about-signature">— Lara E. Negreiros</p>
+<p class="about-signature"> Lara E. Negreiros</p>
 </div>
-<button class="expand-button" id="expand-about">See more</button>
+
 </div>
 </section>
 <section class="curriculum-cta" id="work">
@@ -1610,13 +1530,11 @@ if (!aiModal) return;
 modalTitle.textContent = data.title;
 modalCategory.textContent = data.category;
 modalDescription.textContent = data.description;
-
 if (modalGallery) {
 modalGallery.innerHTML = '';
 // Limita a 3 itens
 const itemsToShow = data.gallery.slice(0, 3);
 itemsToShow.forEach(itemSrc => {
-
 if (itemSrc.endsWith('.mp4')) {
 const video = document.createElement('video');
 video.src = itemSrc;
@@ -1660,11 +1578,6 @@ aiModal.style.display = 'none';
 document.body.style.overflow = 'auto';
 }
 });
-// Funções de tradução placeholder 
-function translateTo(lang) {
-console.log(`Traduzir para: ${lang}`);
-
-}
 </script>
 </body>
 </html>
