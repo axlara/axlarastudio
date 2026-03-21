@@ -216,13 +216,26 @@ overflow: hidden;
 font-family: var(--font-heading);
 font-size: var(--text-xl);
 letter-spacing: 3px;
-font-weight: 700;
+font-weight: 600;
 color: #333;
 display: inline-block;
 padding-bottom: 5px;
 text-transform: uppercase;
 margin-bottom: 1.5rem;
 text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+.hero-logo::after {
+  content: "";
+  display: block;
+  width: 98%;
+  height: 1px;
+  margin-top: 8px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
 }
 .hero-logo i {
 font-style: normal;
@@ -1120,9 +1133,7 @@ width: 120px;
 animation: vr-pulse 4s ease-in-out infinite;
 }
 @media (max-width: 480px) {
-.menu-toggle span{
-margin-left: -70px;
-}
+
 .hero {
 flex-direction: column;
 align-items: center;
@@ -1287,7 +1298,7 @@ font-size: var(--text-sm);
 <!-- HERO REDUZIDO -->
 <section class="hero" id="home">
 <div class="hero-container">
-<div class="hero-logo">A<i>X</i>LARA<span class="logo-subtitle">aivrse studio</span></div>
+<div class="hero-logo">A<i>X</i>LARA<span class="logo-subtitle"></span></div>
 <h1>Architect of Xperience</h1>
 <h2>Creative Technologist for immersive spatial experiences</h2>
 <p class="byline">by Lara E. Negreiros</p>
